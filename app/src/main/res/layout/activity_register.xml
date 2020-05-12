@@ -7,6 +7,7 @@
     tools:context=".activities.RegisterActivity">
 
     <ImageButton
+        android:id="@+id/btnRegisterBack"
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:layout_marginStart="20dp"
@@ -30,7 +31,7 @@
     <androidx.cardview.widget.CardView
         android:id="@+id/cvRegister"
         android:layout_width="306dp"
-        android:layout_height="370dp"
+        android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_below="@id/tvTitleRegister"
         android:layout_marginTop="30dp"
@@ -66,6 +67,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:hint="@string/register_phone_hint"
+                android:inputType="number"
                 android:drawableEnd="@drawable/ic_phone_number"/>
 
             <EditText
@@ -74,6 +76,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:hint="@string/register_password_hint"
+                android:inputType="textPassword"
                 android:drawableEnd="@drawable/ic_password"/>
 
             <EditText
@@ -82,22 +85,22 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:hint="@string/register_repeat_password_hint"
+                android:inputType="textPassword"
                 android:drawableEnd="@drawable/ic_password"/>
+
+            <Button
+                android:id="@+id/btnRegister"
+                android:layout_width="118dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="@string/btn_register"
+                app:cornerRadius="20dp"
+                android:backgroundTint="@color/colorAccent"
+                android:layout_gravity="bottom|center_horizontal"/>
 
         </LinearLayout>
 
     </androidx.cardview.widget.CardView>
-
-    <Button
-        android:id="@+id/btnRegister"
-        android:layout_width="118dp"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="238dp"
-        android:text="@string/btn_register"
-        app:cornerRadius="20dp"
-        android:backgroundTint="@color/colorAccent"/>
 
     <ImageView
         android:id="@+id/ivRegisterImage"

@@ -20,7 +20,7 @@
     <androidx.cardview.widget.CardView
         android:id="@+id/cvLogin"
         android:layout_width="306dp"
-        android:layout_height="275dp"
+        android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_below="@id/tvTitleLogin"
         android:layout_marginTop="20dp"
@@ -38,8 +38,9 @@
                 android:id="@+id/etLoginHandphone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="64dp"
+                android:layout_marginTop="40dp"
                 android:hint="@string/login_phone_hint"
+                android:inputType="number"
                 android:drawableEnd="@drawable/ic_phone_number"/>
 
             <EditText
@@ -48,21 +49,23 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="30dp"
                 android:hint="@string/login_password_hint"
+                android:inputType="textPassword"
                 android:drawableEnd="@drawable/ic_password"/>
+
+            <Button
+                android:id="@+id/btnLogin"
+                android:layout_width="118dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="@string/btn_login_text"
+                android:textSize="16sp"
+                app:cornerRadius="20dp"
+                android:backgroundTint="@color/colorAccent"
+                android:layout_gravity="bottom|center_horizontal"/>
+
         </LinearLayout>
 
     </androidx.cardview.widget.CardView>
-
-    <Button
-        android:id="@+id/btnLogin"
-        android:layout_width="118dp"
-        android:layout_height="wrap_content"
-        android:text="@string/btn_login_text"
-        android:textSize="16sp"
-        app:cornerRadius="20dp"
-        android:backgroundTint="@color/colorAccent"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true"/>
 
     <Button
         android:id="@+id/btnToRegister"
@@ -76,7 +79,7 @@
         style="@style/Widget.AppCompat.Button.Borderless"
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true"
-        android:layout_below="@id/btnLogin"/>
+        android:layout_below="@id/cvLogin"/>
 
     <ImageView
         android:id="@+id/ivLoginImage"

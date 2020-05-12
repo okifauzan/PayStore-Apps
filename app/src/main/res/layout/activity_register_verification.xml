@@ -20,6 +20,7 @@
         android:gravity="center"/>
 
     <EditText
+        android:id="@+id/etRegOTPNumber"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="74dp"
@@ -29,6 +30,7 @@
         android:gravity="center"/>
 
     <Button
+        android:id="@+id/btnRegConfirmOTP"
         android:layout_width="177dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
