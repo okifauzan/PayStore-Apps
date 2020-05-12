@@ -12,7 +12,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".activities.RegisterVerification"></activity>
+        <activity android:name=".activities.TelkomPaymentActivity"/>
+        <activity android:name=".activities.RegisterVerification"/>
         <activity android:name=".activities.RegisterActivity" />
         <activity android:name=".activities.LoginActivity" />
         <activity android:name=".activities.MainActivity" />
@@ -23,7 +24,9 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
         </activity>
+        <activity android:name=".activities.MainMenuActivity"/>
     </application>
 
 </manifest>
