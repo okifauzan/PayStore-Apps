@@ -4,4 +4,5 @@
     <dimen name="mainMenuTopMargin">32dp</dimen>
     <dimen name="telkomPaymentTopMargin">24dp</dimen>
     <dimen name="telkomPaymentStartEndMargin">24dp</dimen>
+    <dimen name="dialogStartEndMargin">24dp</dimen>
 </resources>
