@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activities.LoginActivity">
+
+    <TextView
+        android:id="@+id/tvTitleLogin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="36dp"
+        android:gravity="center"
+        android:text="@string/login_title"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:textColor="@color/colorAccent"/>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cvLogin"
+        android:layout_width="306dp"
+        android:layout_height="275dp"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/tvTitleLogin"
+        android:layout_marginTop="20dp"
+        android:elevation="5dp"
+        app:cardCornerRadius="30dp">
+
+        <LinearLayout
+            android:id="@+id/llLoginForm"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="10dp">
+
+            <EditText
+                android:id="@+id/etLoginHandphone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="64dp"
+                android:hint="@string/login_phone_hint"
+                android:drawableEnd="@drawable/ic_phone_number"/>
+
+            <EditText
+                android:id="@+id/etLoginPassword"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:hint="@string/login_password_hint"
+                android:drawableEnd="@drawable/ic_password"/>
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
+    <Button
+        android:id="@+id/btnLogin"
+        android:layout_width="118dp"
+        android:layout_height="wrap_content"
+        android:text="@string/btn_login_text"
+        android:textSize="16sp"
+        app:cornerRadius="20dp"
+        android:backgroundTint="@color/colorAccent"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"/>
+
+    <Button
+        android:id="@+id/btnToRegister"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/btn_move_to_register"
+        android:textSize="16sp"
+        android:textAllCaps="false"
+        android:textColor="@color/colorPrimary"
+        android:backgroundTint="@android:color/transparent"
+        style="@style/Widget.AppCompat.Button.Borderless"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/btnLogin"/>
+
+    <ImageView
+        android:id="@+id/ivLoginImage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:src="@drawable/bg_login"
+        android:layout_alignParentBottom="true"/>
+</RelativeLayout>

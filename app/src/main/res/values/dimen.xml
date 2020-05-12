@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="mainMenuStartEndMargin">32dp</dimen>
-    <dimen name="mainTopMargin">32dp</dimen>
+    <dimen name="mainMenuTopMargin">32dp</dimen>
+    <dimen name="telkomPaymentTopMargin">24dp</dimen>
+    <dimen name="telkomPaymentStartEndMargin">24dp</dimen>
 </resources>
