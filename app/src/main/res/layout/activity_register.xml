@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activities.RegisterActivity">
+
+    <ImageButton
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="37dp"
+        android:src="@drawable/ic_back"
+        style="@style/Widget.AppCompat.Button.Borderless"/>
+
+
+    <TextView
+        android:id="@+id/tvTitleRegister"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="37dp"
+        android:gravity="center"
+        android:text="@string/register_title"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:textColor="@color/colorAccent"/>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cvRegister"
+        android:layout_width="306dp"
+        android:layout_height="370dp"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/tvTitleRegister"
+        android:layout_marginTop="30dp"
+        android:elevation="5dp"
+        app:cardCornerRadius="30dp">
+
+        <LinearLayout
+            android:id="@+id/llRegisterForm"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="10dp">
+
+            <EditText
+                android:id="@+id/etRegistNama"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:hint="@string/register_name_hint"
+                android:drawableEnd="@drawable/ic_user"/>
+
+            <EditText
+                android:id="@+id/etRegistEmail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:hint="@string/register_email_hint"
+                android:drawableEnd="@drawable/ic_email"/>
+
+            <EditText
+                android:id="@+id/etRegistHandphone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:hint="@string/register_phone_hint"
+                android:drawableEnd="@drawable/ic_phone_number"/>
+
+            <EditText
+                android:id="@+id/etRegistPassword"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:hint="@string/register_password_hint"
+                android:drawableEnd="@drawable/ic_password"/>
+
+            <EditText
+                android:id="@+id/etRegistRepeatPassword"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:hint="@string/register_repeat_password_hint"
+                android:drawableEnd="@drawable/ic_password"/>
+
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
+    <Button
+        android:id="@+id/btnRegister"
+        android:layout_width="118dp"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="238dp"
+        android:text="@string/btn_register"
+        app:cornerRadius="20dp"
+        android:backgroundTint="@color/colorAccent"/>
+
+    <ImageView
+        android:id="@+id/ivRegisterImage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:src="@drawable/bg_register"/>
+
+</RelativeLayout>
