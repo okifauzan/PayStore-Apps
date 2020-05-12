@@ -1,3 +1,15 @@
 <resources>
     <string name="app_name">PhonePayment</string>
+    <string name="paystore_balance">PayStore Balance</string>
+    <string name="balance_nominal">Rp 50.000</string>
+    <string name="top_up">Top-up</string>
+    <string name="transfer">Transfer</string>
+    <string name="withdraw">Withdraw</string>
+    <string name="payment_main_menu">Payment</string>
+    <string name="pulsa">Pulsa</string>
+    <string name="paket_data">Paket Data</string>
+    <string name="telkom">Telkom</string>
+    <string name="pbb">PBB</string>
+    <string name="e_money">E-Money</string>
+    <string name="hi_user">Hi, User!</string>
 </resources>
