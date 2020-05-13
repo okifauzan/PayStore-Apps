@@ -16,6 +16,8 @@ class RegisterVerification : AppCompatActivity() {
     var postEmail: String? = null
     var postPhoneNumber: String? = null
     var postPassword: String? = null
+    var getOTP: String? = null
+    var timerAvailable: Boolean = true
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,6 +28,7 @@ class RegisterVerification : AppCompatActivity() {
             postEmail = bundle?.getString("email")
             postPhoneNumber = bundle?.getString("phoneNumber")
             postPassword = bundle?.getString("password")
+            getOTP = bundle?.getString("otp")
         }
         timerCount()
         onClickGroup()
@@ -34,14 +37,16 @@ class RegisterVerification : AppCompatActivity() {
     fun timerCount(){
         val timer = object : CountDownTimer(30000, 1000){
             override fun onTick(millisUntilFinished: Long) {
-                tvTimerOTP.setText("Wait ${millisUntilFinished/1000} seconds to resend code")
+                tvTimerOTP.setText("OTP valid for ${millisUntilFinished/1000} seconds")
                 btnResend.isEnabled = false
                 btnResend.setTextColor(Color.RED)
+                timerAvailable = true
             }
 
             override fun onFinish() {
                 btnResend.isEnabled = true
                 btnResend.setTextColor(Color.BLUE)
+                timerAvailable = false
             }
         }.start()
     }
@@ -52,13 +57,15 @@ class RegisterVerification : AppCompatActivity() {
             timerCount()
             btnResend.isEnabled = false
             btnResend.setTextColor(Color.RED)
+            getOTP = "4321"
         }
         btnRegConfirmOTP.setOnClickListener {
-            if (patternOTP.matches(etRegOTPNumber.text.toString())){
+            var textOTP = etRegOTPNumber.text.toString()
+            if ((textOTP == getOTP) && timerAvailable){
                 Log.d("test", "$postName, $postEmail, $postPhoneNumber, $postPassword")
                 startActivity(Intent(this@RegisterVerification, LoginActivity::class.java))
             } else {
-                Log.d("test", "Wrong OTP Format")
+                Log.d("test", "Wrong OTP Number")
             }
         }
     }

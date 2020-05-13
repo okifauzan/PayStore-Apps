@@ -43,6 +43,7 @@ class RegisterActivity : AppCompatActivity() {
                 bundle.putString("email", textEmail)
                 bundle.putString("phoneNumber", textHandphone)
                 bundle.putString("password", textPassword)
+                bundle.putString("otp", "1234")
                 val intent = Intent(this@RegisterActivity, RegisterVerification::class.java)
                 intent.putExtras(bundle)
                 startActivity(intent)
