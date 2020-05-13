@@ -4,6 +4,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
 import com.rifqimukhtar.phonepayment.R
 import kotlinx.android.synthetic.main.activity_register.*
 
@@ -22,37 +23,32 @@ class RegisterActivity : AppCompatActivity() {
     fun onClickGroup(){
         btnRegister.setOnClickListener {
             var textName = etRegistNama.text.toString()
-            if (patternName.matches(textName)) {
-                Log.d("name", "valid")
-            } else {
-                Log.d("name", "invalid")
-            }
             var textEmail = etRegistEmail.text.toString()
-            if (patternEmail.matches(textEmail)) {
-                Log.d("email", "valid")
-            } else {
-                Log.d("email", "invalid")
-            }
             var textHandphone = etRegistHandphone.text.toString()
-            if (patternHandphone.matches(textHandphone)) {
-                Log.d("Handphone", "valid")
-            } else {
-                Log.d("Handphone", "invalid")
-            }
             var textPassword = etRegistPassword.text.toString()
-            if (patternPassword.matches(textPassword)) {
-                Log.d("pass", "valid")
-            } else {
-                Log.d("pass", "invalid")
-            }
             var textRepeatPassword = etRegistRepeatPassword.text.toString()
-            if (textRepeatPassword.equals(textPassword)){
-                Log.d("passRepeat", "valid")
+            if (!(patternName.matches(textName))){
+                Log.d("test", "Wrong Name Format")
+            } else if (!(patternEmail.matches(textEmail))){
+                Log.d("test", "Wrong Email Format")
+            } else if (!(patternHandphone.matches(textHandphone))){
+                Log.d("test", "Wrong Number Format")
+            } else if (!(patternPassword.matches(textPassword))){
+                Log.d("test", "Wrong Password Format")
+            } else if (!(textRepeatPassword.equals(textPassword))){
+                Log.d("test", "Password didn't matches")
             } else {
-                Log.d("passRepeat", "invalid")
+                val bundle = Bundle()
+                bundle.putString("name", textName)
+                bundle.putString("email", textEmail)
+                bundle.putString("phoneNumber", textHandphone)
+                bundle.putString("password", textPassword)
+                val intent = Intent(this@RegisterActivity, RegisterVerification::class.java)
+                intent.putExtras(bundle)
+                startActivity(intent)
             }
         }
-            //startActivity(Intent(this@RegisterActivity, RegisterVerification::class.java))
+
         btnRegisterBack.setOnClickListener {
             startActivity(Intent(this@RegisterActivity, LoginActivity::class.java))
         }

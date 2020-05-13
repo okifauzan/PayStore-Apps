@@ -13,6 +13,7 @@
     <string name="register_password_hint">Password</string>
     <string name="register_repeat_password_hint">Repeat Password</string>
     <string name="btn_register">Register</string>
+    <string name="phone_code">+62</string>
     <string name="regist_verification_title">Verification Number</string>
     <string name="verification_hint">OTP Number</string>
     <string name="btn_verif_confirm">Confirm</string>

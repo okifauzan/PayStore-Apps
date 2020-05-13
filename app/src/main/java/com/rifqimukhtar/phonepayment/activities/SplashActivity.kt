@@ -16,8 +16,14 @@ class SplashActivity : AppCompatActivity() {
         setContentView(R.layout.activity_splash)
 
         Handler().postDelayed({
-            startActivity(Intent(this@SplashActivity, LoginActivity::class.java))
-            finish()
+            val preference = getSharedPreferences("Pref_Profile",0)
+            val isLogin = preference.getBoolean("PREF_ISLOGIN", false)
+            if (!isLogin){
+                startActivity(Intent(this@SplashActivity, LoginActivity::class.java))
+                finish()
+            } else {
+                startActivity(Intent(this@SplashActivity, MainMenuActivity::class.java))
+            }
         }, DURATION)
     }
 }
