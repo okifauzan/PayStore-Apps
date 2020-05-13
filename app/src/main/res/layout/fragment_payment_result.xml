@@ -22,15 +22,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"/>
 
-        <ImageView
-            android:id="@+id/ivPaymentSuccess"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:src="@drawable/img_success"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/btnIconCloseSuccess"/>
-
         <TextView
             android:id="@+id/tvPaymentSuccess"
             android:layout_width="match_parent"
@@ -39,10 +30,11 @@
             android:textStyle="bold"
             android:textSize="20dp"
             android:gravity="center_horizontal"
-            android:layout_marginTop="8dp"
+            android:drawableTop="@drawable/img_success"
+            android:drawablePadding="8dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/ivPaymentSuccess"/>
+            app:layout_constraintTop_toBottomOf="@id/btnIconCloseSuccess"/>
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnCloseSuccess"

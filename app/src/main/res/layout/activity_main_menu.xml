@@ -8,6 +8,7 @@
 
 
     <ImageView
+        android:id="@+id/ivCircleTop"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/bg_top"
@@ -15,13 +16,14 @@
         app:layout_constraintEnd_toEndOf="parent"/>
 
     <ImageView
+        android:id="@+id/ivCircleBottom"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/bg_bottom"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"/>
     <TextView
-        android:id="@+id/tvHiUser"
+        android:id="@+id/tvWelcomeUser"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="left"
@@ -43,7 +45,7 @@
         app:cardCornerRadius="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvHiUser">
+        app:layout_constraintTop_toBottomOf="@id/tvWelcomeUser">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -57,7 +59,7 @@
                 android:layout_marginTop="12dp"
                 android:text="@string/paystore_balance"
                 android:textStyle="bold"
-                app:layout_constraintStart_toEndOf="@+id/imageView"
+                app:layout_constraintStart_toEndOf="@+id/ivUserWallet"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
@@ -68,11 +70,11 @@
                 android:layout_marginTop="4dp"
                 android:layout_marginBottom="8dp"
                 android:text="@string/balance_nominal"
-                app:layout_constraintStart_toEndOf="@+id/imageView"
+                app:layout_constraintStart_toEndOf="@+id/ivUserWallet"
                 app:layout_constraintTop_toBottomOf="@id/tvPaystoreBalance" />
 
             <ImageView
-                android:id="@+id/imageView"
+                android:id="@+id/ivUserWallet"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="16dp"
@@ -84,7 +86,7 @@
     </com.google.android.material.card.MaterialCardView>
 
     <LinearLayout
-        android:id="@+id/linearlayout"
+        android:id="@+id/topMenuLinearLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
@@ -130,10 +132,10 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="@android:color/darker_gray"
-        app:layout_constraintTop_toBottomOf="@id/linearlayout" />
+        app:layout_constraintTop_toBottomOf="@id/topMenuLinearLayout" />
 
     <TextView
-        android:id="@+id/tvPayment"
+        android:id="@+id/tvTitlePayment"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/payment_main_menu"
@@ -152,13 +154,14 @@
         android:layout_marginTop="4dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvPayment">
+        app:layout_constraintTop_toBottomOf="@id/tvTitlePayment">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
             android:orientation="horizontal">
             <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnPulsaOption"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -167,6 +170,7 @@
                 style="@style/Widget.MaterialComponents.Button.TextButton"/>
 
             <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnPaketDataOption"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -175,6 +179,7 @@
                 style="@style/Widget.MaterialComponents.Button.TextButton"/>
 
             <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnTelkomOption"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -189,6 +194,7 @@
             android:layout_weight="1"
             android:orientation="horizontal">
             <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnPBBOption"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -197,6 +203,7 @@
                 style="@style/Widget.MaterialComponents.Button.TextButton"/>
 
             <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnEMoneyOption"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
