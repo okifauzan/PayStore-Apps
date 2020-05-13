@@ -11,15 +11,7 @@ class MainMenuActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main_menu)
-
-        ivCircleBottom.setOnClickListener {
-            val preference = getSharedPreferences("Pref_Profile", 0)
-            val editor = preference.edit()
-            editor.putBoolean("PREF_ISLOGIN", false)
-            editor.apply()
-            startActivity(Intent(this@MainMenuActivity, LoginActivity::class.java))
-            buttonGroup()
-        }
+        buttonGroup()
     }
 
     private fun buttonGroup() {
@@ -29,6 +21,15 @@ class MainMenuActivity : AppCompatActivity() {
 
         btnTelkomOption.setOnClickListener {
             startActivity(Intent(this, TelkomPaymentActivity::class.java))
+        }
+
+        ivCircleBottom.setOnClickListener {
+            val preference = getSharedPreferences("Pref_Profile", 0)
+            val editor = preference.edit()
+            editor.putBoolean("PREF_ISLOGIN", false)
+            editor.apply()
+            startActivity(Intent(this@MainMenuActivity, LoginActivity::class.java))
+
         }
     }
 }
