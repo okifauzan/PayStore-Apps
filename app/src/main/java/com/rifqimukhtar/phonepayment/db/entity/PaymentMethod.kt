@@ -13,9 +13,13 @@ public class PaymentMethod{
     @SerializedName("methodValue")
     var methodValue: String? = null
 
-    constructor(image: Int, methodName: String?, methodValue: String?) {
+    @SerializedName("methodValue")
+    var isEnoughBalance: Boolean? = null
+
+    constructor(image: Int?, methodName: String?, methodValue: String?, isEnoughBalance: Boolean?) {
         this.image = image
         this.methodName = methodName
         this.methodValue = methodValue
+        this.isEnoughBalance = isEnoughBalance
     }
 }

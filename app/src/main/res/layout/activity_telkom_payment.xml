@@ -58,7 +58,7 @@
 
         <LinearLayout
             android:id="@+id/linearLayoutDetailTagihan"
-            android:visibility="visible"
+            android:visibility="gone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
@@ -73,6 +73,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
                 <TextView
+                    android:id="@+id/tvTitleMetodePembayaran"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -81,6 +82,7 @@
                     android:textSize="16dp"
                     android:layout_gravity="left|center_vertical"/>
                 <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnMetodeOption"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -124,6 +126,7 @@
                     app:layout_constraintTop_toBottomOf="@id/tvSelectedTitleMethod"/>
             </androidx.constraintlayout.widget.ConstraintLayout>
             <TextView
+                android:id="@+id/tvTitleDetailTransaksi"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textStyle="bold"
@@ -140,6 +143,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp">
                 <TextView
+                    android:id="@+id/tvTitleNamaPelanggan"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Nama"
@@ -154,6 +158,7 @@
                     app:layout_constraintTop_toTopOf="parent"/>
             </androidx.constraintlayout.widget.ConstraintLayout>
             <TextView
+                android:id="@+id/tvTitleDetailPembayaran"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
@@ -171,7 +176,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp">
                 <TextView
-                    android:id="@+id/textNominal"
+                    android:id="@+id/tvTitleNominalPembayaran"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Nominal"
@@ -185,13 +190,13 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent"/>
                 <TextView
-                    android:id="@+id/textAdmin"
+                    android:id="@+id/tvTitleAdminPembayaran"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
                     android:text="Admin"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/textNominal"/>
+                    app:layout_constraintTop_toBottomOf="@id/tvTitleNominalPembayaran"/>
                 <TextView
                     android:id="@+id/tvAdmin"
                     android:layout_width="wrap_content"
@@ -212,6 +217,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp">
                 <TextView
+                    android:id="@+id/tvTitleTotalTagihan"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Total Tagihan"
