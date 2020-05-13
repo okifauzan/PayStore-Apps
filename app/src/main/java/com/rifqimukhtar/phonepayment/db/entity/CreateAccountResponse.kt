@@ -1,4 +1,11 @@
 package com.rifqimukhtar.phonepayment.db.entity
 
-class CreateAccountResponse {
-}
+import com.google.gson.annotations.SerializedName
+
+data class CreateAccountResponse (
+    @SerializedName("status")
+    var status: Int,
+
+    @SerializedName("message")
+    var message: String
+)
