@@ -21,7 +21,7 @@
     <string name="balance_nominal">Rp 50.000</string>
     <string name="top_up">Top-up</string>
     <string name="transfer">Transfer</string>
-    <string name="withdraw">Withdraw</string>
+    <string name="history">History</string>
     <string name="payment_main_menu">Payment</string>
     <string name="pulsa">Pulsa</string>
     <string name="paket_data">Paket Data</string>

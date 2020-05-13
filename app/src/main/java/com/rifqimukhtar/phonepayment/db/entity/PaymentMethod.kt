@@ -4,13 +4,13 @@ import android.widget.ImageView
 import com.google.gson.annotations.SerializedName
 
 public class PaymentMethod{
-    @SerializedName("client_id")
+    @SerializedName("image")
     var image: Int? = null
 
-    @SerializedName("lat")
+    @SerializedName("methodName")
     var methodName: String? = null
 
-    @SerializedName("lng")
+    @SerializedName("methodValue")
     var methodValue: String? = null
 
     constructor(image: Int, methodName: String?, methodValue: String?) {

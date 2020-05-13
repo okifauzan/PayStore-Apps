@@ -1,5 +1,6 @@
 package com.rifqimukhtar.phonepayment.activities
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -34,6 +35,10 @@ class TelkomPaymentActivity : AppCompatActivity() {
             linearLayoutDetailTagihan.visibility = View.GONE
             btnCekTagihan.visibility = View.VISIBLE
             showPaymentMethod()
+        }
+
+        ibBackFromTagihan.setOnClickListener {
+            startActivity(Intent(this, MainMenuActivity::class.java))
         }
     }
 
