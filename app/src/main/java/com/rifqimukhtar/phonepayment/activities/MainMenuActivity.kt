@@ -12,12 +12,23 @@ class MainMenuActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main_menu)
 
-        ivCircleBottom.setOnClickListener{
-            val preference = getSharedPreferences("Pref_Profile",0)
+        ivCircleBottom.setOnClickListener {
+            val preference = getSharedPreferences("Pref_Profile", 0)
             val editor = preference.edit()
             editor.putBoolean("PREF_ISLOGIN", false)
             editor.apply()
             startActivity(Intent(this@MainMenuActivity, LoginActivity::class.java))
+            buttonGroup()
+        }
+    }
+
+    private fun buttonGroup() {
+        btnHistory.setOnClickListener {
+            startActivity(Intent(this, HistoryActivity::class.java))
+        }
+
+        btnTelkomOption.setOnClickListener {
+            startActivity(Intent(this, TelkomPaymentActivity::class.java))
         }
     }
 }
