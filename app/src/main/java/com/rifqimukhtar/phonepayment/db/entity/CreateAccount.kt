@@ -6,12 +6,12 @@ data class CreateAccount (
     @SerializedName ("name")
     var name: String?,
 
-    @SerializedName("phoneNumber")
+    @SerializedName("email")
     var phoneNumber: String?,
 
-    @SerializedName("email")
+    @SerializedName("password")
     var email: String?,
 
-    @SerializedName("password")
+    @SerializedName("phoneNumber")
     var password: String?
 )

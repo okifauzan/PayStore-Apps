@@ -3,9 +3,24 @@ package com.rifqimukhtar.phonepayment.db.entity
 import com.google.gson.annotations.SerializedName
 
 data class CreateAccountResponse (
-    @SerializedName("status")
-    var status: Int,
+    @SerializedName("idUser")
+    var idUser: Int,
 
-    @SerializedName("message")
-    var message: String
+    @SerializedName("name")
+    var name: String,
+
+    @SerializedName("email")
+    var email: Int,
+
+    @SerializedName("password")
+    var password: String,
+
+    @SerializedName("phoneNumber")
+    var phoneNumber: Int,
+
+    @SerializedName("balance")
+    var balance: String,
+
+    @SerializedName("token")
+    var token: String
 )
