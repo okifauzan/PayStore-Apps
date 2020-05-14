@@ -4,8 +4,8 @@ import com.google.gson.annotations.SerializedName
 
 data class SendOTP (
     @SerializedName("phoneNumber")
-    var phoneNumber: String,
+    var phoneNumber: String?,
 
     @SerializedName("email")
-    var email: String
+    var email: String?
 )

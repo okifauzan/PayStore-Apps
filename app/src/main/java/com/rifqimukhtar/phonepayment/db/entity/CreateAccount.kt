@@ -4,14 +4,14 @@ import com.google.gson.annotations.SerializedName
 
 data class CreateAccount (
     @SerializedName ("name")
-    var name: String,
+    var name: String?,
 
     @SerializedName("phoneNumber")
-    var phoneNumber: String,
+    var phoneNumber: String?,
 
     @SerializedName("email")
-    var email: String,
+    var email: String?,
 
     @SerializedName("password")
-    var password: String
+    var password: String?
 )
