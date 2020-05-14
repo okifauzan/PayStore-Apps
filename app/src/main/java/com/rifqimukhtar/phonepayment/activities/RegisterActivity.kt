@@ -47,21 +47,26 @@ class RegisterActivity : AppCompatActivity() {
             } else if (!(textRepeatPassword.equals(textPassword))){
                 Log.d("test", "Password didn't matches")
             } else {
-                val sendOtpModel = SendOTP("${textHandphone}", textEmail)
+                val sendOtpModel = SendOTP("+6287883445469", textEmail)
                 val sendOtpCall = ApiClient.getClient(API_KEY, this)?.create(ApiInteface::class.java)?.postOTP(sendOtpModel)
                 sendOtpCall?.enqueue(object : Callback<SendOTPResponse>{
                     override fun onResponse(call: Call<SendOTPResponse>, response: Response<SendOTPResponse>) {
-                        val otp = response.body()!!.otp
-                        Log.d("otp", otp)
-                        val bundle = Bundle()
-                        bundle.putString("name", textName)
-                        bundle.putString("email", textEmail)
-                        bundle.putString("phoneNumber", textHandphone)
-                        bundle.putString("password", textPassword)
-                        //bundle.putString("otp", otp)
-                        val intent = Intent(this@RegisterActivity, RegisterVerification::class.java)
-                        intent.putExtras(bundle)
-                        startActivity(intent)
+                        if(response.isSuccessful){
+                            val otp = response.body()!!.otp
+                            Log.d("otp", otp.toString())
+                            val bundle = Bundle()
+                            bundle.putString("name", textName)
+                            bundle.putString("email", textEmail)
+                            bundle.putString("phoneNumber", textHandphone)
+                            bundle.putString("password", textPassword)
+                            bundle.putString("otp", otp.toString())
+                            val intent = Intent(this@RegisterActivity, RegisterVerification::class.java)
+                            intent.putExtras(bundle)
+                            startActivity(intent)
+                        } else {
+                            Toast.makeText(applicationContext, "OTP not available now", Toast.LENGTH_SHORT).show()
+                            Log.d("otp", "gagal")
+                        }
                     }
 
                     override fun onFailure(call: Call<SendOTPResponse>, t: Throwable) {
