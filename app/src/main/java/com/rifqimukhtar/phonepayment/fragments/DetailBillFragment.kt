@@ -64,6 +64,7 @@ class DetailBillFragment : Fragment() {
         dialogFragment.show(ft!!, "dialog")
     }
     private fun showSuccessDialog() {
+        (activity as TelkomPaymentActivity).addInsertNumberFragment()
         val dialogFragment = PaymentResultFragment()
         var ft: FragmentTransaction = activity!!.supportFragmentManager.beginTransaction()
         ft?.addToBackStack(null)
