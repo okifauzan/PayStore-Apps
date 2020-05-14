@@ -22,14 +22,8 @@ class MainMenuActivity : AppCompatActivity() {
         btnTelkomOption.setOnClickListener {
             startActivity(Intent(this, TelkomPaymentActivity::class.java))
         }
-
-        ivCircleBottom.setOnClickListener {
-            val preference = getSharedPreferences("Pref_Profile", 0)
-            val editor = preference.edit()
-            editor.putBoolean("PREF_ISLOGIN", false)
-            editor.apply()
-            startActivity(Intent(this@MainMenuActivity, LoginActivity::class.java))
-
+        cvUserProfile.setOnClickListener {
+            startActivity(Intent(this, ProfileActivity::class.java))
         }
     }
 }

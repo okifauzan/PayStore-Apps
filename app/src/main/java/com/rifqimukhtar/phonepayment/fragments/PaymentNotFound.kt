@@ -40,4 +40,7 @@ class PaymentNotFound : DialogFragment() {
             dismiss()
         }
     }
+    override fun onDestroy() {
+        super.onDestroy()
+    }
 }
