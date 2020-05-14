@@ -2,9 +2,7 @@ package com.rifqimukhtar.phonepayment.rest
 
 import com.rifqimukhtar.phonepayment.db.entity.*
 import retrofit2.Call
-import retrofit2.http.Body
-import retrofit2.http.GET
-import retrofit2.http.POST
+import retrofit2.http.*
 
 interface ApiInteface {
     @POST("user/login")
@@ -16,8 +14,9 @@ interface ApiInteface {
     @GET("telephone_bill")
     fun getTelephoneBill(@Body phone: SendPhone): Call<PhoneBill>
 
-    @GET("user")
-    fun getUser(userId: Int): Call<User>
+    @POST("user/getProfile")
+//    @HTTP(method = "GET", path = "user", hasBody = true)
+    fun getUser(@Body idUser:SendUser): Call<BaseUser>?
 
 //    @POST
 //    fun payTelephoneBill(@Body phoneBill: SendPhoneBill): Call<>

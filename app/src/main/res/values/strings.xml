@@ -32,6 +32,8 @@
     <string name="hi_user">Hi, User!</string>
 
     <string name="base_url">http://ec2-54-89-220-96.compute-1.amazonaws.com:9704/api/paystore/</string>
+    <string name="base_url_local">http://localhost:9704/api/paystore/</string>
+    <string name="base_url_heroku">https://infinite-waters-35921.herokuapp.com/api/paystore/</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
