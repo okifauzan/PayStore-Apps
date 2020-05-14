@@ -21,7 +21,7 @@ class RegisterActivity : AppCompatActivity() {
     companion object val API_KEY = "xxxxxx"
     val patternName = "^[a-zA-Z]{3,20}\$".toRegex()
     val patternEmail = "^[a-z]+([.-]?[a-z]+)*@[a-z]+([.-]?[a-z]+)*(\\.[a-z]{2,3})+\$".toRegex() //recipient name + @ + domain + . + top level domain
-    val patternHandphone = "^[0-9]{9,12}\$".toRegex()
+    val patternHandphone = "^[0-9]{9,13}\$".toRegex()
     val patternPassword = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#\$%!_?&])(?=\\S+\$).{8,20}\$".toRegex()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,17 +47,18 @@ class RegisterActivity : AppCompatActivity() {
             } else if (!(textRepeatPassword.equals(textPassword))){
                 Log.d("test", "Password didn't matches")
             } else {
-                val sendOtpModel = SendOTP(textHandphone, textEmail)
+                val sendOtpModel = SendOTP("${textHandphone}", textEmail)
                 val sendOtpCall = ApiClient.getClient(API_KEY, this)?.create(ApiInteface::class.java)?.postOTP(sendOtpModel)
                 sendOtpCall?.enqueue(object : Callback<SendOTPResponse>{
                     override fun onResponse(call: Call<SendOTPResponse>, response: Response<SendOTPResponse>) {
                         val otp = response.body()!!.otp
+                        Log.d("otp", otp)
                         val bundle = Bundle()
                         bundle.putString("name", textName)
                         bundle.putString("email", textEmail)
                         bundle.putString("phoneNumber", textHandphone)
                         bundle.putString("password", textPassword)
-                        bundle.putString("otp", otp)
+                        //bundle.putString("otp", otp)
                         val intent = Intent(this@RegisterActivity, RegisterVerification::class.java)
                         intent.putExtras(bundle)
                         startActivity(intent)
