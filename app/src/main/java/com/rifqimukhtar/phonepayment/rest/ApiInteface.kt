@@ -13,6 +13,14 @@ interface ApiInteface {
     @POST("user/otp")
     fun postOTP(@Body otp: SendOTP): Call<SendOTPResponse>
 
+    @GET("telephone_bill")
+    fun getTelephoneBill(@Body phone: SendPhone): Call<PhoneBill>
+
+    @GET("user")
+    fun getUser(userId: Int): Call<User>
+
+//    @POST
+//    fun payTelephoneBill(@Body phoneBill: SendPhoneBill): Call<>
     @POST("user")
     fun postRegister(@Body createAccount: CreateAccount): Call<BaseCreateAccResponse<CreateAccountResponse>>
 }

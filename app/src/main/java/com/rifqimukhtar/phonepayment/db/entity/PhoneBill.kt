@@ -1,8 +1,9 @@
 package com.rifqimukhtar.phonepayment.db.entity
 
 import com.google.gson.annotations.SerializedName
+import java.io.Serializable
 
-class PhoneBill {
+class PhoneBill : Serializable {
 
     @SerializedName("status")
     var status: Int? = null

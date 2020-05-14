@@ -10,6 +10,7 @@ import androidx.fragment.app.FragmentTransaction
 import com.rifqimukhtar.phonepayment.R
 import com.rifqimukhtar.phonepayment.activities.TelkomPaymentActivity
 import com.rifqimukhtar.phonepayment.db.entity.PaymentMethod
+import com.rifqimukhtar.phonepayment.db.entity.PhoneBill
 import kotlinx.android.synthetic.main.fragment_detail_bill.*
 
 class DetailBillFragment : Fragment() {
@@ -30,8 +31,10 @@ class DetailBillFragment : Fragment() {
         {
             //get selected method
             val method = arguments!!.getSerializable("selectedMethod") as PaymentMethod
+            val bill = arguments!!.getSerializable("currentBill") as PhoneBill
             Log.d("State", method.methodName)
             updateSelectedMethod(method)
+            setBillDetail(bill)
         }
         buttonGroup()
     }
@@ -57,6 +60,17 @@ class DetailBillFragment : Fragment() {
             tvSelectedValueMethod.text = method.methodValue
             isEnoughBalance = method.isEnoughBalance
         }
+    }
+
+    private fun setBillDetail(phoneBill: PhoneBill) {
+
+        val adminFee = 0
+        val total = phoneBill.amount?.plus(adminFee)
+
+        tvNama.text = phoneBill.telephoneOwner
+        tvNominal.text = phoneBill.amount.toString()
+        tvAdmin.text = adminFee.toString()
+        tvTotal.text = total.toString()
     }
 
     private fun showPaymentMethod() {
