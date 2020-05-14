@@ -17,19 +17,22 @@ class TelkomPaymentActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_telkom_payment)
 
-        addInsertNumberFragment()
+        showInsertNumberFragment()
     }
 
-    fun addInsertNumberFragment() {
+    fun showInsertNumberFragment() {
         val insertNumberFragment: Fragment = InsertNumberFragment()
         val ft: FragmentTransaction = this.supportFragmentManager.beginTransaction()
         ft.replace(R.id.frameTelkomPayment, insertNumberFragment).commit()
         Log.d("State", "Fragment added")
     }
 
-    fun addDetailBillFragment(){
-        val detailBillFragment: Fragment =
-            DetailBillFragment()
+    fun showDetailBillFragment(method:PaymentMethod){
+        val detailBillFragment: Fragment = DetailBillFragment()
+        val bundle = Bundle()
+        //send selected method for current Bill
+        bundle.putSerializable("selectedMethod", method)
+        detailBillFragment.arguments = bundle
         val ft: FragmentTransaction = this.supportFragmentManager.beginTransaction()
         ft.replace(R.id.frameTelkomPayment, detailBillFragment).commit()
         Log.d("State", "Fragment added")

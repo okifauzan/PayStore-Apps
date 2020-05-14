@@ -1,6 +1,7 @@
 package com.rifqimukhtar.phonepayment.fragments
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -25,8 +26,13 @@ class DetailBillFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val method = (activity as TelkomPaymentActivity).getSelectedMethod()
-        updateSelectedMethod(method)
+        if(arguments != null)
+        {
+            //get selected method
+            val method = arguments!!.getSerializable("selectedMethod") as PaymentMethod
+            Log.d("State", method.methodName)
+            updateSelectedMethod(method)
+        }
         buttonGroup()
     }
     private fun buttonGroup() {
@@ -39,7 +45,7 @@ class DetailBillFragment : Fragment() {
             showSuccessDialog()
         }
         ibBackFromDetail.setOnClickListener {
-            (activity as TelkomPaymentActivity).addInsertNumberFragment()
+            (activity as TelkomPaymentActivity).showInsertNumberFragment()
         }
     }
 
@@ -64,7 +70,7 @@ class DetailBillFragment : Fragment() {
         dialogFragment.show(ft!!, "dialog")
     }
     private fun showSuccessDialog() {
-        (activity as TelkomPaymentActivity).addInsertNumberFragment()
+        (activity as TelkomPaymentActivity).showInsertNumberFragment()
         val dialogFragment = PaymentResultFragment()
         var ft: FragmentTransaction = activity!!.supportFragmentManager.beginTransaction()
         ft?.addToBackStack(null)

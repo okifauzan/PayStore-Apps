@@ -43,8 +43,7 @@ class InsertNumberFragment : Fragment() {
             } else
             {
                 getPhoneBill()
-                    // startActivity(Intent(activity, BillDetailActivity::class.java))
-                (activity as TelkomPaymentActivity).addDetailBillFragment()
+                (activity as TelkomPaymentActivity).showDetailBillFragment(selectedMethod!!)
             }
         }
 
@@ -58,7 +57,7 @@ class InsertNumberFragment : Fragment() {
 
         //TODO("request API get user balance & get phone bill")
 
-        val phoneBill = PhoneBill(1,phoneNumber,"Owner",2500)
+        val phoneBill = PhoneBill(1,phoneNumber,"Owner",2500000)
         checkWalletBalance(phoneBill)
         //TODO("set bill detail sesuai API")
         setBillDetail()
@@ -78,7 +77,7 @@ class InsertNumberFragment : Fragment() {
 
             //TODO("add real user virtual number")
             val virtualNumber = "${phoneBill.telephoneNumber}0123456"
-            val virtualAcc = PaymentMethod(R.drawable.ic_virtual_acc, "Virtual Account",virtualNumber, true)
+            val virtualAcc = PaymentMethod(R.drawable.ic_virtual_acc, "Virtual Account",virtualNumber, false)
             setActivitySelectedMethod(virtualAcc)
 
             //setvalue for send in showPaymentMethod
@@ -95,6 +94,7 @@ class InsertNumberFragment : Fragment() {
     }
 
     private fun setActivitySelectedMethod(method: PaymentMethod) {
+        selectedMethod = method
         (activity as TelkomPaymentActivity).setSelectedMethod(method)
     }
 

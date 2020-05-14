@@ -2,8 +2,9 @@ package com.rifqimukhtar.phonepayment.db.entity
 
 import android.widget.ImageView
 import com.google.gson.annotations.SerializedName
+import java.io.Serializable
 
-public class PaymentMethod{
+public class PaymentMethod : Serializable{
     @SerializedName("image")
     var image: Int? = null
 
