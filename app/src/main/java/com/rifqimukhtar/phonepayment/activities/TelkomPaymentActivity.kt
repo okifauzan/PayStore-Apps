@@ -1,22 +1,20 @@
 package com.rifqimukhtar.phonepayment.activities
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.View
+import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
 import com.rifqimukhtar.phonepayment.R
 import com.rifqimukhtar.phonepayment.db.entity.PaymentMethod
 import com.rifqimukhtar.phonepayment.db.entity.PhoneBill
-import com.rifqimukhtar.phonepayment.fragments.PaymentMethodFragment
 import com.rifqimukhtar.phonepayment.fragments.PaymentNotFound
-import com.rifqimukhtar.phonepayment.fragments.PaymentResultFragment
 import kotlinx.android.synthetic.main.activity_telkom_payment.*
-import kotlinx.android.synthetic.main.item_metode_bayar.*
 
 class TelkomPaymentActivity : AppCompatActivity() {
 
     private var isEnoughBalance = true
+    private var selectedMethod:PaymentMethod? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,23 +29,13 @@ class TelkomPaymentActivity : AppCompatActivity() {
                 showNotFoundDialog()
             } else
             {
-                linearLayoutDetailTagihan.visibility = View.VISIBLE
-                btnCekTagihan.visibility = View.GONE
                 getPhoneBill()
+                startActivity(Intent(this, BillDetailActivity::class.java))
+//                val dialogFragment = DetailBillFragment()
+//                var ft: FragmentTransaction = this.supportFragmentManager.beginTransaction()
+//                ft?.addToBackStack(null)
+//                dialogFragment.show(ft!!, "dialog")
             }
-        }
-
-        btnMetodeOption.setOnClickListener {
-            showPaymentMethod()
-        }
-
-        btnBayarTagihan.setOnClickListener {
-            linearLayoutDetailTagihan.visibility = View.GONE
-            btnCekTagihan.visibility = View.VISIBLE
-
-           // TODO("call bayar tagihan api")
-            etNomorTelepon.text?.clear()
-            showSuccessDialog()
         }
 
         ibBackFromTagihan.setOnClickListener {
@@ -81,7 +69,7 @@ class TelkomPaymentActivity : AppCompatActivity() {
             //TODO("add real user virtual number")
             val virtualNumber = "${phoneBill.telephoneNumber}0123456"
             val virtualAcc = PaymentMethod(R.drawable.ic_virtual_acc, "Virtual Account",virtualNumber, true)
-            updateSelectedMethod(virtualAcc)
+            setSelectedMethod(virtualAcc)
 
             //setvalue for send in showPaymentMethod
             isEnoughBalance = false
@@ -90,30 +78,19 @@ class TelkomPaymentActivity : AppCompatActivity() {
             //Enough balance, use wallet
             val methodValue = balance.toString()
             val eWallet = PaymentMethod(R.drawable.ic_wallet, "PayStore Wallet", methodValue, true)
-            updateSelectedMethod(eWallet)
+            setSelectedMethod(eWallet)
             //setvalue for send in showPaymentMethod
             isEnoughBalance = true
         }
     }
 
-    fun updateSelectedMethod(method: PaymentMethod) {
-        ivSelectedMethod.setImageResource(method.image!!)
-        tvSelectedTitleMethod.text = method.methodName
-        //TODO("add real user balance")
-        tvSelectedValueMethod.text = method.methodValue
+    fun setSelectedMethod(method: PaymentMethod) {
+        this.selectedMethod = method
+    }
+    fun getSelectedMethod(): PaymentMethod? {
+        return selectedMethod
     }
 
-
-    private fun showPaymentMethod() {
-        val dialogFragment = PaymentMethodFragment()
-        val bundle = Bundle()
-        bundle.putBoolean("isBalanceEnough", isEnoughBalance)
-        dialogFragment.arguments = bundle
-
-        var ft: FragmentTransaction = this.supportFragmentManager.beginTransaction()
-        ft?.addToBackStack(null)
-        dialogFragment.show(ft!!, "dialog")
-    }
 
     private fun showNotFoundDialog() {
         val dialogFragment = PaymentNotFound()
@@ -122,10 +99,5 @@ class TelkomPaymentActivity : AppCompatActivity() {
         dialogFragment.show(ft!!, "dialog")
     }
 
-    private fun showSuccessDialog() {
-        val dialogFragment = PaymentResultFragment()
-        var ft: FragmentTransaction = this.supportFragmentManager.beginTransaction()
-        ft?.addToBackStack(null)
-        dialogFragment.show(ft!!, "dialog")
-    }
+
 }
