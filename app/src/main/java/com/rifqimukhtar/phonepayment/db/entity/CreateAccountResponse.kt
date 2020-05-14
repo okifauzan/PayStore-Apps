@@ -10,16 +10,16 @@ data class CreateAccountResponse (
     var name: String,
 
     @SerializedName("email")
-    var email: Int,
+    var email: String,
 
     @SerializedName("password")
     var password: String,
 
     @SerializedName("phoneNumber")
-    var phoneNumber: Int,
+    var phoneNumber: String,
 
     @SerializedName("balance")
-    var balance: String,
+    var balance: Int,
 
     @SerializedName("token")
     var token: String

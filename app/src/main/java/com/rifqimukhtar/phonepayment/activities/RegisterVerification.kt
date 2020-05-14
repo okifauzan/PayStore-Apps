@@ -37,6 +37,7 @@ class RegisterVerification : AppCompatActivity() {
             postPhoneNumber = bundle?.getString("phoneNumber")
             postPassword = bundle?.getString("password")
             getOTP = bundle?.getString("otp")
+            Log.d("bundle", getOTP)
         }
         timerCount()
         onClickGroup()
@@ -63,7 +64,7 @@ class RegisterVerification : AppCompatActivity() {
 
         btnResend.setOnClickListener {
 
-            val sendOtpModel = SendOTP(postPhoneNumber, postEmail)
+            val sendOtpModel = SendOTP("+6287883445469", postEmail)
             val sendOtpCall = ApiClient.getClient(API_KEY, this)?.create(ApiInteface::class.java)?.postOTP(sendOtpModel)
             sendOtpCall?.enqueue(object : Callback<SendOTPResponse>{
                 override fun onResponse(call: Call<SendOTPResponse>, response: Response<SendOTPResponse>) {
@@ -72,6 +73,7 @@ class RegisterVerification : AppCompatActivity() {
                     btnResend.setTextColor(Color.RED)
                     val otp = response.body()!!.otp
                     getOTP = otp
+                    Log.d("otp", getOTP)
                 }
 
                 override fun onFailure(call: Call<SendOTPResponse>, t: Throwable) {
@@ -83,6 +85,7 @@ class RegisterVerification : AppCompatActivity() {
         btnRegConfirmOTP.setOnClickListener {
             var textOTP = etRegOTPNumber.text.toString()
             if ((textOTP == getOTP) && timerAvailable){
+                Log.d("test", "$postName, $postEmail, $postPhoneNumber, $postPassword")
 
                 val registerModel = CreateAccount(postName, postEmail, postPassword, postPhoneNumber)
                 val registerCall = ApiClient.getClient(API_KEY, this)?.create(ApiInteface::class.java)?.postRegister(registerModel)
@@ -91,7 +94,7 @@ class RegisterVerification : AppCompatActivity() {
                     override fun onResponse(call: Call<BaseCreateAccResponse<CreateAccountResponse>>,
                                             response: Response<BaseCreateAccResponse<CreateAccountResponse>>) {
                         if (response.isSuccessful){
-                            val message = response.body()!!.message
+                            val message = response.body()!!.status
                             Log.d("test", "$postName, $postEmail, $postPhoneNumber, $postPassword, = $message")
                             startActivity(Intent(this@RegisterVerification, LoginActivity::class.java))
                         } else {

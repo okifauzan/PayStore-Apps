@@ -4,8 +4,8 @@ import com.google.gson.annotations.SerializedName
 
 data class BaseCreateAccResponse<T> (
     @SerializedName("newUser")
-    var status: T,
+    var newUser: T,
 
     @SerializedName("status")
-    var message: String
+    var status: String
 )
