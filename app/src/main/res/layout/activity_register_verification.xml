@@ -27,8 +27,26 @@
         android:layout_marginEnd="74dp"
         android:layout_marginTop="40dp"
         android:hint="@string/verification_hint"
+        android:maxLength="4"
+        android:inputType="number"
         android:gravity="center"/>
 
+    <TextView
+        android:id="@+id/tvTimerOTP"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="test"
+        android:textSize="16sp"
+        android:layout_gravity="center"
+        android:layout_marginTop="30dp"/>
+    <Button
+        android:id="@+id/btnResend"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="resend code"
+        android:textColor="@color/colorTextBlack"
+        android:backgroundTint="@android:color/transparent"/>
     <Button
         android:id="@+id/btnRegConfirmOTP"
         android:layout_width="177dp"
