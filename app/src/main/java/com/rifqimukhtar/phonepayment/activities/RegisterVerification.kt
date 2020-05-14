@@ -65,13 +65,14 @@ class RegisterVerification : AppCompatActivity() {
     fun onClickGroup() {
 
         btnResend.setOnClickListener {
-            timerCount()
-            btnResend.isEnabled = false
-            btnResend.setTextColor(Color.RED)
+
             val sendOtpModel = SendOTP(postPhoneNumber, postEmail)
             val sendOtpCall = ApiClient.getClient(API_KEY, this)?.create(ApiInteface::class.java)?.postOTP(sendOtpModel)
             sendOtpCall?.enqueue(object : Callback<SendOTPResponse>{
                 override fun onResponse(call: Call<SendOTPResponse>, response: Response<SendOTPResponse>) {
+                    timerCount()
+                    btnResend.isEnabled = false
+                    btnResend.setTextColor(Color.RED)
                     val otp = response.body()!!.otp
                     getOTP = otp
                 }
