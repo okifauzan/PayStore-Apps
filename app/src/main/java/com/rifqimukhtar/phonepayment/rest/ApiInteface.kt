@@ -10,9 +10,9 @@ interface ApiInteface {
     @POST("user/login")
     fun postLogin(@Body login: Login): Call<LoginResponse>
 
-    @POST("otp")
+    @POST("user/otp")
     fun postOTP(@Body otp: SendOTP): Call<SendOTPResponse>
 
     @POST("user")
-    fun postRegister(@Body createAccount: CreateAccount): Call<CreateAccountResponse>
+    fun postRegister(@Body createAccount: CreateAccount): Call<BaseCreateAccResponse<CreateAccountResponse>>
 }
