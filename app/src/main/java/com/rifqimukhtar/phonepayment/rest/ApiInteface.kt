@@ -15,4 +15,13 @@ interface ApiInteface {
 
     @POST("user")
     fun postRegister(@Body createAccount: CreateAccount): Call<CreateAccountResponse>
+
+    @GET("telephone_bill")
+    fun getTelephoneBill(@Body phone: SendPhone): Call<PhoneBill>
+
+    @GET("user")
+    fun getUser(userId: Int): Call<User>
+
+//    @POST
+//    fun payTelephoneBill(@Body phoneBill: SendPhoneBill): Call<>
 }
