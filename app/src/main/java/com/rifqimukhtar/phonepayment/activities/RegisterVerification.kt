@@ -8,10 +8,7 @@ import android.os.CountDownTimer
 import android.util.Log
 import android.widget.Toast
 import com.rifqimukhtar.phonepayment.R
-import com.rifqimukhtar.phonepayment.db.entity.CreateAccount
-import com.rifqimukhtar.phonepayment.db.entity.CreateAccountResponse
-import com.rifqimukhtar.phonepayment.db.entity.SendOTP
-import com.rifqimukhtar.phonepayment.db.entity.SendOTPResponse
+import com.rifqimukhtar.phonepayment.db.entity.*
 import com.rifqimukhtar.phonepayment.rest.ApiClient
 import com.rifqimukhtar.phonepayment.rest.ApiInteface
 import kotlinx.android.synthetic.main.activity_register_verification.*
@@ -65,13 +62,14 @@ class RegisterVerification : AppCompatActivity() {
     fun onClickGroup() {
 
         btnResend.setOnClickListener {
-            timerCount()
-            btnResend.isEnabled = false
-            btnResend.setTextColor(Color.RED)
+
             val sendOtpModel = SendOTP(postPhoneNumber, postEmail)
             val sendOtpCall = ApiClient.getClient(API_KEY, this)?.create(ApiInteface::class.java)?.postOTP(sendOtpModel)
             sendOtpCall?.enqueue(object : Callback<SendOTPResponse>{
                 override fun onResponse(call: Call<SendOTPResponse>, response: Response<SendOTPResponse>) {
+                    timerCount()
+                    btnResend.isEnabled = false
+                    btnResend.setTextColor(Color.RED)
                     val otp = response.body()!!.otp
                     getOTP = otp
                 }
@@ -86,11 +84,12 @@ class RegisterVerification : AppCompatActivity() {
             var textOTP = etRegOTPNumber.text.toString()
             if ((textOTP == getOTP) && timerAvailable){
 
-                val registerModel = CreateAccount(postName, postPhoneNumber, postEmail, postPassword)
+                val registerModel = CreateAccount(postName, postEmail, postPassword, postPhoneNumber)
                 val registerCall = ApiClient.getClient(API_KEY, this)?.create(ApiInteface::class.java)?.postRegister(registerModel)
 
-                registerCall?.enqueue(object : Callback<CreateAccountResponse>{
-                    override fun onResponse(call: Call<CreateAccountResponse>, response: Response<CreateAccountResponse>) {
+                registerCall?.enqueue(object : Callback<BaseCreateAccResponse<CreateAccountResponse>>{
+                    override fun onResponse(call: Call<BaseCreateAccResponse<CreateAccountResponse>>,
+                                            response: Response<BaseCreateAccResponse<CreateAccountResponse>>) {
                         if (response.isSuccessful){
                             val message = response.body()!!.message
                             Log.d("test", "$postName, $postEmail, $postPhoneNumber, $postPassword, = $message")
@@ -101,7 +100,7 @@ class RegisterVerification : AppCompatActivity() {
                         }
                     }
 
-                    override fun onFailure(call: Call<CreateAccountResponse>, t: Throwable) {
+                    override fun onFailure(call: Call<BaseCreateAccResponse<CreateAccountResponse>>, t: Throwable) {
                         Toast.makeText(applicationContext, "Can't Response", Toast.LENGTH_SHORT).show()
                         Log.d("Failure", t.message)
                     }

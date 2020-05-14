@@ -7,14 +7,11 @@ import retrofit2.http.GET
 import retrofit2.http.POST
 
 interface ApiInteface {
-    @POST("login")
+    @POST("user/login")
     fun postLogin(@Body login: Login): Call<LoginResponse>
 
-    @POST("otp")
+    @POST("user/otp")
     fun postOTP(@Body otp: SendOTP): Call<SendOTPResponse>
-
-    @POST("user")
-    fun postRegister(@Body createAccount: CreateAccount): Call<CreateAccountResponse>
 
     @GET("telephone_bill")
     fun getTelephoneBill(@Body phone: SendPhone): Call<PhoneBill>
@@ -24,4 +21,6 @@ interface ApiInteface {
 
 //    @POST
 //    fun payTelephoneBill(@Body phoneBill: SendPhoneBill): Call<>
+    @POST("user")
+    fun postRegister(@Body createAccount: CreateAccount): Call<BaseCreateAccResponse<CreateAccountResponse>>
 }
