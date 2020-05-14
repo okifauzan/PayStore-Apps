@@ -7,7 +7,7 @@ import retrofit2.http.GET
 import retrofit2.http.POST
 
 interface ApiInteface {
-    @POST("login")
+    @POST("user/login")
     fun postLogin(@Body login: Login): Call<LoginResponse>
 
     @POST("otp")
