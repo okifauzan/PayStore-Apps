@@ -6,10 +6,9 @@ import android.view.*
 import android.widget.Toast
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.rifqimukhtar.phonepayment.R
-import com.rifqimukhtar.phonepayment.activities.DetailBillFragment
-import com.rifqimukhtar.phonepayment.activities.TelkomPaymentActivity
 import com.rifqimukhtar.phonepayment.adapters.PaymentMethodAdapter
 import com.rifqimukhtar.phonepayment.db.entity.PaymentMethod
 import kotlinx.android.synthetic.main.fragment_payment_method.*
@@ -88,7 +87,10 @@ class PaymentMethodFragment : DialogFragment() {
         if (data.isEnoughBalance!!)
         {
             Toast.makeText(activity, data.methodName, Toast.LENGTH_SHORT).show()
-            (activity as TelkomPaymentActivity).setSelectedMethod(data)
+            //set payment method in DetailBillFragment
+            val fm: FragmentManager? = fragmentManager
+            val fragm: DetailBillFragment = fm?.findFragmentById(R.id.frameTelkomPayment) as DetailBillFragment
+            fragm.updateSelectedMethod(data)
             dismiss()
         }
         else  Toast.makeText(activity, "Balance is not enough. Please Top Up!", Toast.LENGTH_SHORT).show()
