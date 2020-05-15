@@ -38,9 +38,11 @@ class LoginActivity : AppCompatActivity() {
                 loginCall?.enqueue(object : Callback<LoginResponse>{
                     override fun onResponse(call: Call<LoginResponse>, response: Response<LoginResponse>) {
                         if (response.isSuccessful){
+
                             val preference = getSharedPreferences("Pref_Profile", 0)
                             val editor = preference.edit()
                             editor.putBoolean("PREF_ISLOGIN", true)
+                            editor.putInt("PREF_USERID", 1)
                             editor.apply()
                             Toast.makeText(applicationContext, "Login Success", Toast.LENGTH_SHORT).show()
                             Log.d("Login", "Success")

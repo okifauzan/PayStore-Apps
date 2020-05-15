@@ -11,12 +11,13 @@ import com.rifqimukhtar.phonepayment.R
 import com.rifqimukhtar.phonepayment.activities.TelkomPaymentActivity
 import com.rifqimukhtar.phonepayment.db.entity.PaymentMethod
 import com.rifqimukhtar.phonepayment.db.entity.PhoneBill
+import com.rifqimukhtar.phonepayment.db.entity.SendUser
 import kotlinx.android.synthetic.main.fragment_detail_bill.*
 
 class DetailBillFragment : Fragment() {
 
     private var isEnoughBalance : Boolean? = null
-
+    var currentBill:PhoneBill? =null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -31,10 +32,10 @@ class DetailBillFragment : Fragment() {
         {
             //get selected method
             val method = arguments!!.getSerializable("selectedMethod") as PaymentMethod
-            val bill = arguments!!.getSerializable("currentBill") as PhoneBill
+            currentBill = arguments!!.getSerializable("currentBill") as PhoneBill
             Log.d("State", method.methodName)
             updateSelectedMethod(method)
-            setBillDetail(bill)
+            setBillDetail(currentBill!!)
         }
         buttonGroup()
     }
@@ -45,12 +46,18 @@ class DetailBillFragment : Fragment() {
 
         btnBayarTagihan.setOnClickListener {
             // TODO("call bayar tagihan api")
+            sendPaymentRequest()
             showSuccessDialog()
         }
         ibBackFromDetail.setOnClickListener {
             (activity as TelkomPaymentActivity).showInsertNumberFragment()
         }
     }
+
+    private fun sendPaymentRequest() {
+
+    }
+
 
     fun updateSelectedMethod(method: PaymentMethod?) {
         if (method != null) {
@@ -67,7 +74,7 @@ class DetailBillFragment : Fragment() {
         val adminFee = 0
         val total = phoneBill.amount?.plus(adminFee)
 
-        tvNama.text = phoneBill.telephoneOwner
+        tvNama.text = phoneBill.name
         tvNominal.text = phoneBill.amount.toString()
         tvAdmin.text = adminFee.toString()
         tvTotal.text = total.toString()
