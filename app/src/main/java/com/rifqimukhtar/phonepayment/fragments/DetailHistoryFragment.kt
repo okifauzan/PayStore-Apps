@@ -34,9 +34,21 @@ class DetailHistoryFragment : Fragment() {
             val history = arguments!!.getSerializable("selectedMethod") as BillHistory
             Log.d("State", history.amount.toString())
             updateSelectedMethod(history)
+            updateDetailUI(history)
         }
         buttonGroup()
     }
+
+    private fun updateDetailUI(history: BillHistory) {
+
+        val adminFee = 0
+
+        tvNamaHistory.text = history.name
+        tvNominalHistory.text = history.amount.toString()
+        tvAdminHistory.text = adminFee.toString()
+        tvTotalHistory.text = history.amount?.plus(adminFee).toString()
+    }
+
     private fun buttonGroup() {
 
         ibBackFromDetailHistory.setOnClickListener {

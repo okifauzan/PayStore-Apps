@@ -47,7 +47,6 @@ class ListHistoryFragment : Fragment() {
         adapter.notifyDataSetChanged()
 
         generateBillHistory()
-        setupRecyclerView()
         buttonGroup()
     }
 
@@ -64,22 +63,17 @@ class ListHistoryFragment : Fragment() {
         apiCall?.getHistory(sendUser)?.enqueue(object : Callback<List<BillHistory>>{
             override fun onResponse(call: Call<List<BillHistory>>, response: Response<List<BillHistory>>) {
                 if (response.isSuccessful){
-                    listBillHistory.add(response.body()!![0])
+                    //listBillHistory.add(response.body()!![0])
 
                     val temp = response.body()
                     temp!!.forEach{
-                        val billHistory = BillHistory(1, 1, it.name, "811234567", 200000,
-                            1, "0227254321", 50000, 1, "bank",
-                            it.timestamp)
+                        val billHistory = BillHistory(it.idPayment, it.idUser, it.name, it.phoneNumber, it.balance,
+                            it.idBill, it.telephoneNumber, it.amount, it.idPaymentMethod, it.method, it.timestamp)
                         listBillHistory.add(billHistory)
                         Log.d("Objek", "name -> ${it.name}")
-                        listBillHistory.add(it)
-                        listBillHistory.add(it)
-                        listBillHistory.add(it)
-                        listBillHistory.add(it)
-                        listBillHistory.add(it)
                     }
-                    Log.d("listBill", listBillHistory[0].toString())
+                    setupRecyclerView()
+                    Log.d("listBill", listBillHistory.toString())
                 } else {
                     Log.d("gagal", listBillHistory.toString())
                 }
