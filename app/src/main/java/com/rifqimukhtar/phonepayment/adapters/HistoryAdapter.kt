@@ -38,8 +38,8 @@ class HistoryAdapter : RecyclerView.Adapter<HistoryAdapter.HistoryHolder>() {
             val tvHistoryStatus = itemView.findViewById<TextView>(R.id.tvHistoryStatus)
 
             tvHistoryNominal.text = item.amount.toString()
-            tvHistoryTime.text = item.createdAt
-            tvHistoryStatus.text = item.status.toString()
+            tvHistoryTime.text = item.timestamp
+            //tvHistoryStatus.text = item.status.toString()
             itemView.setOnClickListener { onItemClickCallback?.onItemClicked(item) }
         }
     }

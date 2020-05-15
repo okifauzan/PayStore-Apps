@@ -1,7 +1,6 @@
 package com.rifqimukhtar.phonepayment.rest
 
 import android.content.Context
-import com.rifqimukhtar.phonepayment.MyApp
 import com.rifqimukhtar.phonepayment.R
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
