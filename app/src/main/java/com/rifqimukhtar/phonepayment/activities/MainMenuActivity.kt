@@ -95,6 +95,12 @@ class MainMenuActivity : AppCompatActivity() {
     private fun setUserDetail(user: User) {
         tvWelcomeUser.text = "Weclome, ${user.name}"
         tvUserBalance.text = "Rp ${user.balance}"
+
+        val preference = getSharedPreferences("Pref_Profile2", 0)
+        val emailUser = user.email
+        val editor = preference.edit()
+        editor.putString("PREF_EMAIL", emailUser)
+        editor.apply()
     }
 
     private fun buttonGroup() {
