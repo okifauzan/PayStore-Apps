@@ -71,7 +71,9 @@ class MainMenuActivity : AppCompatActivity() {
 //    }
 
     fun getUser2(){
-        val sendUser = SendUser(1)
+        val preference = getSharedPreferences("Pref_Profile", 0)
+        val userId = preference.getInt("PREF_USERID", 0)
+        val sendUser = SendUser(userId)
 
         userViewModel.getUser(sendUser).observe(this, Observer<User> {
             user = it
