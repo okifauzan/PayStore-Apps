@@ -48,7 +48,7 @@ class RegisterActivity : AppCompatActivity() {
                 Log.d("test", "Password didn't matches")
             } else {
                 val sendOtpModel = SendOTP("+6287883445469", textEmail)
-                val sendOtpCall = ApiClient.getClient(API_KEY, this)?.create(ApiInteface::class.java)?.postOTP(sendOtpModel)
+                val sendOtpCall = ApiClient.getClient()?.create(ApiInteface::class.java)?.postOTP(sendOtpModel)
                 sendOtpCall?.enqueue(object : Callback<SendOTPResponse>{
                     override fun onResponse(call: Call<SendOTPResponse>, response: Response<SendOTPResponse>) {
                         if(response.isSuccessful){

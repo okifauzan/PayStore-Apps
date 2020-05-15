@@ -65,7 +65,7 @@ class RegisterVerification : AppCompatActivity() {
         btnResend.setOnClickListener {
 
             val sendOtpModel = SendOTP("+6287883445469", postEmail)
-            val sendOtpCall = ApiClient.getClient(API_KEY, this)?.create(ApiInteface::class.java)?.postOTP(sendOtpModel)
+            val sendOtpCall = ApiClient.getClient()?.create(ApiInteface::class.java)?.postOTP(sendOtpModel)
             sendOtpCall?.enqueue(object : Callback<SendOTPResponse>{
                 override fun onResponse(call: Call<SendOTPResponse>, response: Response<SendOTPResponse>) {
                     timerCount()
@@ -88,7 +88,7 @@ class RegisterVerification : AppCompatActivity() {
                 Log.d("test", "$postName, $postEmail, $postPhoneNumber, $postPassword")
 
                 val registerModel = CreateAccount(postName, postEmail, postPassword, postPhoneNumber)
-                val registerCall = ApiClient.getClient(API_KEY, this)?.create(ApiInteface::class.java)?.postRegister(registerModel)
+                val registerCall = ApiClient.getClient()?.create(ApiInteface::class.java)?.postRegister(registerModel)
 
                 registerCall?.enqueue(object : Callback<BaseCreateAccResponse<CreateAccountResponse>>{
                     override fun onResponse(call: Call<BaseCreateAccResponse<CreateAccountResponse>>,

@@ -34,7 +34,7 @@ class LoginActivity : AppCompatActivity() {
             var textLoginPass = etLoginPassword.text.toString()
             if (patternLoginNumber.matches(textLoginNumber) && patternLoginPass.matches(textLoginPass)){
                 val loginModel = Login(textLoginNumber, textLoginPass)
-                val loginCall = ApiClient.getClient(API_KEY, this)?.create(ApiInteface::class.java)?.postLogin(loginModel)
+                val loginCall = ApiClient.getClient()?.create(ApiInteface::class.java)?.postLogin(loginModel)
                 loginCall?.enqueue(object : Callback<LoginResponse>{
                     override fun onResponse(call: Call<LoginResponse>, response: Response<LoginResponse>) {
                         if (response.isSuccessful){
