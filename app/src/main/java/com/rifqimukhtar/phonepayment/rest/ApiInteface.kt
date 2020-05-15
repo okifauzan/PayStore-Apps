@@ -15,7 +15,6 @@ interface ApiInteface {
     fun getTelephoneBill(@Body phone: SendPhone): Call<PhoneBill>
 
     @POST("user/getProfile")
-//    @HTTP(method = "GET", path = "user", hasBody = true)
     fun getUser(@Body idUser:SendUser): Call<BaseUser>?
 
 //    @POST

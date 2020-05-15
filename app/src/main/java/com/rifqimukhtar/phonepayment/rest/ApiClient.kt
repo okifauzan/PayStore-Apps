@@ -1,6 +1,7 @@
 package com.rifqimukhtar.phonepayment.rest
 
 import android.content.Context
+import com.rifqimukhtar.phonepayment.MyApp
 import com.rifqimukhtar.phonepayment.R
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
@@ -8,8 +9,11 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 object ApiClient {
     var retrofit: Retrofit? = null
+    const val apiKey = "XXXX"
+    const val baseURL = "https://infinite-waters-35921.herokuapp.com/api/paystore/"
 
-    fun getClient(apiKey: String, context: Context): Retrofit? {
+
+    fun getClient(): Retrofit? {
         if (retrofit == null) {
             val client = OkHttpClient().newBuilder().addInterceptor { chain ->
                 val request = chain.request()
@@ -17,9 +21,8 @@ object ApiClient {
                     .build()
                 chain.proceed(request)
             }.build()
-
             retrofit = Retrofit.Builder()
-                .client(client).baseUrl(context.resources.getString(R.string.base_url))
+                .client(client).baseUrl(baseURL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build()
         }

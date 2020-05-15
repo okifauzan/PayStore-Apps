@@ -33,7 +33,7 @@ class MainMenuActivity : AppCompatActivity() {
         loadingMainMenu.show()
         frameTransparent.visibility = VISIBLE
         val sendUser = SendUser(1)
-        val apiCall = ApiClient.getClient(API_KEY, applicationContext)?.create(ApiInteface::class.java)
+        val apiCall = ApiClient.getClient()?.create(ApiInteface::class.java)
         apiCall?.getUser(sendUser)
             ?.enqueue(object : Callback<BaseUser> {
             override fun onResponse(call: Call<BaseUser>, response: Response<BaseUser>) {
