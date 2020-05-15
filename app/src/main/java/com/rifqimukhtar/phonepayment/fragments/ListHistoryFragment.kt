@@ -15,6 +15,7 @@ import com.rifqimukhtar.phonepayment.activities.HistoryActivity
 import com.rifqimukhtar.phonepayment.activities.MainMenuActivity
 import com.rifqimukhtar.phonepayment.activities.TelkomPaymentActivity
 import com.rifqimukhtar.phonepayment.adapters.HistoryAdapter
+import com.rifqimukhtar.phonepayment.db.entity.BaseResponse
 import com.rifqimukhtar.phonepayment.db.entity.BillHistory
 import com.rifqimukhtar.phonepayment.db.entity.PaymentMethod
 import com.rifqimukhtar.phonepayment.db.entity.SendUser
@@ -58,17 +59,17 @@ class ListHistoryFragment : Fragment() {
     }
 
     private fun generateBillHistory() {
-        val sendUser = SendUser(1)
+        val preference = activity!!.getSharedPreferences("Pref_Profile", 0)
+        val userId = preference.getInt("PREF_USERID", 0)
+        val sendUser = SendUser(userId)
         val apiCall = ApiClient.getClient()?.create(ApiInteface::class.java)
-        apiCall?.getHistory(sendUser)?.enqueue(object : Callback<List<BillHistory>>{
-            override fun onResponse(call: Call<List<BillHistory>>, response: Response<List<BillHistory>>) {
+        apiCall?.getHistory(sendUser)?.enqueue(object : Callback<BaseResponse<List<BillHistory>>>{
+            override fun onResponse(call: Call<BaseResponse<List<BillHistory>>>, response: Response<BaseResponse<List<BillHistory>>>) {
                 if (response.isSuccessful){
-                    //listBillHistory.add(response.body()!![0])
-
-                    val temp = response.body()
+                    val temp = response.body()!!.data
                     temp!!.forEach{
                         val billHistory = BillHistory(it.idPayment, it.idUser, it.name, it.phoneNumber, it.balance,
-                            it.idBill, it.telephoneNumber, it.amount, it.idPaymentMethod, it.method, it.timestamp)
+                            it.idBill, it.telephoneNumber, it.status, it.amount, it.idPaymentMethod, it.method, it.timestamp)
                         listBillHistory.add(billHistory)
                         Log.d("Objek", "name -> ${it.name}")
                     }
@@ -79,7 +80,7 @@ class ListHistoryFragment : Fragment() {
                 }
             }
 
-            override fun onFailure(call: Call<List<BillHistory>>, t: Throwable) {
+            override fun onFailure(call: Call<BaseResponse<List<BillHistory>>>, t: Throwable) {
                 Toast.makeText(context, "Can't Load History", Toast.LENGTH_SHORT).show()
                 Log.d("Failed", "Can't Load History")
             }
