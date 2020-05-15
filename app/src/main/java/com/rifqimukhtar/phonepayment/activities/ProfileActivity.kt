@@ -54,6 +54,7 @@ class ProfileActivity : AppCompatActivity() {
                         val editor = preference.edit()
                         editor.putBoolean("PREF_ISLOGIN", false)
                         editor.apply()
+                        editor.clear()
                         Log.d("logout", response.body().toString())
                         startActivity(Intent(this@ProfileActivity, LoginActivity::class.java))
                     } else {
@@ -65,11 +66,7 @@ class ProfileActivity : AppCompatActivity() {
                     Toast.makeText(applicationContext, "Server not responding", Toast.LENGTH_SHORT).show()
                 }
             })
-            val preference = getSharedPreferences("Pref_Profile", 0)
-            val editor = preference.edit()
-            editor.putBoolean("PREF_ISLOGIN", false)
-            editor.apply()
-            startActivity(Intent(this@ProfileActivity, LoginActivity::class.java))
+
         }
     }
 }

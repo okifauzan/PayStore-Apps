@@ -28,10 +28,14 @@ class PaymentVerification : AppCompatActivity() {
         setContentView(R.layout.activity_payment_verification)
         if (intent.extras != null){
             val bundle = intent.extras
-            val kiriman = bundle?.getSerializable("sendReqPayment") as SendRequestPayment
-            sendRequestPayment = kiriman
+            sendRequestPayment = bundle?.getSerializable("sendRequestPayment") as SendRequestPayment
+//            val idBill = bundle?.getInt("idBill")
+//            val idMethod = bundle?.getInt("idMethod")
+//            val idUser = bundle?.getInt("idUser")
+            //sendRequestPayment = SendRequestPayment(idBill, idUser, idMethod)
             getOTP = bundle?.getString("otp")
             Log.d("bundle", getOTP)
+            //Log.d("State", "Payment Verification $idBill, $idUser, $idMethod")
         }
         timerCount()
         onClickGroup()

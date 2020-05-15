@@ -68,7 +68,9 @@ class DetailBillFragment : Fragment() {
     }
 
     private fun sendPaymentRequest() {
-        sendRequesPayment = SendRequestPayment(currentBill?.idBill,1,method?.idPaymentMethod)
+        val preference = activity!!.getSharedPreferences("Pref_Profile", 0)
+        val userId = preference.getInt("PREF_USERID", 0)
+        sendRequesPayment = SendRequestPayment(currentBill?.idBill,userId,method?.idPaymentMethod)
         billViewModel.sendPaymentRequest(sendRequesPayment!!).observe(activity as TelkomPaymentActivity, Observer<String> {
 
             Log.d("State", "send request payment $it")
@@ -121,6 +123,7 @@ class DetailBillFragment : Fragment() {
         val preference = activity!!.getSharedPreferences("Pref_Profile2", 0)
         val emailOTP = preference.getString("PREF_EMAIL", "")
         val sendOtpModel = SendOTP("+6287883445469", "akunsampahriftar@gmail.com")
+        Log.d("State", "OTW payment ${currentBill!!.idBill} , ${method!!.idPaymentMethod}, iduser")
         val sendOtpCall = ApiClient.getClient()?.create(ApiInteface::class.java)?.postOTP(sendOtpModel)
         sendOtpCall?.enqueue(object : Callback<SendOTPResponse> {
             override fun onResponse(call: Call<SendOTPResponse>, response: Response<SendOTPResponse>) {
@@ -131,6 +134,9 @@ class DetailBillFragment : Fragment() {
                     val bundle = Bundle()
                     bundle.putString("otp", otp.toString())
                     bundle.putSerializable("sendRequestPayment", sendRequesPayment)
+                    //currentBill!!.idBill?.let { bundle.putInt("idBill", it) }
+                    //method!!.idPaymentMethod?.let { bundle.putInt("idMethod", it) }
+                   // bundle.putInt("idUser", 1)
                     val intent = Intent(activity, PaymentVerification::class.java)
                     intent.putExtras(bundle)
                     startActivity(intent)
