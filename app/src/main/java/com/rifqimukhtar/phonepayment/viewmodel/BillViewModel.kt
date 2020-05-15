@@ -9,7 +9,7 @@ class BillViewModel(private var billRepository: BillRepository): ViewModel() {
     fun getPaymentDetail(sendPhone: SendPhone): LiveData<PhoneBill> {
         return billRepository.getPaymentDetail(sendPhone)
     }
-    fun sendPaymentRequest(sendRequestPayment: SendRequestPayment): LiveData<BaseResponse<Any>> {
+    fun sendPaymentRequest(sendRequestPayment: SendRequestPayment): LiveData<String> {
         return billRepository.sendPaymentRequest(sendRequestPayment)
     }
 }

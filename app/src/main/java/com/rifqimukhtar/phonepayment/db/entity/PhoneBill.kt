@@ -20,7 +20,7 @@ class PhoneBill : Serializable {
     var month: String? = null
 
     @SerializedName("amount")
-    var amount: Float? = null
+    var amount: Int? = null
 
     @SerializedName("status")
     var status: String? = null
@@ -30,7 +30,7 @@ class PhoneBill : Serializable {
         telephoneOwner: String?,
         telephoneNumber: String?,
         month: String?,
-        amount: Float?,
+        amount: Int?,
         status: String?
     ) {
         this.idBill = idBill

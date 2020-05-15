@@ -63,11 +63,11 @@ class DetailHistoryFragment : Fragment() {
             if(history.idPaymentMethod == 1)
             {
 
-                method = PaymentMethod(R.drawable.ic_wallet, "PayStore Wallet", history.amount.toString(), true)
+                method = PaymentMethod(R.drawable.ic_wallet, "PayStore Wallet", history.amount.toString(), true,1)
 
             } else
             {
-                method = PaymentMethod(R.drawable.ic_virtual_acc, "Virtual Account", history.amount.toString(), false)
+                method = PaymentMethod(R.drawable.ic_virtual_acc, "Virtual Account", history.amount.toString(), false,1)
             }
             ivSelectedMethodHistory.setImageResource(method.image!!)
             tvSelectedTitleMethodHistory.text = method.methodName

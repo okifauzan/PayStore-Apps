@@ -3,6 +3,7 @@ package com.rifqimukhtar.phonepayment.repository
 import android.content.Context
 import android.util.Log
 import android.widget.Toast
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.rifqimukhtar.phonepayment.db.entity.*
 import com.rifqimukhtar.phonepayment.rest.ApiClient
@@ -37,14 +38,15 @@ class BillRepository(val context: Context) {
         return data
     }
 
-    fun sendPaymentRequest(sendRequestPayment: SendRequestPayment) : MutableLiveData<BaseResponse<Any>>{
-        var data = MutableLiveData<BaseResponse<Any>>()
+    fun sendPaymentRequest(sendRequestPayment: SendRequestPayment) : MutableLiveData<String>{
+        var data = MutableLiveData<String>()
         val apiCall = ApiClient.getClient()?.create(ApiInteface::class.java)
         apiCall?.sendRequestPayment(sendRequestPayment)
             ?.enqueue(object : Callback<BaseResponse<Any>> {
                 override fun onResponse(call: Call<BaseResponse<Any>>, response: Response<BaseResponse<Any>>) {
                     if (response.isSuccessful) {
                         Log.d("State", response.toString())
+                        data = MutableLiveData(response.toString())
                         Toast.makeText(context, response.toString(), Toast.LENGTH_SHORT).show()
                     }
                 }

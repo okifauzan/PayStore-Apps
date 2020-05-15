@@ -1,5 +1,6 @@
 package com.rifqimukhtar.phonepayment.fragments
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -7,18 +8,22 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
+import androidx.lifecycle.Observer
 import com.rifqimukhtar.phonepayment.R
 import com.rifqimukhtar.phonepayment.activities.TelkomPaymentActivity
-import com.rifqimukhtar.phonepayment.db.entity.PaymentMethod
-import com.rifqimukhtar.phonepayment.db.entity.PhoneBill
-import com.rifqimukhtar.phonepayment.db.entity.SendUser
+import com.rifqimukhtar.phonepayment.db.entity.*
+import com.rifqimukhtar.phonepayment.viewmodel.BillViewModel
+import com.rifqimukhtar.phonepayment.viewmodel.UserViewModel
 import kotlinx.android.synthetic.main.fragment_detail_bill.*
+import org.koin.android.ext.android.inject
 
 class DetailBillFragment : Fragment() {
-
+    private val billViewModel: BillViewModel by inject()
+    private val userViewModel: UserViewModel by inject()
     private var isEnoughBalance : Boolean? = null
     var currentBill:PhoneBill? =null
-
+    var method:PaymentMethod? = null
+    var sendRequesPayment: SendRequestPayment? = null
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -31,9 +36,9 @@ class DetailBillFragment : Fragment() {
         if(arguments != null)
         {
             //get selected method
-            val method = arguments!!.getSerializable("selectedMethod") as PaymentMethod
+            method = arguments!!.getSerializable("selectedMethod") as PaymentMethod
             currentBill = arguments!!.getSerializable("currentBill") as PhoneBill
-            Log.d("State", method.methodName)
+            Log.d("State", method?.methodName)
             updateSelectedMethod(method)
             setBillDetail(currentBill!!)
         }
@@ -45,7 +50,7 @@ class DetailBillFragment : Fragment() {
         }
 
         btnBayarTagihan.setOnClickListener {
-            // TODO("call bayar tagihan api")
+            // TODO("call bayar tagihan api") done!!!! kurang dicek bug
             sendPaymentRequest()
             showSuccessDialog()
         }
@@ -55,7 +60,11 @@ class DetailBillFragment : Fragment() {
     }
 
     private fun sendPaymentRequest() {
+        sendRequesPayment = SendRequestPayment(currentBill?.idBill,1,method?.idPaymentMethod)
+        billViewModel.sendPaymentRequest(sendRequesPayment!!).observe(activity as TelkomPaymentActivity, Observer<String> {
 
+            Log.d("State", "send request payment $it")
+        })
     }
 
 
@@ -84,6 +93,7 @@ class DetailBillFragment : Fragment() {
         val dialogFragment = PaymentMethodFragment()
         val bundle = Bundle()
         isEnoughBalance?.let { bundle.putBoolean("isEnoughBalance", it) }
+        method!!.methodValue?.let { bundle.putString("balance_amount", it) }
         dialogFragment.arguments = bundle
 
         var ft: FragmentTransaction = activity!!.supportFragmentManager.beginTransaction()
@@ -96,5 +106,15 @@ class DetailBillFragment : Fragment() {
         var ft: FragmentTransaction = activity!!.supportFragmentManager.beginTransaction()
         ft?.addToBackStack(null)
         dialogFragment.show(ft!!, "dialog")
+    }
+
+    fun sendBundle()
+    {
+        val bundle = Bundle()
+        bundle.putSerializable("sendRequestPayment", sendRequesPayment)
+
+        val intent = Intent(activity, PaymentVerification::class.java)
+        intent.putExtras(bundle)
+        startActivity(intent)
     }
 }

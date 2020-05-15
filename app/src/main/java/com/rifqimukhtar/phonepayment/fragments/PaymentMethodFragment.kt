@@ -22,6 +22,7 @@ class PaymentMethodFragment : DialogFragment() {
     var listPaymentMethod: ArrayList<PaymentMethod> = ArrayList()
     private lateinit var adapter: PaymentMethodAdapter
     private var isEnoughBalance: Boolean = true
+    private var balance_amount: String = "0"
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -49,14 +50,16 @@ class PaymentMethodFragment : DialogFragment() {
         if(arguments != null)
         {
             //set isEnoughBalance
+            balance_amount = arguments!!.getString("balance_amount").toString()
             isEnoughBalance = arguments!!.getBoolean("isEnoughBalance")
             Log.d("State", isEnoughBalance.toString())
         }
     }
 
+
     private fun generatePaymentMethod() {
-        val eWallet = PaymentMethod(R.drawable.ic_wallet, "PayStore Wallet", "Rp 50.000", isEnoughBalance )
-        val virtualAcc = PaymentMethod(R.drawable.ic_virtual_acc, "Virtual Account", "088888888888888", true)
+        val eWallet = PaymentMethod(R.drawable.ic_wallet, "PayStore Wallet", balance_amount, isEnoughBalance ,1)
+        val virtualAcc = PaymentMethod(R.drawable.ic_virtual_acc, "Virtual Account", "088888888888888", true,2)
         listPaymentMethod.add(eWallet)
         listPaymentMethod.add(virtualAcc)
     }
