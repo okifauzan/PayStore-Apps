@@ -39,7 +39,7 @@ class HistoryAdapter : RecyclerView.Adapter<HistoryAdapter.HistoryHolder>() {
 
             tvHistoryNominal.text = item.amount.toString()
             tvHistoryTime.text = item.timestamp
-            //tvHistoryStatus.text = item.status.toString()
+            tvHistoryStatus.text = item.status.toString()
             itemView.setOnClickListener { onItemClickCallback?.onItemClicked(item) }
         }
     }
