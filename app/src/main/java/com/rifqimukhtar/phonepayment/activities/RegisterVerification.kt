@@ -90,9 +90,9 @@ class RegisterVerification : AppCompatActivity() {
                 val registerModel = CreateAccount(postName, postEmail, postPassword, postPhoneNumber)
                 val registerCall = ApiClient.getClient()?.create(ApiInteface::class.java)?.postRegister(registerModel)
 
-                registerCall?.enqueue(object : Callback<BaseCreateAccResponse<CreateAccountResponse>>{
-                    override fun onResponse(call: Call<BaseCreateAccResponse<CreateAccountResponse>>,
-                                            response: Response<BaseCreateAccResponse<CreateAccountResponse>>) {
+                registerCall?.enqueue(object : Callback<BaseResponse<CreateAccountResponse>>{
+                    override fun onResponse(call: Call<BaseResponse<CreateAccountResponse>>,
+                                            response: Response<BaseResponse<CreateAccountResponse>>) {
                         if (response.isSuccessful){
                             val message = response.body()!!.status
                             Log.d("test", "$postName, $postEmail, $postPhoneNumber, $postPassword, = $message")
@@ -103,7 +103,7 @@ class RegisterVerification : AppCompatActivity() {
                         }
                     }
 
-                    override fun onFailure(call: Call<BaseCreateAccResponse<CreateAccountResponse>>, t: Throwable) {
+                    override fun onFailure(call: Call<BaseResponse<CreateAccountResponse>>, t: Throwable) {
                         Toast.makeText(applicationContext, "Can't Response", Toast.LENGTH_SHORT).show()
                         Log.d("Failure", t.message)
                     }

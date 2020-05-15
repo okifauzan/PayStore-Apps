@@ -1,7 +1,9 @@
 package com.rifqimukhtar.phonepayment.db.entity
 
+import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 import java.io.Serializable
+
 
 class BillHistory : Serializable {
     @SerializedName("idPayment")
@@ -17,7 +19,7 @@ class BillHistory : Serializable {
     var phoneNumber: String? = null
 
     @SerializedName("balance")
-    var balance: Int? = null
+    var balance: Float? = null
 
     @SerializedName("idBill")
     var idBill: Int? = null
@@ -25,8 +27,11 @@ class BillHistory : Serializable {
     @SerializedName("telephoneNumber")
     var telephoneNumber: String? = null
 
+    @SerializedName("status")
+    var status: String? = null
+
     @SerializedName("amount")
-    var amount: Int? = null
+    var amount: Float? = null
 
     @SerializedName("idPaymentMethod")
     var idPaymentMethod: Int? = null
@@ -42,10 +47,11 @@ class BillHistory : Serializable {
         idUser: Int?,
         name: String?,
         phoneNumber: String?,
-        balance: Int?,
+        balance: Float?,
         idBill: Int?,
         telephoneNumber: String?,
-        amount: Int?,
+        status: String?,
+        amount: Float?,
         idPaymentMethod: Int?,
         method: String?,
         timestamp: String?
@@ -57,6 +63,7 @@ class BillHistory : Serializable {
         this.balance = balance
         this.idBill = idBill
         this.telephoneNumber = telephoneNumber
+        this.status = status
         this.amount = amount
         this.idPaymentMethod = idPaymentMethod
         this.method = method

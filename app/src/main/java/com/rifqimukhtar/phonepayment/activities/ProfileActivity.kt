@@ -45,15 +45,16 @@ class ProfileActivity : AppCompatActivity() {
             startActivity(Intent(this, MainMenuActivity::class.java))
         }
         btnLogout.setOnClickListener {
-            val putUser = Logout(1)
+            val logout = Logout(1)
             val apiCall = ApiClient.getClient()?.create(ApiInteface::class.java)
-            apiCall?.putLogout(putUser)?.enqueue(object : Callback<LogoutResponse>{
+            apiCall?.postLogout(logout)?.enqueue(object : Callback<LogoutResponse>{
                 override fun onResponse(call: Call<LogoutResponse>, response: Response<LogoutResponse>) {
                     if (response.isSuccessful){
                         val preference = getSharedPreferences("Pref_Profile", 0)
                         val editor = preference.edit()
                         editor.putBoolean("PREF_ISLOGIN", false)
                         editor.apply()
+                        Log.d("logout", response.body().toString())
                         startActivity(Intent(this@ProfileActivity, LoginActivity::class.java))
                     } else {
                         Toast.makeText(applicationContext, "Can't logout right now", Toast.LENGTH_SHORT).show()

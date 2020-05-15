@@ -17,16 +17,16 @@ interface ApiInteface {
     @POST("user/getProfile")
     fun getUser(@Body idUser:SendUser): Call<BaseResponse<User>>?
 
-    @POST("payment/detail")
-    fun getHistory(@Body userHistory: SendUser): Call<List<BillHistory>>
+    @POST("payment/history")
+    fun getHistory(@Body userHistory: SendUser): Call<BaseResponse<List<BillHistory>>>
 
     @POST("user/logout")
-    fun putLogout(@Body logout: Logout): Call<LogoutResponse>
+    fun postLogout(@Body logout: Logout): Call<LogoutResponse>
 
 //    @POST
 //    fun payTelephoneBill(@Body phoneBill: SendPhoneBill): Call<>
     @POST("user")
-    fun postRegister(@Body createAccount: CreateAccount): Call<BaseCreateAccResponse<CreateAccountResponse>>
+    fun postRegister(@Body createAccount: CreateAccount): Call<BaseResponse<CreateAccountResponse>>
 
     @POST("bill/telephone/unpaid")
     fun getPaymentDetail(@Body sendPhone: SendPhone): Call<BaseResponse<PhoneBill>>?
@@ -34,4 +34,6 @@ interface ApiInteface {
     @POST("payment")
     fun sendRequestPayment(@Body sendRequestPayment: SendRequestPayment): Call<BaseResponse<Any>>?
 
+    @POST("payment/verify")
+    fun verifyRequest(@Body sendRequestPayment: SendRequestPayment): Call<BaseResponse<Any>>?
 }

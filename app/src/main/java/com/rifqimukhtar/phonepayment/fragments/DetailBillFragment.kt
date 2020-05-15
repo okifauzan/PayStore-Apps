@@ -6,16 +6,24 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.Observer
 import com.rifqimukhtar.phonepayment.R
+import com.rifqimukhtar.phonepayment.activities.PaymentVerification
 import com.rifqimukhtar.phonepayment.activities.TelkomPaymentActivity
 import com.rifqimukhtar.phonepayment.db.entity.*
 import com.rifqimukhtar.phonepayment.viewmodel.BillViewModel
 import com.rifqimukhtar.phonepayment.viewmodel.UserViewModel
 import kotlinx.android.synthetic.main.fragment_detail_bill.*
 import org.koin.android.ext.android.inject
+import com.rifqimukhtar.phonepayment.rest.ApiClient
+import com.rifqimukhtar.phonepayment.rest.ApiInteface
+import kotlinx.android.synthetic.main.fragment_detail_bill.*
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class DetailBillFragment : Fragment() {
     private val billViewModel: BillViewModel by inject()
@@ -52,7 +60,7 @@ class DetailBillFragment : Fragment() {
         btnBayarTagihan.setOnClickListener {
             // TODO("call bayar tagihan api") done!!!! kurang dicek bug
             sendPaymentRequest()
-            showSuccessDialog()
+            otpPayment()
         }
         ibBackFromDetail.setOnClickListener {
             (activity as TelkomPaymentActivity).showInsertNumberFragment()
@@ -101,20 +109,42 @@ class DetailBillFragment : Fragment() {
         dialogFragment.show(ft!!, "dialog")
     }
     private fun showSuccessDialog() {
-        (activity as TelkomPaymentActivity).showInsertNumberFragment()
+
+        /*(activity as TelkomPaymentActivity).showInsertNumberFragment()
         val dialogFragment = PaymentResultFragment()
         var ft: FragmentTransaction = activity!!.supportFragmentManager.beginTransaction()
         ft?.addToBackStack(null)
-        dialogFragment.show(ft!!, "dialog")
+        dialogFragment.show(ft!!, "dialog")*/
     }
 
-    fun sendBundle()
-    {
-        val bundle = Bundle()
-        bundle.putSerializable("sendRequestPayment", sendRequesPayment)
+    private fun otpPayment() {
+        val preference = activity!!.getSharedPreferences("Pref_Profile2", 0)
+        val emailOTP = preference.getString("PREF_EMAIL", "")
+        val sendOtpModel = SendOTP("+6287883445469", "akunsampahriftar@gmail.com")
+        val sendOtpCall = ApiClient.getClient()?.create(ApiInteface::class.java)?.postOTP(sendOtpModel)
+        sendOtpCall?.enqueue(object : Callback<SendOTPResponse> {
+            override fun onResponse(call: Call<SendOTPResponse>, response: Response<SendOTPResponse>) {
+                if(response.isSuccessful){
+                    Log.d("State", "Sending OTP payment")
+                    val otp = response.body()!!.otp
+                    Log.d("otp", otp.toString())
+                    val bundle = Bundle()
+                    bundle.putString("otp", otp.toString())
+                    bundle.putSerializable("sendRequestPayment", sendRequesPayment)
+                    val intent = Intent(activity, PaymentVerification::class.java)
+                    intent.putExtras(bundle)
+                    startActivity(intent)
+                } else {
+                    Toast.makeText(context, "OTP not available now", Toast.LENGTH_SHORT).show()
+                    Log.d("otp", "gagal")
+                }
+            }
 
-        val intent = Intent(activity, PaymentVerification::class.java)
-        intent.putExtras(bundle)
-        startActivity(intent)
+            override fun onFailure(call: Call<SendOTPResponse>, t: Throwable) {
+                Toast.makeText(context, "Failed to send OTP", Toast.LENGTH_SHORT).show()
+                Log.d("Failed", t.message)
+            }
+        })
     }
+
 }

@@ -69,7 +69,9 @@ class MainMenuActivity : AppCompatActivity() {
 //    }
 
     fun getUser2(){
-        val sendUser = SendUser(1)
+        val preference = getSharedPreferences("Pref_Profile", 0)
+        val userId = preference.getInt("PREF_USERID", 0)
+        val sendUser = SendUser(userId)
 
         userViewModel.getUser(sendUser).observe(this, Observer<User> {
             user = it
@@ -93,6 +95,12 @@ class MainMenuActivity : AppCompatActivity() {
     private fun setUserDetail(user: User) {
         tvWelcomeUser.text = "Weclome, ${user.name}"
         tvUserBalance.text = "Rp ${user.balance}"
+
+        val preference = getSharedPreferences("Pref_Profile2", 0)
+        val emailUser = user.email
+        val editor = preference.edit()
+        editor.putString("PREF_EMAIL", emailUser)
+        editor.apply()
     }
 
     private fun buttonGroup() {
