@@ -20,7 +20,7 @@ interface ApiInteface {
     @POST("payment/detail")
     fun getHistory(@Body userHistory: SendUser): Call<List<BillHistory>>
 
-    @PUT("user/logout")
+    @POST("user/logout")
     fun putLogout(@Body logout: Logout): Call<LogoutResponse>
 
 //    @POST
