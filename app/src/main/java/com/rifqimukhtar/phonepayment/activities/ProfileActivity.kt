@@ -45,7 +45,7 @@ class ProfileActivity : AppCompatActivity() {
             startActivity(Intent(this, MainMenuActivity::class.java))
         }
         btnLogout.setOnClickListener {
-            /*val putUser = Logout("+6282112345678")
+            val putUser = Logout(1)
             val apiCall = ApiClient.getClient()?.create(ApiInteface::class.java)
             apiCall?.putLogout(putUser)?.enqueue(object : Callback<LogoutResponse>{
                 override fun onResponse(call: Call<LogoutResponse>, response: Response<LogoutResponse>) {
@@ -63,7 +63,7 @@ class ProfileActivity : AppCompatActivity() {
                 override fun onFailure(call: Call<LogoutResponse>, t: Throwable) {
                     Toast.makeText(applicationContext, "Server not responding", Toast.LENGTH_SHORT).show()
                 }
-            })*/
+            })
             val preference = getSharedPreferences("Pref_Profile", 0)
             val editor = preference.edit()
             editor.putBoolean("PREF_ISLOGIN", false)
