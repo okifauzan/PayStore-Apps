@@ -31,4 +31,7 @@ interface ApiInteface {
     @POST("payment/detail")
     fun getPaymentDetail(@Body idUser:SendUser): Call<ArrayList<PhoneBill>>?
 
+    @POST("payment")
+    fun sendRequestPayment(@Body sendRequestPayment: SendRequestPayment): Call<BaseResponse<Any>>?
+
 }

@@ -3,18 +3,18 @@ package com.rifqimukhtar.phonepayment.db.entity
 import com.google.gson.annotations.SerializedName
 
 class SendRequestPayment {
-    @SerializedName("idUser")
-    var idUser: String?
-
     @SerializedName("idBill")
-    var idBill: Int?
+    var idBill: Int? = null
+
+    @SerializedName("idUser")
+    var idUser: Int? = null
 
     @SerializedName("idPaymentMethod")
-    var idPaymentMethod: String?
+    var idPaymentMethod: Int? = null
 
-    constructor(idUser: String?, idBill: Int?, idPaymentMethod: String?) {
-        this.idUser = idUser
+    constructor(idBill: Int?, idUser: Int?, idPaymentMethod: Int?) {
         this.idBill = idBill
+        this.idUser = idUser
         this.idPaymentMethod = idPaymentMethod
     }
 }
