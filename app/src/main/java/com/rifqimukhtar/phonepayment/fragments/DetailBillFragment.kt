@@ -74,7 +74,7 @@ class DetailBillFragment : Fragment() {
         val adminFee = 0
         val total = phoneBill.amount?.plus(adminFee)
 
-        tvNama.text = phoneBill.name
+        tvNama.text = phoneBill.telephoneOwner
         tvNominal.text = phoneBill.amount.toString()
         tvAdmin.text = adminFee.toString()
         tvTotal.text = total.toString()

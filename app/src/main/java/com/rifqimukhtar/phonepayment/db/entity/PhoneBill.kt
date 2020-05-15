@@ -1,84 +1,43 @@
 package com.rifqimukhtar.phonepayment.db.entity
 
+import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 import java.io.Serializable
 
+
 class PhoneBill : Serializable {
-
-    @SerializedName("idPayment")
-    var idPayment: Int? = null
-
-    @SerializedName("idUser")
-    var idUser: Int? = null
-
-    @SerializedName("name")
-    var name: String? = null
-
-    @SerializedName("phoneNumber")
-    var phoneNumber: String? = null
-
-    @SerializedName("balance")
-    var balance: Int? = null
 
     @SerializedName("idBill")
     var idBill: Int? = null
 
+    @SerializedName("telephoneOwner")
+    var telephoneOwner: String? = null
+
     @SerializedName("telephoneNumber")
     var telephoneNumber: String? = null
 
+    @SerializedName("month")
+    var month: String? = null
+
     @SerializedName("amount")
-    var amount: Int? = null
+    var amount: Float? = null
 
-    @SerializedName("idPaymentMethod")
-    var idPaymentMethod: Int? = null
-
-    @SerializedName("method")
-    var method: String? = null
-
-    @SerializedName("timestamp")
-    var timestamp: String? = null
+    @SerializedName("status")
+    var status: String? = null
 
     constructor(
-        idPayment: Int?,
-        idUser: Int?,
-        name: String?,
-        phoneNumber: String?,
-        balance: Int?,
         idBill: Int?,
+        telephoneOwner: String?,
         telephoneNumber: String?,
-        amount: Int?,
-        idPaymentMethod: Int?,
-        method: String?,
-        timestamp: String?
+        month: String?,
+        amount: Float?,
+        status: String?
     ) {
-        this.idPayment = idPayment
-        this.idUser = idUser
-        this.name = name
-        this.phoneNumber = phoneNumber
-        this.balance = balance
         this.idBill = idBill
+        this.telephoneOwner = telephoneOwner
         this.telephoneNumber = telephoneNumber
+        this.month = month
         this.amount = amount
-        this.idPaymentMethod = idPaymentMethod
-        this.method = method
-        this.timestamp = timestamp
+        this.status = status
     }
-//    @SerializedName("status")
-//    var status: Int? = null
-//
-//    @SerializedName("telephoneNumber")
-//    var telephoneNumber: String? = null
-//
-//    @SerializedName("telephoneOwner")
-//    var telephoneOwner: String? = null
-//
-//    @SerializedName("amount")
-//    var amount: Int? = null
-//
-//    constructor(status: Int?, telephoneNumber: String?, telephoneOwner: String?, amount: Int?) {
-//        this.status = status
-//        this.telephoneNumber = telephoneNumber
-//        this.telephoneOwner = telephoneOwner
-//        this.amount = amount
-//    }
 }
