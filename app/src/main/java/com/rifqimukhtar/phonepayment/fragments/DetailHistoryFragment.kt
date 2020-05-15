@@ -47,7 +47,7 @@ class DetailHistoryFragment : Fragment() {
     fun updateSelectedMethod(history: BillHistory?) {
         if (history != null) {
             val method: PaymentMethod
-            if(history.paymentType == 1)
+            if(history.idPaymentMethod == 1)
             {
 
                 method = PaymentMethod(R.drawable.ic_wallet, "PayStore Wallet", history.amount.toString(), true)

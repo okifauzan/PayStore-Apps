@@ -17,6 +17,12 @@ interface ApiInteface {
     @POST("user/getProfile")
     fun getUser(@Body idUser:SendUser): Call<BaseUser>?
 
+    @POST("payment/detail")
+    fun getHistory(@Body userHistory: SendUser): Call<List<BillHistory>>
+
+    @PUT("user/logout")
+    fun putLogout(@Body logout: Logout): Call<LogoutResponse>
+
 //    @POST
 //    fun payTelephoneBill(@Body phoneBill: SendPhoneBill): Call<>
     @POST("user")
