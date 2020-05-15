@@ -43,6 +43,7 @@ class DetailHistoryFragment : Fragment() {
 
         val adminFee = 0
 
+        tvSelectedStatusHistory //will be added after api have status response
         tvNamaHistory.text = history.name
         tvNominalHistory.text = history.amount.toString()
         tvAdminHistory.text = adminFee.toString()
