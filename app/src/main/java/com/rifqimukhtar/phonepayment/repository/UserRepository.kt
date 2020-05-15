@@ -16,7 +16,7 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class UserRepository (val context: Context){
-    val API_KEY = "XXXX"
+
     fun getUser(sendUser: SendUser) : MutableLiveData<User>{
         var data = MutableLiveData<User>()
         val apiCall = ApiClient.getClient()?.create(ApiInteface::class.java)

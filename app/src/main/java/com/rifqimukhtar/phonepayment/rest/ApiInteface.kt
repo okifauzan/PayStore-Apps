@@ -21,4 +21,8 @@ interface ApiInteface {
 //    fun payTelephoneBill(@Body phoneBill: SendPhoneBill): Call<>
     @POST("user")
     fun postRegister(@Body createAccount: CreateAccount): Call<BaseCreateAccResponse<CreateAccountResponse>>
+
+    @POST("payment/detail")
+    fun getPaymentDetail(@Body idUser:SendUser): Call<ArrayList<PhoneBill>>?
+
 }

@@ -7,18 +7,24 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowManager
 import android.widget.Toast
 import androidx.fragment.app.FragmentTransaction
+import androidx.lifecycle.Observer
 
 import com.rifqimukhtar.phonepayment.R
 import com.rifqimukhtar.phonepayment.activities.MainMenuActivity
 import com.rifqimukhtar.phonepayment.activities.TelkomPaymentActivity
-import com.rifqimukhtar.phonepayment.db.entity.PaymentMethod
-import com.rifqimukhtar.phonepayment.db.entity.PhoneBill
-import com.rifqimukhtar.phonepayment.db.entity.SendPhone
+import com.rifqimukhtar.phonepayment.db.entity.*
 import com.rifqimukhtar.phonepayment.rest.ApiClient
 import com.rifqimukhtar.phonepayment.rest.ApiInteface
+import com.rifqimukhtar.phonepayment.viewmodel.BillViewModel
+import com.rifqimukhtar.phonepayment.viewmodel.UserViewModel
+import kotlinx.android.synthetic.main.activity_main_menu.*
 import kotlinx.android.synthetic.main.fragment_insert_number.*
+import kotlinx.android.synthetic.main.fragment_insert_number.frameTransparent
+import kotlinx.android.synthetic.main.fragment_insert_number.loadingMainMenu
+import org.koin.android.ext.android.inject
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -28,10 +34,13 @@ import retrofit2.Response
  */
 class InsertNumberFragment : Fragment() {
 
+    private val billViewModel: BillViewModel by inject()
+    private val userViewModel: UserViewModel by inject()
     companion object val API_KEY = "xxxxxx"
     val patternHandphone = "^[0-9]{9,12}\$".toRegex()
     private var isEnoughBalance = true
     private var selectedMethod:PaymentMethod? = null
+    private var currentUser:User? = null
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -42,6 +51,7 @@ class InsertNumberFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        currentUser?.balance = 0
         buttonGroup()
     }
 
@@ -50,10 +60,13 @@ class InsertNumberFragment : Fragment() {
             val inputPhoneNumber = etNomorTelepon.text.toString()
             if (inputPhoneNumber.trim().isEmpty())
             {
-                showNotFoundDialog()
+                Toast.makeText(activity, "Phone number cannot be empty!", Toast.LENGTH_SHORT).show()
             } else
             {
-                getPhoneBill(inputPhoneNumber)
+                activateLoading()
+                val dummyUserID = SendUser(1)
+                getCurrentUser(dummyUserID, inputPhoneNumber)
+
             }
         }
 
@@ -62,22 +75,39 @@ class InsertNumberFragment : Fragment() {
         }
     }
 
+    private fun getCurrentUser(userID: SendUser, inputPhoneNumber:String) {
+        userViewModel.getUser(userID).observe(activity as TelkomPaymentActivity, Observer<User> {
+            currentUser = it
+            getPhoneBill(inputPhoneNumber)
+        })
+    }
+
     private fun getPhoneBill(inputPhoneNumber: String) {
         //Dummy
-        val phoneBillDummy = PhoneBill(1,inputPhoneNumber,"Nama User",45000)
-        val phoneBillDummy2 = PhoneBill(1,inputPhoneNumber,"Nama User",175000)
+//        val phoneBillDummy = PhoneBill(1,inputPhoneNumber,"Nama User",45000)
+//        val phoneBillDummy2 = PhoneBill(1,inputPhoneNumber,"Nama User",175000)
 
-        if(inputPhoneNumber.length > 5)
-        {
-            checkWalletBalance(phoneBillDummy)
-            (activity as TelkomPaymentActivity).showDetailBillFragment(phoneBillDummy, selectedMethod!!)
-        } else
-        {
-            checkWalletBalance(phoneBillDummy2)
-            (activity as TelkomPaymentActivity).showDetailBillFragment(phoneBillDummy2, selectedMethod!!)
-        }
+//        if(inputPhoneNumber.length > 5)
+//        {
+//            checkWalletBalance(phoneBillDummy)
+//            (activity as TelkomPaymentActivity).showDetailBillFragment(phoneBillDummy, selectedMethod!!)
+//        } else
+//        {
+//            checkWalletBalance(phoneBillDummy2)
+//            (activity as TelkomPaymentActivity).showDetailBillFragment(phoneBillDummy2, selectedMethod!!)
+//        }
 
 //        //TODO("request API get user balance & get phone bill")
+        val dummyPhoneID = SendUser(1)
+        billViewModel.getPaymentDetail(dummyPhoneID).observe(activity as TelkomPaymentActivity, Observer<PhoneBill>{
+            checkWalletBalance(it)
+            if(selectedMethod!=null){
+                (activity as TelkomPaymentActivity).showDetailBillFragment(it, selectedMethod!!)
+                deactivateLoading()
+            }
+        })
+
+
 //        val phoneNumber = SendPhone(inputPhoneNumber)
 //        val apiCall = ApiClient.getClient(API_KEY, context!!)?.create(ApiInteface::class.java)?.getTelephoneBill(phoneNumber)
 //        apiCall?.enqueue(object : Callback<PhoneBill> {
@@ -100,13 +130,14 @@ class InsertNumberFragment : Fragment() {
 
     private fun checkWalletBalance(phoneBill: PhoneBill) {
         //TODO("get real balance value from user")
-        val balance = 50000
+        //val balance = 50000
+        val balance = currentUser?.balance!!
 
         if (balance <= phoneBill.amount!!)
         {
             //Not enough balance, use Virtual Acc
             //TODO("add real user virtual number")
-            val virtualNumber = "${phoneBill.telephoneNumber}0123456"
+            val virtualNumber = "${phoneBill.telephoneNumber}"
             val virtualAcc = PaymentMethod(R.drawable.ic_virtual_acc, "Virtual Account",virtualNumber, false)
             setActivitySelectedMethod(virtualAcc)
 
@@ -135,5 +166,17 @@ class InsertNumberFragment : Fragment() {
         ft?.addToBackStack(null)
         dialogFragment.show(ft!!, "dialog")
     }
+    fun activateLoading() {
+        activity!!.getWindow().setFlags(
+            WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+            WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
+        loadingMainMenu.visibility = View.VISIBLE
+        frameTransparent.visibility = View.VISIBLE
+    }
 
+    fun deactivateLoading() {
+        activity!!.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+        loadingMainMenu.visibility = View.GONE
+        frameTransparent.visibility = View.GONE
+    }
 }
