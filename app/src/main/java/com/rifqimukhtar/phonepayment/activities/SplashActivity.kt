@@ -17,12 +17,12 @@ class SplashActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
-        startKoin(this,
-            listOf(
-                repositoryModule,
-                uiModule
-            )
-        )
+//        startKoin(this,
+//            listOf(
+//                repositoryModule,
+//                uiModule
+//            )
+//        )
         Handler().postDelayed({
             val preference = getSharedPreferences("Pref_Profile",0)
             val isLogin = preference.getBoolean("PREF_ISLOGIN", false)

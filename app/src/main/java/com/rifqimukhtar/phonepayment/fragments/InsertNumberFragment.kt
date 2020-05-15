@@ -78,6 +78,7 @@ class InsertNumberFragment : Fragment() {
     private fun getCurrentUser(userID: SendUser, inputPhoneNumber:String) {
         userViewModel.getUser(userID).observe(activity as TelkomPaymentActivity, Observer<User> {
             currentUser = it
+            Log.d("State", "get current user ${currentUser!!.name}")
             getPhoneBill(inputPhoneNumber)
         })
     }
@@ -98,12 +99,14 @@ class InsertNumberFragment : Fragment() {
 //        }
 
 //        //TODO("request API get user balance & get phone bill")
-        val dummyPhoneID = SendUser(1)
-        billViewModel.getPaymentDetail(dummyPhoneID).observe(activity as TelkomPaymentActivity, Observer<PhoneBill>{
+        val dummyPhoneNumb = SendPhone(inputPhoneNumber)
+        billViewModel.getPaymentDetail(dummyPhoneNumb).observe(activity as TelkomPaymentActivity, Observer<PhoneBill>{
+            Log.d("State", "bill viewmodel $it")
             checkWalletBalance(it)
             if(selectedMethod!=null){
                 (activity as TelkomPaymentActivity).showDetailBillFragment(it, selectedMethod!!)
                 deactivateLoading()
+                Log.d("State", selectedMethod.toString())
             }
         })
 

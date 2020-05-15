@@ -15,7 +15,7 @@ interface ApiInteface {
     fun getTelephoneBill(@Body phone: SendPhone): Call<PhoneBill>
 
     @POST("user/getProfile")
-    fun getUser(@Body idUser:SendUser): Call<BaseUser>?
+    fun getUser(@Body idUser:SendUser): Call<BaseResponse<User>>?
 
     @POST("payment/detail")
     fun getHistory(@Body userHistory: SendUser): Call<List<BillHistory>>
@@ -28,8 +28,8 @@ interface ApiInteface {
     @POST("user")
     fun postRegister(@Body createAccount: CreateAccount): Call<BaseCreateAccResponse<CreateAccountResponse>>
 
-    @POST("payment/detail")
-    fun getPaymentDetail(@Body idUser:SendUser): Call<ArrayList<PhoneBill>>?
+    @POST("bill/telephone/unpaid")
+    fun getPaymentDetail(@Body sendPhone: SendPhone): Call<BaseResponse<PhoneBill>>?
 
     @POST("payment")
     fun sendRequestPayment(@Body sendRequestPayment: SendRequestPayment): Call<BaseResponse<Any>>?

@@ -13,8 +13,6 @@ import android.widget.Toast
 import androidx.constraintlayout.solver.GoalRow
 import androidx.lifecycle.Observer
 import com.rifqimukhtar.phonepayment.R
-import com.rifqimukhtar.phonepayment.db.di.repositoryModule
-import com.rifqimukhtar.phonepayment.db.di.uiModule
 import com.rifqimukhtar.phonepayment.db.entity.BaseUser
 import com.rifqimukhtar.phonepayment.db.entity.SendUser
 import com.rifqimukhtar.phonepayment.db.entity.User

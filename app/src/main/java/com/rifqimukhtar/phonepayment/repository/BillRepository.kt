@@ -12,22 +12,24 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class BillRepository(val context: Context) {
-    fun getPaymentDetail(sendUser: SendUser) : MutableLiveData<PhoneBill>{
+    fun getPaymentDetail(sendPhone: SendPhone) : MutableLiveData<PhoneBill>{
         var data = MutableLiveData<PhoneBill>()
         val apiCall = ApiClient.getClient()?.create(ApiInteface::class.java)
-        apiCall?.getPaymentDetail(sendUser)
-            ?.enqueue(object : Callback<ArrayList<PhoneBill>> {
-                override fun onResponse(call: Call<ArrayList<PhoneBill>>, response: Response<ArrayList<PhoneBill>>) {
+        apiCall?.getPaymentDetail(sendPhone)
+            ?.enqueue(object : Callback<BaseResponse<PhoneBill>> {
+                override fun onResponse(call: Call<BaseResponse<PhoneBill>>,
+                    response: Response<BaseResponse<PhoneBill>>
+                ) {
                     if (response.isSuccessful) {
-                        val item = response.body()!!.get(0)
-                        val bill = PhoneBill(item.idPayment, item.idUser, item.name, item.phoneNumber,
-                            item.balance, item.idBill, item.telephoneNumber, item.amount, item.idPaymentMethod,
-                            item.method, item.timestamp)
+                        val item = response.body()?.data
+                        val bill = PhoneBill(item?.idBill, item?.telephoneOwner, item?.telephoneNumber, item?.month,
+                            item?.amount, item?.status)
                         data.value = bill
                         Log.d("State", item.toString())
                     }
                 }
-                override fun onFailure(call: Call<ArrayList<PhoneBill>>, t: Throwable) {
+
+                override fun onFailure(call: Call<BaseResponse<PhoneBill>>, t: Throwable) {
                     Toast.makeText(context, "Request Failed $t", Toast.LENGTH_SHORT).show()
                     Log.d("Failed", t.message)
                 }

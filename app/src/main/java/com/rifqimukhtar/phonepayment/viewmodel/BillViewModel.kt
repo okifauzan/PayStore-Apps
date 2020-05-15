@@ -6,8 +6,8 @@ import com.rifqimukhtar.phonepayment.db.entity.*
 import com.rifqimukhtar.phonepayment.repository.BillRepository
 
 class BillViewModel(private var billRepository: BillRepository): ViewModel() {
-    fun getPaymentDetail(sendUser: SendUser): LiveData<PhoneBill> {
-        return billRepository.getPaymentDetail(sendUser)
+    fun getPaymentDetail(sendPhone: SendPhone): LiveData<PhoneBill> {
+        return billRepository.getPaymentDetail(sendPhone)
     }
     fun sendPaymentRequest(sendRequestPayment: SendRequestPayment): LiveData<BaseResponse<Any>> {
         return billRepository.sendPaymentRequest(sendRequestPayment)
