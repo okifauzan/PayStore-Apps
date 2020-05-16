@@ -6,11 +6,13 @@ import android.os.Bundle
 import android.os.CountDownTimer
 import android.util.Log
 import android.widget.Toast
+import androidx.fragment.app.FragmentTransaction
 import com.rifqimukhtar.phonepayment.R
 import com.rifqimukhtar.phonepayment.db.entity.BaseResponse
 import com.rifqimukhtar.phonepayment.db.entity.SendOTP
 import com.rifqimukhtar.phonepayment.db.entity.SendOTPResponse
 import com.rifqimukhtar.phonepayment.db.entity.SendRequestPayment
+import com.rifqimukhtar.phonepayment.fragments.PaymentResultFragment
 import com.rifqimukhtar.phonepayment.rest.ApiClient
 import com.rifqimukhtar.phonepayment.rest.ApiInteface
 import kotlinx.android.synthetic.main.activity_payment_verification.*
@@ -78,6 +80,13 @@ class PaymentVerification : AppCompatActivity() {
             })
         }
 
+        fun showSuccessDialog() {
+            val dialogFragment = PaymentResultFragment()
+            var ft: FragmentTransaction = supportFragmentManager.beginTransaction()
+            ft?.addToBackStack(null)
+            dialogFragment.show(ft!!, "dialog")
+        }
+
         btnPayConfirmOTP.setOnClickListener {
             if (!timerAvailable){
                 Toast.makeText(applicationContext, "OTP Code Expired", Toast.LENGTH_LONG).show()
@@ -94,7 +103,8 @@ class PaymentVerification : AppCompatActivity() {
                             override fun onResponse(call: Call<BaseResponse<Any>>, response: Response<BaseResponse<Any>>) {
                                 if(response.isSuccessful){
                                     Toast.makeText(applicationContext, "Bayar Sukses", Toast.LENGTH_LONG).show()
-                                    finish()
+
+                                    showSuccessDialog()
                                 } else {
                                     Toast.makeText(applicationContext, "Pembayaran Gagal", Toast.LENGTH_LONG).show()
                                 }

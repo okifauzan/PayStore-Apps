@@ -110,14 +110,6 @@ class DetailBillFragment : Fragment() {
         ft?.addToBackStack(null)
         dialogFragment.show(ft!!, "dialog")
     }
-    private fun showSuccessDialog() {
-
-        /*(activity as TelkomPaymentActivity).showInsertNumberFragment()
-        val dialogFragment = PaymentResultFragment()
-        var ft: FragmentTransaction = activity!!.supportFragmentManager.beginTransaction()
-        ft?.addToBackStack(null)
-        dialogFragment.show(ft!!, "dialog")*/
-    }
 
     private fun otpPayment() {
         val preference = activity!!.getSharedPreferences("Pref_Profile2", 0)
@@ -142,6 +134,7 @@ class DetailBillFragment : Fragment() {
                     val intent = Intent(activity, PaymentVerification::class.java)
                     intent.putExtras(bundle)
                     startActivity(intent)
+                    removeFragment()
                 } else {
                     Toast.makeText(context, "OTP not available now", Toast.LENGTH_SHORT).show()
                     Log.d("otp", "gagal")
@@ -153,6 +146,10 @@ class DetailBillFragment : Fragment() {
                 Log.d("Failed", t.message)
             }
         })
+    }
+
+    private fun removeFragment() {
+        (activity as TelkomPaymentActivity).showInsertNumberFragment()
     }
 
 }

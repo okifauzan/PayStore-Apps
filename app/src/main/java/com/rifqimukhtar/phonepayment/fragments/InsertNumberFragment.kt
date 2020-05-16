@@ -88,22 +88,25 @@ class InsertNumberFragment : Fragment() {
 
 //        //TODO("request API get user balance & get phone bill")
         val dummyPhoneNumb = SendPhone(inputPhoneNumber)
-        billViewModel.getPaymentDetail(dummyPhoneNumb).observe(activity as TelkomPaymentActivity, Observer<PhoneBill>{
-           // if (it.status!! in 200..299)
-          //  {
+        billViewModel.getPaymentDetail(dummyPhoneNumb).observe(activity as TelkomPaymentActivity, Observer<BaseResponse<PhoneBill>>{
+            if (it.status!! in 200..299)
+            {
                // Toast.makeText(activity, "Cant found unpaid bill ${it.message}", Toast.LENGTH_SHORT).show()
+                val item = it.data
+                val bill = PhoneBill(item?.idBill, item?.telephoneOwner, item?.telephoneNumber, item?.month,
+                    item?.amount, item?.status)
                 Log.d("State", "bill viewmodel ${it.status}")
-                checkWalletBalance(it)
+                checkWalletBalance(bill)
                 if(selectedMethod!=null){
-                    (activity as TelkomPaymentActivity).showDetailBillFragment(it, selectedMethod!!)
+                    (activity as TelkomPaymentActivity).showDetailBillFragment(bill, selectedMethod!!)
                     deactivateLoading()
                     Log.d("State", selectedMethod.toString())
                 }
-//            } else{
-//                showNotFoundDialog()
-//                Toast.makeText(activity, "Cant found unpaid bill", Toast.LENGTH_SHORT).show()
-//                deactivateLoading()
-//            }
+            } else{
+                showNotFoundDialog()
+                Toast.makeText(activity, "Cant found unpaid bill", Toast.LENGTH_SHORT).show()
+                deactivateLoading()
+            }
         })
     }
 

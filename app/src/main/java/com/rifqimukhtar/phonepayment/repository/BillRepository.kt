@@ -13,17 +13,17 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class BillRepository(val context: Context) {
-    fun getPaymentDetail(sendPhone: SendPhone) : MutableLiveData<PhoneBill>{
-        var data = MutableLiveData<PhoneBill>()
+    fun getPaymentDetail(sendPhone: SendPhone) : MutableLiveData<BaseResponse<PhoneBill>>{
+        var data = MutableLiveData<BaseResponse<PhoneBill>>()
         val apiCall = ApiClient.getClient()?.create(ApiInteface::class.java)
         apiCall?.getPaymentDetail(sendPhone)
             ?.enqueue(object : Callback<BaseResponse<PhoneBill>> {
                 override fun onResponse(call: Call<BaseResponse<PhoneBill>>,
                     response: Response<BaseResponse<PhoneBill>>
                 ) {
-                    val item = response.body()!!.data
+                    val item = response.body()!!
                     data.value = item
-                    Log.d("State", "Success get payment")
+                    Log.d("State", "Success get payment ${response.body()!!.status}")
                 }
                 override fun onFailure(call: Call<BaseResponse<PhoneBill>>, t: Throwable) {
                     Toast.makeText(context, "Request Failed $t", Toast.LENGTH_SHORT).show()

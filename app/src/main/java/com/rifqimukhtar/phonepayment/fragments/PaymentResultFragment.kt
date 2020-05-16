@@ -41,6 +41,7 @@ class PaymentResultFragment : DialogFragment(){
 
     override fun onDestroy() {
         super.onDestroy()
+        getActivity()!!.finish();
     }
 
 }

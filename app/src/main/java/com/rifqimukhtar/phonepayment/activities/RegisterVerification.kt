@@ -86,33 +86,41 @@ class RegisterVerification : AppCompatActivity() {
         }
         btnRegConfirmOTP.setOnClickListener {
             var textOTP = etRegOTPNumber.text.toString()
-            if ((textOTP == getOTP) && timerAvailable){
-                Log.d("test", "$postName, $postEmail, $postPhoneNumber, $postPassword")
+            if (timerAvailable){
+                if (textOTP.trim().isEmpty()){
+                    Toast.makeText(applicationContext, "OTP cannot be empty", Toast.LENGTH_SHORT).show()
+                } else {
+                    if (textOTP == getOTP){
+                        Log.d("test", "$postName, $postEmail, $postPhoneNumber, $postPassword")
 
-                val registerModel = CreateAccount(postName, postEmail, postPassword, postPhoneNumber)
-                val registerCall = ApiClient.getClient()?.create(ApiInteface::class.java)?.postRegister(registerModel)
+                        val registerModel = CreateAccount(postName, postEmail, postPassword, postPhoneNumber)
+                        val registerCall = ApiClient.getClient()?.create(ApiInteface::class.java)?.postRegister(registerModel)
 
-                registerCall?.enqueue(object : Callback<BaseResponse<CreateAccountResponse>>{
-                    override fun onResponse(call: Call<BaseResponse<CreateAccountResponse>>,
-                                            response: Response<BaseResponse<CreateAccountResponse>>) {
-                        if (response.isSuccessful){
-                            val message = response.body()!!.status
-                            Log.d("test", "$postName, $postEmail, $postPhoneNumber, $postPassword, = $message")
-                            startActivity(Intent(this@RegisterVerification, LoginActivity::class.java))
-                        } else {
-                            Toast.makeText(applicationContext, "Can't Register", Toast.LENGTH_SHORT).show()
-                            Log.d("Response", response.toString())
-                        }
+                        registerCall?.enqueue(object : Callback<BaseResponse<CreateAccountResponse>>{
+                            override fun onResponse(call: Call<BaseResponse<CreateAccountResponse>>,
+                                                    response: Response<BaseResponse<CreateAccountResponse>>) {
+                                if (response.isSuccessful){
+                                    val message = response.body()!!.status
+                                    Log.d("test", "$postName, $postEmail, $postPhoneNumber, $postPassword, = $message")
+                                    startActivity(Intent(this@RegisterVerification, LoginActivity::class.java))
+                                } else {
+                                    Toast.makeText(applicationContext, "Can't Register", Toast.LENGTH_SHORT).show()
+                                    Log.d("Response", response.toString())
+                                }
+                            }
+
+                            override fun onFailure(call: Call<BaseResponse<CreateAccountResponse>>, t: Throwable) {
+                                Toast.makeText(applicationContext, "Can't Response", Toast.LENGTH_SHORT).show()
+                                Log.d("Failure", t.message)
+                            }
+                        })
+
+                    } else {
+                        Log.d("test", "Invalid OTP")
                     }
-
-                    override fun onFailure(call: Call<BaseResponse<CreateAccountResponse>>, t: Throwable) {
-                        Toast.makeText(applicationContext, "Can't Response", Toast.LENGTH_SHORT).show()
-                        Log.d("Failure", t.message)
-                    }
-                })
-
-            } else {
-                Log.d("test", "Wrong OTP Number")
+                }
+            } else{
+                Toast.makeText(applicationContext, "OTP Code Expired", Toast.LENGTH_SHORT).show()
             }
         }
     }

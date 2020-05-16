@@ -59,7 +59,7 @@ class PaymentMethodFragment : DialogFragment() {
 
     private fun generatePaymentMethod() {
         val eWallet = PaymentMethod(R.drawable.ic_wallet, "PayStore Wallet", balance_amount, isEnoughBalance ,1)
-        val virtualAcc = PaymentMethod(R.drawable.ic_virtual_acc, "Virtual Account", "088888888888888", true,2)
+        val virtualAcc = PaymentMethod(R.drawable.ic_virtual_acc, "Virtual Account", balance_amount, true,2)
         listPaymentMethod.add(eWallet)
         listPaymentMethod.add(virtualAcc)
     }
