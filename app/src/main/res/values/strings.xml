@@ -18,10 +18,10 @@
     <string name="verification_hint">OTP Number</string>
     <string name="btn_verif_confirm">Confirm</string>
     <string name="error_reg_name">Must contain 3-20 character (Alphabet Only)</string>
-    <string name="error_reg_email">Wrong email format (ex: user@gmail.com / user@paystore.co.id)</string>
+    <string name="error_reg_email">Wrong email format</string>
     <string name="error_reg_handphone">Must use unregistered phone number (9-12 digit)</string>
-    <string name="error_reg_password">Must contain at least one digit number, upper and lower case, special character (@#$%!.,_?&amp;, no white space, and 8-20 characters)</string>
-    <string name="error_reg_verPassword">Password didnt matches</string>
+    <string name="error_reg_password">Minimum length is 8 characters with Uppercase and special character</string>
+    <string name="error_reg_verPassword">Password did not matches</string>
 
     <string name="paystore_balance">PayStore Balance</string>
     <string name="balance_nominal">Rp 50.000</string>

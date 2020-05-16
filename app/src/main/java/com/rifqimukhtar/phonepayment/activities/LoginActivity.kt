@@ -48,7 +48,7 @@ class LoginActivity : AppCompatActivity() {
                             Log.d("Login", "Success")
                             startActivity(Intent(this@LoginActivity, MainMenuActivity::class.java))
                         } else {
-                            Toast.makeText(applicationContext, "Wrong Phone/Password", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(applicationContext, "Incorrect Phone Number or Password", Toast.LENGTH_SHORT).show()
                             Log.d("Response", response.toString())
                         }
                     }

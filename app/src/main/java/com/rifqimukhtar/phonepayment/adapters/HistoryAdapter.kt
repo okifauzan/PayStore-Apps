@@ -4,7 +4,6 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.rifqimukhtar.phonepayment.R
@@ -44,7 +43,7 @@ class HistoryAdapter : RecyclerView.Adapter<HistoryAdapter.HistoryHolder>() {
         }
     }
 
-    fun setItem(listItem: ArrayList<BillHistory>?){
+    fun setItem(listItem: MutableList<BillHistory>){
         if (listItem != null) {
             Log.d("State", "Set Item")
             this.listItem = listItem

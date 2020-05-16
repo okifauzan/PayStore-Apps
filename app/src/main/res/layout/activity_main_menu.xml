@@ -6,7 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".activities.MainMenuActivity">
 
-
     <ImageView
         android:id="@+id/ivCircleTop"
         android:layout_width="wrap_content"

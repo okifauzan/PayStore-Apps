@@ -13,11 +13,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.rifqimukhtar.phonepayment.R
 import com.rifqimukhtar.phonepayment.activities.HistoryActivity
 import com.rifqimukhtar.phonepayment.activities.MainMenuActivity
-import com.rifqimukhtar.phonepayment.activities.TelkomPaymentActivity
 import com.rifqimukhtar.phonepayment.adapters.HistoryAdapter
 import com.rifqimukhtar.phonepayment.db.entity.BaseResponse
 import com.rifqimukhtar.phonepayment.db.entity.BillHistory
-import com.rifqimukhtar.phonepayment.db.entity.PaymentMethod
 import com.rifqimukhtar.phonepayment.db.entity.SendUser
 import com.rifqimukhtar.phonepayment.rest.ApiClient
 import com.rifqimukhtar.phonepayment.rest.ApiInteface
@@ -25,7 +23,6 @@ import kotlinx.android.synthetic.main.fragment_list_history.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import java.util.*
 import kotlin.collections.ArrayList
 
 /**
@@ -86,18 +83,18 @@ class ListHistoryFragment : Fragment() {
             }
         })
 
-        /*for (i in 0..15)
-        {
-            val bill = BillHistory(1, 1, "Aldie", "811234567", 200000,
-                1, "0227254321", 50000, 1, "bank",
-                "2020-05-14 14:40:33" )
-            listBillHistory.add(bill)
-        }*/
+//        for (i in 0..15)
+//        {
+//            val bill = BillHistory(1, 1, "Aldie", "811234567", 200000,
+//                1, "0227254321", "nyicil", 1,2, "bank",
+//                "2020-05-14 14:40:33" )
+//            listBillHistory.add(bill)
+//        }
     }
 
     private fun setupRecyclerView() {
 
-        adapter.setItem(listBillHistory)
+        adapter.setItem(listBillHistory.asReversed())
         adapter.setOnItemClickCallback(object : HistoryAdapter.OnItemClickCallback{
             override fun onItemClicked(data: BillHistory) {
                 selectBill(data)
