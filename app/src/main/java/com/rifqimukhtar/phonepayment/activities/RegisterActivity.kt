@@ -1,9 +1,13 @@
 package com.rifqimukhtar.phonepayment.activities
 
 import android.content.Intent
+import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
+import android.view.View
 import android.widget.Toast
 import com.rifqimukhtar.phonepayment.R
 import com.rifqimukhtar.phonepayment.db.entity.CreateAccount
@@ -31,27 +35,45 @@ class RegisterActivity : AppCompatActivity() {
 
     fun onClickGroup(){
         btnRegister.setOnClickListener {
+            var isCorrect: Boolean = true
+            tvErrorRegistNama.visibility = View.GONE
+            tvErrorRegistEmail.visibility = View.GONE
+            tvErrorRegistHandphone.visibility = View.GONE
+            tvErrorRegistPassword.visibility = View.GONE
+            tvErrorRepeatPassword.visibility = View.GONE
+
             var textName = etRegistNama.text.toString()
             var textEmail = etRegistEmail.text.toString()
             var textHandphone = etRegistHandphone.text.toString()
             var textPassword = etRegistPassword.text.toString()
             var textRepeatPassword = etRegistRepeatPassword.text.toString()
+
             if (!(patternName.matches(textName))){
-                Toast.makeText(applicationContext, "Wrong Name Format (must be 3-20 character)", Toast.LENGTH_SHORT).show()
+                tvErrorRegistNama.visibility = View.VISIBLE
+                isCorrect = false
                 Log.d("test", "Wrong Name Format")
-            } else if (!(patternEmail.matches(textEmail))){
-                Toast.makeText(applicationContext, "Wrong Email Format (ex: test@gmail.com / test@pay.co.id", Toast.LENGTH_SHORT).show()
+            }
+            if (!(patternEmail.matches(textEmail))){
+                tvErrorRegistEmail.visibility = View.VISIBLE
+                isCorrect = false
                 Log.d("test", "Wrong Email Format")
-            } else if (!(patternHandphone.matches(textHandphone))){
-                Toast.makeText(applicationContext, "Wrong Handphone Number Format (must be 9-13 number)", Toast.LENGTH_SHORT).show()
+            }
+            if (!(patternHandphone.matches(textHandphone))){
+                tvErrorRegistHandphone.visibility = View.VISIBLE
+                isCorrect = false
                 Log.d("test", "Wrong Number Format")
-            } else if (!(patternPassword.matches(textPassword))){
-                Toast.makeText(applicationContext, "Wrong Password Format (8-20 character, contain 1 lowercase, 1 uppercase, 1 number, and 1 of @#$%!_?&)", Toast.LENGTH_SHORT).show()
+            }
+            if (!(patternPassword.matches(textPassword))){
+                tvErrorRegistPassword.visibility = View.VISIBLE
+                isCorrect = false
                 Log.d("test", "Wrong Password Format")
-            } else if (!(textRepeatPassword.equals(textPassword))){
-                Toast.makeText(applicationContext, "Password didn't matches", Toast.LENGTH_SHORT).show()
+            }
+            if (!(textRepeatPassword.equals(textPassword))){
+                tvErrorRepeatPassword.visibility = View.VISIBLE
+                isCorrect = false
                 Log.d("test", "Password didn't matches")
-            } else {
+            }
+            if (isCorrect){
                 val sendOtpModel = SendOTP("+6287883445469", textEmail)
                 val sendOtpCall = ApiClient.getClient()?.create(ApiInteface::class.java)?.postOTP(sendOtpModel)
                 sendOtpCall?.enqueue(object : Callback<SendOTPResponse>{
@@ -79,6 +101,8 @@ class RegisterActivity : AppCompatActivity() {
                         Log.d("Failed", t.message)
                     }
                 })
+            } else {
+                Toast.makeText(applicationContext, "Please Enter Valid Information", Toast.LENGTH_LONG).show()
             }
         }
 
