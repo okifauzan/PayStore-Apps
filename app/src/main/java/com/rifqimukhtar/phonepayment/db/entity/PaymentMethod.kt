@@ -14,10 +14,10 @@ public class PaymentMethod : Serializable{
     @SerializedName("methodValue")
     var methodValue: String? = null
 
-    @SerializedName("methodValue")
+    @SerializedName("isEnoughBalance")
     var isEnoughBalance: Boolean? = null
 
-    @SerializedName("methodValue")
+    @SerializedName("idPaymentMethod")
     var idPaymentMethod: Int? = null
 
     constructor(image: Int?, methodName: String?, methodValue: String?, isEnoughBalance: Boolean?, idPaymentMethod: Int?) {

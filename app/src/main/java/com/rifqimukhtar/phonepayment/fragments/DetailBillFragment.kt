@@ -60,36 +60,23 @@ class DetailBillFragment : Fragment() {
         btnBayarTagihan.setOnClickListener {
             // TODO("call bayar tagihan api") done!!!! kurang dicek bug
             sendPaymentRequest()
-            otpPayment()
         }
         ibBackFromDetail.setOnClickListener {
             (activity as TelkomPaymentActivity).showInsertNumberFragment()
         }
     }
 
-    private fun sendPaymentRequest() {
-        val preference = activity!!.getSharedPreferences("Pref_Profile", 0)
-        val userId = preference.getInt("PREF_USERID", 0)
-        sendRequesPayment = SendRequestPayment(currentBill?.idBill,userId,method?.idPaymentMethod)
-        billViewModel.sendPaymentRequest(sendRequesPayment!!).observe(activity as TelkomPaymentActivity, Observer<String> {
-             Toast.makeText(activity, it, Toast.LENGTH_SHORT).show()
-            Log.d("State", "send request payment $it")
-        })
-    }
-
-
-    fun updateSelectedMethod(method: PaymentMethod?) {
-        if (method != null) {
-            ivSelectedMethod.setImageResource(method.image!!)
-            tvSelectedTitleMethod.text = method.methodName
-            //TODO("add real user balance")
-            tvSelectedValueMethod.text = method.methodValue
-            isEnoughBalance = method.isEnoughBalance
+    fun updateSelectedMethod(paymentMethod: PaymentMethod?) {
+        if (paymentMethod != null) {
+            method = paymentMethod
+            ivSelectedMethod.setImageResource(method?.image!!)
+            tvSelectedTitleMethod.text = method?.methodName
+            tvSelectedValueMethod.text = method?.methodValue
+            isEnoughBalance = method?.isEnoughBalance
         }
     }
 
     private fun setBillDetail(phoneBill: PhoneBill) {
-
         val adminFee = 0
         val total = phoneBill.amount?.plus(adminFee)
 
@@ -99,9 +86,27 @@ class DetailBillFragment : Fragment() {
         tvTotal.text = total.toString()
     }
 
+    private fun sendPaymentRequest() {
+        val preference = activity!!.getSharedPreferences("Pref_Profile", 0)
+        val userId = preference.getInt("PREF_USERID", 0)
+        Log.d("State", "send request payment ${method?.methodName}")
+        sendRequesPayment = SendRequestPayment(currentBill?.idBill,userId,method?.idPaymentMethod)
+        billViewModel.sendPaymentRequest(sendRequesPayment!!).observe(activity as TelkomPaymentActivity, Observer<String> {
+        })
+        if(method?.idPaymentMethod == 1){
+            Log.d("State", "otw otp ${method!!.idPaymentMethod} ${method!!.methodName}")
+            otpPayment()
+        } else{
+            showSuccessDialog()
+            Toast.makeText(context, "Request Success! Please finish your transaction by ATM transfer", Toast.LENGTH_LONG).show()
+            removeFragment()
+        }
+    }
+
     private fun showPaymentMethod() {
         val dialogFragment = PaymentMethodFragment()
         val bundle = Bundle()
+        method?.methodValue.let { bundle.putString("methodValue", it) }
         isEnoughBalance?.let { bundle.putBoolean("isEnoughBalance", it) }
         method!!.methodValue?.let { bundle.putString("balance_amount", it) }
         dialogFragment.arguments = bundle
@@ -126,9 +131,6 @@ class DetailBillFragment : Fragment() {
                     val bundle = Bundle()
                     bundle.putString("otp", otp.toString())
                     bundle.putSerializable("sendRequestPayment", sendRequesPayment)
-                    //currentBill!!.idBill?.let { bundle.putInt("idBill", it) }
-                    //method!!.idPaymentMethod?.let { bundle.putInt("idMethod", it) }
-                   // bundle.putInt("idUser", 1)
                     //TODO("Delete when done debugging")
                     Toast.makeText(activity, otp.toString(), Toast.LENGTH_LONG).show()
                     val intent = Intent(activity, PaymentVerification::class.java)
@@ -151,5 +153,10 @@ class DetailBillFragment : Fragment() {
     private fun removeFragment() {
         (activity as TelkomPaymentActivity).showInsertNumberFragment()
     }
-
+    fun showSuccessDialog() {
+        val dialogFragment = PaymentResultFragment()
+        var ft: FragmentTransaction = activity!!.supportFragmentManager.beginTransaction()
+        ft?.addToBackStack(null)
+        dialogFragment.show(ft!!, "dialog")
+    }
 }

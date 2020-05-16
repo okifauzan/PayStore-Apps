@@ -87,8 +87,8 @@ class InsertNumberFragment : Fragment() {
     private fun getPhoneBill(inputPhoneNumber: String) {
 
 //        //TODO("request API get user balance & get phone bill")
-        val dummyPhoneNumb = SendPhone(inputPhoneNumber)
-        billViewModel.getPaymentDetail(dummyPhoneNumb).observe(activity as TelkomPaymentActivity, Observer<PhoneBill>{
+        val phoneNumeber = SendPhone(inputPhoneNumber)
+        billViewModel.getPaymentDetail(phoneNumeber).observe(activity as TelkomPaymentActivity, Observer<PhoneBill>{
             if (it.status=="unpaid")
             {
                 val item = it

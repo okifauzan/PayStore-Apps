@@ -23,6 +23,7 @@ class PaymentMethodFragment : DialogFragment() {
     private lateinit var adapter: PaymentMethodAdapter
     private var isEnoughBalance: Boolean = true
     private var balance_amount: String = "0"
+    private var virtualNumber:String = "8001"
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -52,6 +53,7 @@ class PaymentMethodFragment : DialogFragment() {
             //set isEnoughBalance
             balance_amount = arguments!!.getString("balance_amount").toString()
             isEnoughBalance = arguments!!.getBoolean("isEnoughBalance")
+            virtualNumber = arguments!!.getString("virtualNumber").toString()
             Log.d("State", isEnoughBalance.toString())
         }
     }
@@ -59,7 +61,7 @@ class PaymentMethodFragment : DialogFragment() {
 
     private fun generatePaymentMethod() {
         val eWallet = PaymentMethod(R.drawable.ic_wallet, "PayStore Wallet", balance_amount, isEnoughBalance ,1)
-        val virtualAcc = PaymentMethod(R.drawable.ic_virtual_acc, "Virtual Account", balance_amount, true,2)
+        val virtualAcc = PaymentMethod(R.drawable.ic_virtual_acc, "Virtual Account", virtualNumber, true,2)
         listPaymentMethod.add(eWallet)
         listPaymentMethod.add(virtualAcc)
     }
@@ -94,6 +96,7 @@ class PaymentMethodFragment : DialogFragment() {
             val fm: FragmentManager? = fragmentManager
             val fragm: DetailBillFragment = fm?.findFragmentById(R.id.frameTelkomPayment) as DetailBillFragment
             fragm.updateSelectedMethod(data)
+            Log.d("State", "Select payment ${data.methodName} ${data.methodValue}")
             dismiss()
         }
         else  Toast.makeText(activity, "Balance is not enough. Please Top Up!", Toast.LENGTH_SHORT).show()

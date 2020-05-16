@@ -33,7 +33,7 @@ class TelkomPaymentActivity : AppCompatActivity() {
         val insertNumberFragment: Fragment = InsertNumberFragment()
         val ft: FragmentTransaction = this.supportFragmentManager.beginTransaction()
         ft.replace(R.id.frameTelkomPayment, insertNumberFragment).commit()
-        Log.d("State", "Fragment added")
+        Log.d("State", "Insert Fragment added")
     }
 
     fun showDetailBillFragment(bill: PhoneBill, method: PaymentMethod){
@@ -45,7 +45,7 @@ class TelkomPaymentActivity : AppCompatActivity() {
         detailBillFragment.arguments = bundle
         val ft: FragmentTransaction = this.supportFragmentManager.beginTransaction()
         ft.replace(R.id.frameTelkomPayment, detailBillFragment).commit()
-        Log.d("State", "Fragment added")
+        Log.d("State", "Detail Fragment added. mehotd $method")
     }
 
     fun setSelectedMethod(method:PaymentMethod){
