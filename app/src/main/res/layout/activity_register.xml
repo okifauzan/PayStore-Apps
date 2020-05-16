@@ -53,18 +53,38 @@
                 android:hint="@string/register_name_hint"
                 android:drawableEnd="@drawable/ic_user"/>
 
+            <TextView
+                android:id="@+id/tvErrorRegistNama"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="@string/error_reg_name"
+                android:textSize="10sp"
+                android:textColor="@android:color/holo_red_dark"
+                android:visibility="gone"/>
+
             <EditText
                 android:id="@+id/etRegistEmail"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="10dp"
                 android:hint="@string/register_email_hint"
                 android:drawableEnd="@drawable/ic_email"/>
+
+            <TextView
+                android:id="@+id/tvErrorRegistEmail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="@string/error_reg_email"
+                android:textSize="10sp"
+                android:textColor="@android:color/holo_red_dark"
+                android:visibility="gone"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="5dp"
                 android:orientation="horizontal">
 
                 <TextView
@@ -80,36 +100,66 @@
                     android:id="@+id/etRegistHandphone"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="5dp"
+                    android:layout_marginStart="10dp"
                     android:hint="@string/register_phone_hint"
                     android:inputType="phone"
                     android:drawableEnd="@drawable/ic_phone_number"/>
 
             </LinearLayout>
 
+            <TextView
+                android:id="@+id/tvErrorRegistHandphone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="@string/error_reg_handphone"
+                android:textSize="10sp"
+                android:textColor="@android:color/holo_red_dark"
+                android:visibility="gone"/>
+
             <EditText
                 android:id="@+id/etRegistPassword"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="10dp"
                 android:hint="@string/register_password_hint"
                 android:inputType="textPassword"
                 android:drawableEnd="@drawable/ic_password"/>
+
+            <TextView
+                android:id="@+id/tvErrorRegistPassword"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="@string/error_reg_password"
+                android:textSize="10sp"
+                android:textColor="@android:color/holo_red_dark"
+                android:visibility="gone"/>
 
             <EditText
                 android:id="@+id/etRegistRepeatPassword"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="10dp"
                 android:hint="@string/register_repeat_password_hint"
                 android:inputType="textPassword"
                 android:drawableEnd="@drawable/ic_password"/>
+
+            <TextView
+                android:id="@+id/tvErrorRepeatPassword"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="@string/error_reg_verPassword"
+                android:textSize="10sp"
+                android:textColor="@android:color/holo_red_dark"
+                android:visibility="gone"/>
 
             <Button
                 android:id="@+id/btnRegister"
                 android:layout_width="118dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="5dp"
                 android:text="@string/btn_register"
                 app:cornerRadius="20dp"
                 android:backgroundTint="@color/colorAccent"
