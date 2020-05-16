@@ -31,27 +31,39 @@ class RegisterActivity : AppCompatActivity() {
 
     fun onClickGroup(){
         btnRegister.setOnClickListener {
+            var isCorrect:Boolean = true
+            
             var textName = etRegistNama.text.toString()
             var textEmail = etRegistEmail.text.toString()
             var textHandphone = etRegistHandphone.text.toString()
             var textPassword = etRegistPassword.text.toString()
             var textRepeatPassword = etRegistRepeatPassword.text.toString()
             if (!(patternName.matches(textName))){
-                Toast.makeText(applicationContext, "Wrong Name Format (must be 3-20 character)", Toast.LENGTH_SHORT).show()
+
                 Log.d("test", "Wrong Name Format")
-            } else if (!(patternEmail.matches(textEmail))){
-                Toast.makeText(applicationContext, "Wrong Email Format (ex: test@gmail.com / test@pay.co.id", Toast.LENGTH_SHORT).show()
+                isCorrect =false
+            }
+            if (!(patternEmail.matches(textEmail))){
+
                 Log.d("test", "Wrong Email Format")
-            } else if (!(patternHandphone.matches(textHandphone))){
-                Toast.makeText(applicationContext, "Wrong Handphone Number Format (must be 9-13 number)", Toast.LENGTH_SHORT).show()
+                isCorrect =false
+            }
+            if (!(patternHandphone.matches(textHandphone))){
+
                 Log.d("test", "Wrong Number Format")
-            } else if (!(patternPassword.matches(textPassword))){
-                Toast.makeText(applicationContext, "Wrong Password Format (8-20 character, contain 1 lowercase, 1 uppercase, 1 number, and 1 of @#$%!_?&)", Toast.LENGTH_SHORT).show()
+                isCorrect =false
+            }
+            if (!(patternPassword.matches(textPassword))){
+
                 Log.d("test", "Wrong Password Format")
-            } else if (!(textRepeatPassword.equals(textPassword))){
-                Toast.makeText(applicationContext, "Password didn't matches", Toast.LENGTH_SHORT).show()
+                isCorrect =false
+            }
+            if (!(textRepeatPassword.equals(textPassword))){
+
                 Log.d("test", "Password didn't matches")
-            } else {
+                isCorrect =false
+            }
+            if (isCorrect) {
                 val sendOtpModel = SendOTP("+6287883445469", textEmail)
                 val sendOtpCall = ApiClient.getClient()?.create(ApiInteface::class.java)?.postOTP(sendOtpModel)
                 sendOtpCall?.enqueue(object : Callback<SendOTPResponse>{
@@ -79,6 +91,8 @@ class RegisterActivity : AppCompatActivity() {
                         Log.d("Failed", t.message)
                     }
                 })
+            } else{
+                Toast.makeText(applicationContext, "Please enter valid information", Toast.LENGTH_SHORT).show()
             }
         }
 
