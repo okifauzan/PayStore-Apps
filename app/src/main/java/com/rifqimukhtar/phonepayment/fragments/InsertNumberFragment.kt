@@ -64,8 +64,9 @@ class InsertNumberFragment : Fragment() {
             } else
             {
                 activateLoading()
-                val dummyUserID = SendUser(1)
-                getCurrentUser(dummyUserID, inputPhoneNumber)
+                val preference = activity!!.getSharedPreferences("Pref_Profile", 0)
+                val userId = preference.getInt("PREF_USERID", 0)
+                getCurrentUser(SendUser(userId), inputPhoneNumber)
 
             }
         }
@@ -87,25 +88,22 @@ class InsertNumberFragment : Fragment() {
 
 //        //TODO("request API get user balance & get phone bill")
         val dummyPhoneNumb = SendPhone(inputPhoneNumber)
-        billViewModel.getPaymentDetail(dummyPhoneNumb).observe(activity as TelkomPaymentActivity, Observer<BasePaymentResponse<PhoneBill>>{
-            if (it.status!! in 200..299)
-            {
-                Toast.makeText(activity, "Cant found unpaid bill ${it.message}", Toast.LENGTH_SHORT).show()
-                //val item = it.data
-//                val bill = PhoneBill(item?.idBill, item?.telephoneOwner, item?.telephoneNumber, item?.month,
-//                    item?.amount, item?.status)
-//                Log.d("State", "bill viewmodel ${it.status}")
-//                checkWalletBalance(bill)
-//                if(selectedMethod!=null){
-//                    (activity as TelkomPaymentActivity).showDetailBillFragment(bill, selectedMethod!!)
-//                    deactivateLoading()
-//                    Log.d("State", selectedMethod.toString())
-//                }
-            } else{
-                showNotFoundDialog()
-                Toast.makeText(activity, "Cant found unpaid bill", Toast.LENGTH_SHORT).show()
-                deactivateLoading()
-            }
+        billViewModel.getPaymentDetail(dummyPhoneNumb).observe(activity as TelkomPaymentActivity, Observer<PhoneBill>{
+           // if (it.status!! in 200..299)
+          //  {
+               // Toast.makeText(activity, "Cant found unpaid bill ${it.message}", Toast.LENGTH_SHORT).show()
+                Log.d("State", "bill viewmodel ${it.status}")
+                checkWalletBalance(it)
+                if(selectedMethod!=null){
+                    (activity as TelkomPaymentActivity).showDetailBillFragment(it, selectedMethod!!)
+                    deactivateLoading()
+                    Log.d("State", selectedMethod.toString())
+                }
+//            } else{
+//                showNotFoundDialog()
+//                Toast.makeText(activity, "Cant found unpaid bill", Toast.LENGTH_SHORT).show()
+//                deactivateLoading()
+//            }
         })
     }
 
