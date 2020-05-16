@@ -23,10 +23,10 @@ import retrofit2.Response
 class RegisterActivity : AppCompatActivity() {
 
     companion object val API_KEY = "xxxxxx"
-    val patternName = "^[a-zA-Z]{3,20}\$".toRegex()
+    val patternName = "^[a-zA-Z\\s]{3,20}\$".toRegex()
     val patternEmail = "^[a-z]+([.-]?[a-z]+)*@[a-z]+([.-]?[a-z]+)*(\\.[a-z]{2,3})+\$".toRegex() //recipient name + @ + domain + . + top level domain
     val patternHandphone = "^[0-9]{9,13}\$".toRegex()
-    val patternPassword = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#\$%!_?&])(?=\\S+\$).{8,20}\$".toRegex()
+    val patternPassword = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#\$%!.,_?&])(?=\\S+\$).{8,20}\$".toRegex()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_register)
@@ -73,7 +73,8 @@ class RegisterActivity : AppCompatActivity() {
                 isCorrect = false
                 Log.d("test", "Password didn't matches")
             }
-            if (isCorrect){
+
+            if (isCorrect) {
                 val sendOtpModel = SendOTP("+6287883445469", textEmail)
                 val sendOtpCall = ApiClient.getClient()?.create(ApiInteface::class.java)?.postOTP(sendOtpModel)
                 sendOtpCall?.enqueue(object : Callback<SendOTPResponse>{
@@ -105,7 +106,6 @@ class RegisterActivity : AppCompatActivity() {
                 Toast.makeText(applicationContext, "Please Enter Valid Information", Toast.LENGTH_LONG).show()
             }
         }
-
         btnRegisterBack.setOnClickListener {
             startActivity(Intent(this@RegisterActivity, LoginActivity::class.java))
         }

@@ -29,13 +29,8 @@ class PaymentVerification : AppCompatActivity() {
         if (intent.extras != null){
             val bundle = intent.extras
             sendRequestPayment = bundle?.getSerializable("sendRequestPayment") as SendRequestPayment
-//            val idBill = bundle?.getInt("idBill")
-//            val idMethod = bundle?.getInt("idMethod")
-//            val idUser = bundle?.getInt("idUser")
-            //sendRequestPayment = SendRequestPayment(idBill, idUser, idMethod)
             getOTP = bundle?.getString("otp")
             Log.d("bundle", getOTP)
-            //Log.d("State", "Payment Verification $idBill, $idUser, $idMethod")
         }
         timerCount()
         onClickGroup()
@@ -72,6 +67,8 @@ class PaymentVerification : AppCompatActivity() {
                     val otp = response.body()!!.otp
                     getOTP = otp
                     Log.d("otp", getOTP)
+                    //TODO("Delete when done debugging")
+                    Toast.makeText(applicationContext, getOTP.toString(), Toast.LENGTH_LONG).show()
                 }
 
                 override fun onFailure(call: Call<SendOTPResponse>, t: Throwable) {
@@ -82,25 +79,34 @@ class PaymentVerification : AppCompatActivity() {
         }
 
         btnPayConfirmOTP.setOnClickListener {
-            var textOTP = etPayOTPNumber.text.toString()
-            if ((textOTP == getOTP) && timerAvailable){
-                Log.d("State", "${sendRequestPayment!!.idBill} +${sendRequestPayment!!.idPaymentMethod} + ${sendRequestPayment!!.idUser}")
-                val paymentModel = sendRequestPayment
-                val paymentCall = ApiClient.getClient()?.create(ApiInteface::class.java)?.verifyRequest(paymentModel!!)
-                paymentCall?.enqueue(object : Callback<BaseResponse<Any>>{
-                    override fun onResponse(call: Call<BaseResponse<Any>>, response: Response<BaseResponse<Any>>) {
-                        if(response.isSuccessful){
-                            Toast.makeText(applicationContext, "Bayar Sukses", Toast.LENGTH_LONG).show()
-                            finish()
-                        } else {
-                            Toast.makeText(applicationContext, "Pembayaran Gagal", Toast.LENGTH_LONG).show()
-                        }
+            if (!timerAvailable){
+                Toast.makeText(applicationContext, "OTP Code Expired", Toast.LENGTH_LONG).show()
+            } else{
+                var textOTP = etPayOTPNumber.text.toString()
+                if (textOTP.trim().isEmpty()) {
+                    Toast.makeText(applicationContext, "OTP cannot be empty", Toast.LENGTH_LONG).show()
+                } else {
+                    if ((textOTP == getOTP)){
+                        Log.d("State", "${sendRequestPayment!!.idBill} +${sendRequestPayment!!.idPaymentMethod} + ${sendRequestPayment!!.idUser}")
+                        val paymentModel = sendRequestPayment
+                        val paymentCall = ApiClient.getClient()?.create(ApiInteface::class.java)?.verifyRequest(paymentModel!!)
+                        paymentCall?.enqueue(object : Callback<BaseResponse<Any>>{
+                            override fun onResponse(call: Call<BaseResponse<Any>>, response: Response<BaseResponse<Any>>) {
+                                if(response.isSuccessful){
+                                    Toast.makeText(applicationContext, "Bayar Sukses", Toast.LENGTH_LONG).show()
+                                    finish()
+                                } else {
+                                    Toast.makeText(applicationContext, "Pembayaran Gagal", Toast.LENGTH_LONG).show()
+                                }
+                            }
+                            override fun onFailure(call: Call<BaseResponse<Any>>, t: Throwable) {
+                                Toast.makeText(applicationContext, "Server not Respond", Toast.LENGTH_LONG).show()
+                            }
+                        })
+                    } else{
+                        Toast.makeText(applicationContext, "Invalid OTP", Toast.LENGTH_LONG).show()
                     }
-
-                    override fun onFailure(call: Call<BaseResponse<Any>>, t: Throwable) {
-                        Toast.makeText(applicationContext, "Server not Respond", Toast.LENGTH_LONG).show()
-                    }
-                })
+                }
             }
         }
     }

@@ -72,7 +72,7 @@ class DetailBillFragment : Fragment() {
         val userId = preference.getInt("PREF_USERID", 0)
         sendRequesPayment = SendRequestPayment(currentBill?.idBill,userId,method?.idPaymentMethod)
         billViewModel.sendPaymentRequest(sendRequesPayment!!).observe(activity as TelkomPaymentActivity, Observer<String> {
-
+             Toast.makeText(activity, it, Toast.LENGTH_SHORT).show()
             Log.d("State", "send request payment $it")
         })
     }
@@ -122,7 +122,7 @@ class DetailBillFragment : Fragment() {
     private fun otpPayment() {
         val preference = activity!!.getSharedPreferences("Pref_Profile2", 0)
         val emailOTP = preference.getString("PREF_EMAIL", "")
-        val sendOtpModel = SendOTP("+6287883445469", "akunsampahriftar@gmail.com")
+        val sendOtpModel = SendOTP("+6287883445469", emailOTP)
         Log.d("State", "OTW payment ${currentBill!!.idBill} , ${method!!.idPaymentMethod}, iduser")
         val sendOtpCall = ApiClient.getClient()?.create(ApiInteface::class.java)?.postOTP(sendOtpModel)
         sendOtpCall?.enqueue(object : Callback<SendOTPResponse> {
@@ -137,6 +137,8 @@ class DetailBillFragment : Fragment() {
                     //currentBill!!.idBill?.let { bundle.putInt("idBill", it) }
                     //method!!.idPaymentMethod?.let { bundle.putInt("idMethod", it) }
                    // bundle.putInt("idUser", 1)
+                    //TODO("Delete when done debugging")
+                    Toast.makeText(activity, otp.toString(), Toast.LENGTH_LONG).show()
                     val intent = Intent(activity, PaymentVerification::class.java)
                     intent.putExtras(bundle)
                     startActivity(intent)
