@@ -24,7 +24,7 @@
     <string name="error_reg_verPassword">Password did not matches</string>
 
     <string name="paystore_balance">PayStore Balance</string>
-    <string name="balance_nominal">Rp 50.000</string>
+    <string name="balance_nominal">Rp 0</string>
     <string name="top_up">Top-up</string>
     <string name="transfer">Transfer</string>
     <string name="history">History</string>

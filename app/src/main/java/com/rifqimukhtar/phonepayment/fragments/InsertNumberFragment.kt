@@ -84,58 +84,29 @@ class InsertNumberFragment : Fragment() {
     }
 
     private fun getPhoneBill(inputPhoneNumber: String) {
-        //Dummy
-//        val phoneBillDummy = PhoneBill(1,inputPhoneNumber,"Nama User",45000)
-//        val phoneBillDummy2 = PhoneBill(1,inputPhoneNumber,"Nama User",175000)
-
-//        if(inputPhoneNumber.length > 5)
-//        {
-//            checkWalletBalance(phoneBillDummy)
-//            (activity as TelkomPaymentActivity).showDetailBillFragment(phoneBillDummy, selectedMethod!!)
-//        } else
-//        {
-//            checkWalletBalance(phoneBillDummy2)
-//            (activity as TelkomPaymentActivity).showDetailBillFragment(phoneBillDummy2, selectedMethod!!)
-//        }
 
 //        //TODO("request API get user balance & get phone bill")
         val dummyPhoneNumb = SendPhone(inputPhoneNumber)
-        billViewModel.getPaymentDetail(dummyPhoneNumb).observe(activity as TelkomPaymentActivity, Observer<BaseResponse<PhoneBill>>{
+        billViewModel.getPaymentDetail(dummyPhoneNumb).observe(activity as TelkomPaymentActivity, Observer<BasePaymentResponse<PhoneBill>>{
             if (it.status!! in 200..299)
             {
-                val item = it.data
-                val bill = PhoneBill(item?.idBill, item?.telephoneOwner, item?.telephoneNumber, item?.month,
-                    item?.amount, item?.status)
-                Log.d("State", "bill viewmodel ${it.status}")
-                checkWalletBalance(bill)
-                if(selectedMethod!=null){
-                    (activity as TelkomPaymentActivity).showDetailBillFragment(bill, selectedMethod!!)
-                    deactivateLoading()
-                    Log.d("State", selectedMethod.toString())
-                }
+                Toast.makeText(activity, "Cant found unpaid bill ${it.message}", Toast.LENGTH_SHORT).show()
+                //val item = it.data
+//                val bill = PhoneBill(item?.idBill, item?.telephoneOwner, item?.telephoneNumber, item?.month,
+//                    item?.amount, item?.status)
+//                Log.d("State", "bill viewmodel ${it.status}")
+//                checkWalletBalance(bill)
+//                if(selectedMethod!=null){
+//                    (activity as TelkomPaymentActivity).showDetailBillFragment(bill, selectedMethod!!)
+//                    deactivateLoading()
+//                    Log.d("State", selectedMethod.toString())
+//                }
             } else{
+                showNotFoundDialog()
                 Toast.makeText(activity, "Cant found unpaid bill", Toast.LENGTH_SHORT).show()
+                deactivateLoading()
             }
         })
-
-
-//        val phoneNumber = SendPhone(inputPhoneNumber)
-//        val apiCall = ApiClient.getClient(API_KEY, context!!)?.create(ApiInteface::class.java)?.getTelephoneBill(phoneNumber)
-//        apiCall?.enqueue(object : Callback<PhoneBill> {
-//            override fun onResponse(call: Call<PhoneBill>, response: Response<PhoneBill>) {
-//                val item = response.body()
-//                val phoneBill = PhoneBill(item?.status, item?.telephoneNumber, item?.telephoneOwner, item?.amount)
-//                checkWalletBalance(phoneBill)
-//                (activity as TelkomPaymentActivity).showDetailBillFragment(phoneBill, selectedMethod!!)
-//            }
-//
-//            override fun onFailure(call: Call<PhoneBill>, t: Throwable) {
-//                Toast.makeText(context, "Request Failed", Toast.LENGTH_SHORT).show()
-//                showNotFoundDialog()
-//                Log.d("Failed", t.message)
-//            }
-//        })
-
     }
 
 
@@ -148,7 +119,7 @@ class InsertNumberFragment : Fragment() {
         {
             //Not enough balance, use Virtual Acc
             //TODO("add real user virtual number")
-            val virtualNumber = "${phoneBill.telephoneNumber}"
+            val virtualNumber = "8001${phoneBill.telephoneNumber}"
             val virtualAcc = PaymentMethod(R.drawable.ic_virtual_acc, "Virtual Account",virtualNumber, false,2)
             setActivitySelectedMethod(virtualAcc)
 

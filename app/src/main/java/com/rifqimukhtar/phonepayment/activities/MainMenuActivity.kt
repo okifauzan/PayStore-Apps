@@ -93,7 +93,7 @@ class MainMenuActivity : AppCompatActivity() {
         frameTransparent.visibility = GONE
     }
     private fun setUserDetail(user: User) {
-        tvWelcomeUser.text = "Weclome, ${user.name}"
+        tvWelcomeUser.text = "Welcome, ${user.name}"
         tvUserBalance.text = "Rp ${user.balance}"
 
         val preference = getSharedPreferences("Pref_Profile2", 0)

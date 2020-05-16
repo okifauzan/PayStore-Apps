@@ -24,7 +24,7 @@ class RegisterActivity : AppCompatActivity() {
 
     companion object val API_KEY = "xxxxxx"
     val patternName = "^[a-zA-Z\\s]{3,20}\$".toRegex()
-    val patternEmail = "^[a-z]+([.-]?[a-z]+)*@[a-z]+([.-]?[a-z]+)*(\\.[a-z]{2,3})+\$".toRegex() //recipient name + @ + domain + . + top level domain
+    val patternEmail = "^([_.-]?[a-z0-9])+([a-z0-9]+)*@[a-z]+([.-]?[a-z]+)*(\\.[a-z]{2,3})+\$".toRegex() //recipient name + @ + domain + . + top level domain
     val patternHandphone = "^[0-9]{9,13}\$".toRegex()
     val patternPassword = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#\$%!.,_?&])(?=\\S+\$).{8,20}\$".toRegex()
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -99,7 +99,7 @@ class RegisterActivity : AppCompatActivity() {
 
                     override fun onFailure(call: Call<SendOTPResponse>, t: Throwable) {
                         Toast.makeText(applicationContext, "Failed to send OTP", Toast.LENGTH_SHORT).show()
-                        Log.d("Failed", t.message)
+                        Log.d("Failed", t.message!!)
                     }
                 })
             } else {

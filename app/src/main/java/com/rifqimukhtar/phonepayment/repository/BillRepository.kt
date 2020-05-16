@@ -13,24 +13,20 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class BillRepository(val context: Context) {
-    fun getPaymentDetail(sendPhone: SendPhone) : MutableLiveData<PhoneBill>{
-        var data = MutableLiveData<PhoneBill>()
+    fun getPaymentDetail(sendPhone: SendPhone) : MutableLiveData<BasePaymentResponse<PhoneBill>>{
+        var data = MutableLiveData<BasePaymentResponse<PhoneBill>>()
         val apiCall = ApiClient.getClient()?.create(ApiInteface::class.java)
         apiCall?.getPaymentDetail(sendPhone)
-            ?.enqueue(object : Callback<BaseResponse<PhoneBill>> {
-                override fun onResponse(call: Call<BaseResponse<PhoneBill>>,
-                    response: Response<BaseResponse<PhoneBill>>
+            ?.enqueue(object : Callback<BasePaymentResponse<PhoneBill>> {
+                override fun onResponse(call: Call<BasePaymentResponse<PhoneBill>>,
+                    response: Response<BasePaymentResponse<PhoneBill>>
                 ) {
-                    if (response.isSuccessful) {
-                        val item = response.body()?.data
-                        val bill = PhoneBill(item?.idBill, item?.telephoneOwner, item?.telephoneNumber, item?.month,
-                            item?.amount, item?.status)
-                        data.value = bill
-                        Log.d("State", item.toString())
-                    }
+                        data = MutableLiveData(response.body()!!)
+                        Log.d("State", "Success get payment")
+
                 }
 
-                override fun onFailure(call: Call<BaseResponse<PhoneBill>>, t: Throwable) {
+                override fun onFailure(call: Call<BasePaymentResponse<PhoneBill>>, t: Throwable) {
                     Toast.makeText(context, "Request Failed $t", Toast.LENGTH_SHORT).show()
                     Log.d("Failed", t.message)
                 }
@@ -46,8 +42,9 @@ class BillRepository(val context: Context) {
                 override fun onResponse(call: Call<BaseResponse<Any>>, response: Response<BaseResponse<Any>>) {
                     if (response.isSuccessful) {
                         Log.d("State", response.toString())
-                        data = MutableLiveData(response.toString())
-                        Toast.makeText(context, response.toString(), Toast.LENGTH_SHORT).show()
+                        val message = response.body()!!.message.toString()
+                        data = MutableLiveData(message)
+                        // Toast.makeText(context, response.toString(), Toast.LENGTH_SHORT).show()
                     }
                 }
                 override fun onFailure(call: Call<BaseResponse<Any>>, t: Throwable) {
