@@ -74,6 +74,8 @@ class RegisterVerification : AppCompatActivity() {
                     val otp = response.body()!!.otp
                     getOTP = otp
                     Log.d("otp", getOTP)
+                    //TODO("Delete when done debugging")
+                    Toast.makeText(applicationContext, getOTP.toString(), Toast.LENGTH_LONG).show()
                 }
 
                 override fun onFailure(call: Call<SendOTPResponse>, t: Throwable) {

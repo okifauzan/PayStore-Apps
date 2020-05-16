@@ -20,7 +20,7 @@ class LoginActivity : AppCompatActivity() {
     companion object val API_KEY = "xxxxxx"
 
     val patternLoginNumber = "^[0-9]{9,12}\$".toRegex()
-    val patternLoginPass = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#\$%!_?&])(?=\\S+\$).{8,20}\$".toRegex()
+    val patternLoginPass = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#\$%!.,_?&])(?=\\S+\$).{8,20}\$".toRegex()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
