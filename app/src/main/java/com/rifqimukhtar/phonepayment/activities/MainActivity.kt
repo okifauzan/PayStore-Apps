@@ -44,7 +44,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         // Setup the listener for take photo button
-        camera_capture_button.setOnClickListener { takePhoto() }
+        btnTakePhoto.setOnClickListener { takePhoto() }
 
         outputDirectory = getOutputDirectory()
 
@@ -108,9 +108,9 @@ class MainActivity : AppCompatActivity() {
                     Toast.makeText(this@MainActivity, msg, Toast.LENGTH_SHORT).show()
                     Log.d(TAG, msg)
                     viewFinder.visibility = View.GONE
-                    previewimg.visibility = View.VISIBLE
+                    ivPreview.visibility = View.VISIBLE
                     val bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), savedUri)
-                    previewimg!!.setImageBitmap(bitmap)
+                    ivPreview!!.setImageBitmap(bitmap)
                     updateDetailLayout(savedUri.toString())
                 }
             })
