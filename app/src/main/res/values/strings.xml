@@ -20,7 +20,7 @@
     <string name="error_reg_name">Must contain 3-20 character (Alphabet Only)</string>
     <string name="error_reg_email">Wrong email format</string>
     <string name="error_reg_handphone">Must use unregistered phone number (9-12 digit)</string>
-    <string name="error_reg_password">Minimum length is 8 characters with Uppercase and special character</string>
+    <string name="error_reg_password">Must be 8-20 characters with uppercase, number, and special character</string>
     <string name="error_reg_verPassword">Password did not matches</string>
 
     <string name="paystore_balance">PayStore Balance</string>
