@@ -16,18 +16,12 @@ import com.rifqimukhtar.phonepayment.R
 import com.rifqimukhtar.phonepayment.activities.MainMenuActivity
 import com.rifqimukhtar.phonepayment.activities.TelkomPaymentActivity
 import com.rifqimukhtar.phonepayment.db.entity.*
-import com.rifqimukhtar.phonepayment.rest.ApiClient
-import com.rifqimukhtar.phonepayment.rest.ApiInteface
 import com.rifqimukhtar.phonepayment.viewmodel.BillViewModel
 import com.rifqimukhtar.phonepayment.viewmodel.UserViewModel
-import kotlinx.android.synthetic.main.activity_main_menu.*
 import kotlinx.android.synthetic.main.fragment_insert_number.*
 import kotlinx.android.synthetic.main.fragment_insert_number.frameTransparent
 import kotlinx.android.synthetic.main.fragment_insert_number.loadingMainMenu
 import org.koin.android.ext.android.inject
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 
 /**
  * A simple [Fragment] subclass.
@@ -97,8 +91,8 @@ class InsertNumberFragment : Fragment() {
                 Log.d("State", "bill viewmodel ${it.status}")
                 checkWalletBalance(bill)
                 if(selectedMethod!=null){
-                    (activity as TelkomPaymentActivity).showDetailBillFragment(bill, selectedMethod!!)
                     deactivateLoading()
+                    (activity as TelkomPaymentActivity).showDetailBillFragment(bill, selectedMethod!!, currentUser?.balance!!)
                     Log.d("State", selectedMethod.toString())
                 }
             } else{

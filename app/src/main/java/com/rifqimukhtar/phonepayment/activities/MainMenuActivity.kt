@@ -56,13 +56,13 @@ class MainMenuActivity : AppCompatActivity() {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
             WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
         loadingMainMenu.visibility = VISIBLE
-        frameTransparent.visibility = VISIBLE
+        frameTransparentMenu.visibility = VISIBLE
     }
 
     fun deactivateLoading() {
         getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
         loadingMainMenu.visibility = GONE
-        frameTransparent.visibility = GONE
+        frameTransparentMenu.visibility = GONE
     }
     private fun setUserDetail(user: User) {
         tvWelcomeUser.text = "Welcome, ${user.name}"

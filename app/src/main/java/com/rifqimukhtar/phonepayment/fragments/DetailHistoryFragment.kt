@@ -7,6 +7,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowManager
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
@@ -14,14 +15,14 @@ import androidx.lifecycle.Observer
 import com.rifqimukhtar.phonepayment.R
 import com.rifqimukhtar.phonepayment.activities.HistoryActivity
 import com.rifqimukhtar.phonepayment.activities.MainActivity
+import com.rifqimukhtar.phonepayment.activities.PaymentVerification
 import com.rifqimukhtar.phonepayment.activities.TelkomPaymentActivity
-import com.rifqimukhtar.phonepayment.db.entity.BaseResponse
-import com.rifqimukhtar.phonepayment.db.entity.BillHistory
-import com.rifqimukhtar.phonepayment.db.entity.PaymentMethod
-import com.rifqimukhtar.phonepayment.db.entity.SendRequestPayment
+import com.rifqimukhtar.phonepayment.db.entity.*
 import com.rifqimukhtar.phonepayment.rest.ApiClient
 import com.rifqimukhtar.phonepayment.rest.ApiInteface
 import com.rifqimukhtar.phonepayment.viewmodel.BillViewModel
+import kotlinx.android.synthetic.main.activity_main_menu.*
+import kotlinx.android.synthetic.main.fragment_detail_bill.*
 import kotlinx.android.synthetic.main.fragment_detail_history.*
 import org.koin.android.ext.android.inject
 import retrofit2.Call
@@ -37,6 +38,7 @@ class DetailHistoryFragment : Fragment() {
     var textUri:String = ""
     var history:BillHistory? = null
     var method: PaymentMethod? = null
+    var paymentModel: SendRequestPayment? = null
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -84,8 +86,6 @@ class DetailHistoryFragment : Fragment() {
         }
 
         btnBayarTagihanHistory.setOnClickListener {
-            Toast.makeText(activity, "Tagihan Terkirim", Toast.LENGTH_SHORT).show()
-            tvStatusDetailHistory.text = "paid"
             sendHistoryRequestPayment()
         }
 
@@ -95,14 +95,20 @@ class DetailHistoryFragment : Fragment() {
         val preference = activity!!.getSharedPreferences("Pref_Profile", 0)
         val userId = preference.getInt("PREF_USERID", 0)
         Log.d("State", "send request payment ${method?.methodName}")
-        val paymentModel = SendRequestPayment(history!!.idBill,userId,method?.idPaymentMethod)
+        paymentModel = SendRequestPayment(history!!.idBill,userId,method?.idPaymentMethod)
         val paymentCall = ApiClient.getClient()?.create(ApiInteface::class.java)?.verifyRequest(paymentModel!!)
         paymentCall?.enqueue(object : Callback<BaseResponse<Any>> {
             override fun onResponse(call: Call<BaseResponse<Any>>, response: Response<BaseResponse<Any>>) {
                 if(response.isSuccessful){
-                    Toast.makeText( activity, "Bayar Sukses", Toast.LENGTH_LONG).show()
-                    showSuccessDialog()
+                    if(method?.idPaymentMethod == 1){
+                        Log.d("State", "otw otp ${method!!.idPaymentMethod} ${method!!.methodName}")
+                        otpPayment()
+                    } else{
+                        Toast.makeText( activity, "Bayar Sukses", Toast.LENGTH_LONG).show()
+                        showSuccessDialog()
+                    }
                     btnBayarTagihanHistory.visibility = View.GONE
+                    tvStatusDetailHistory.text = "paid"
                 } else {
                     Toast.makeText(activity, "Pembayaran Gagal", Toast.LENGTH_LONG).show()
                 }
@@ -119,12 +125,12 @@ class DetailHistoryFragment : Fragment() {
             if(history.idPaymentMethod == 1)
             {
                 btnUploadPhoto.visibility = View.GONE
-                btnBayarTagihanHistory.visibility = View.GONE
+                btnBayarTagihanHistory.visibility = View.VISIBLE
                 method = PaymentMethod(R.drawable.ic_wallet, "PayStore Wallet", history.amount.toString(), true,1)
 
             } else
             {
-                method = PaymentMethod(R.drawable.ic_virtual_acc, "Virtual Account", history.amount.toString(), false,1)
+                method = PaymentMethod(R.drawable.ic_virtual_acc, "Virtual Account", history.amount.toString(), false,2)
                 if (history.status == "paid"){
                     btnUploadPhoto.visibility = View.GONE
                     btnBayarTagihanHistory.visibility = View.GONE
@@ -149,7 +155,40 @@ class DetailHistoryFragment : Fragment() {
         }
     }
 
-    fun showSuccessDialog() {
+    private fun otpPayment() {
+        val preference = activity!!.getSharedPreferences("Pref_Profile2", 0)
+        val emailOTP = preference.getString("PREF_EMAIL", "")
+        val sendOtpModel = SendOTP("+6287883445469", emailOTP)
+        Log.d("State", "OTW payment ${history!!.idBill} , ${method!!.idPaymentMethod}, iduser")
+        val sendOtpCall = ApiClient.getClient()?.create(ApiInteface::class.java)?.postOTP(sendOtpModel)
+        sendOtpCall?.enqueue(object : Callback<SendOTPResponse> {
+            override fun onResponse(call: Call<SendOTPResponse>, response: Response<SendOTPResponse>) {
+                if(response.isSuccessful){
+                    Log.d("State", "Sending OTP payment")
+                    val otp = response.body()!!.otp
+                    Log.d("otp", otp.toString())
+                    val bundle = Bundle()
+                    bundle.putString("otp", otp.toString())
+                    bundle.putSerializable("sendRequestPayment", paymentModel)
+                    //TODO("Delete when done debugging")
+                    Toast.makeText(activity, otp.toString(), Toast.LENGTH_LONG).show()
+                    val intent = Intent(activity, PaymentVerification::class.java)
+                    intent.putExtras(bundle)
+                    startActivity(intent)
+                } else {
+                    Toast.makeText(context, "OTP not available now", Toast.LENGTH_SHORT).show()
+                    Log.d("otp", "gagal")
+                }
+            }
+
+            override fun onFailure(call: Call<SendOTPResponse>, t: Throwable) {
+                Toast.makeText(context, "Failed to send OTP", Toast.LENGTH_SHORT).show()
+                Log.d("Failed", t.message)
+            }
+        })
+    }
+
+    private fun showSuccessDialog() {
         val dialogFragment = PaymentResultFragment()
         var ft: FragmentTransaction = activity!!.supportFragmentManager.beginTransaction()
         ft?.addToBackStack(null)
@@ -158,4 +197,5 @@ class DetailHistoryFragment : Fragment() {
         dialogFragment.arguments = bundle
         dialogFragment.show(ft!!, "dialog")
     }
+
 }
