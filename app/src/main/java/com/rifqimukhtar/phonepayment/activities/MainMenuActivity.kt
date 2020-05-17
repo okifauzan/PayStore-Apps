@@ -40,34 +40,6 @@ class MainMenuActivity : AppCompatActivity() {
         getUser2()
     }
 
-//    private fun getUser() {
-//        loadingMainMenu.show()
-//        frameTransparent.visibility = VISIBLE
-//        val sendUser = SendUser(1)
-//        val apiCall = ApiClient.getClient()?.create(ApiInteface::class.java)
-//        apiCall?.getUser(sendUser)
-//            ?.enqueue(object : Callback<BaseUser> {
-//            override fun onResponse(call: Call<BaseUser>, response: Response<BaseUser>) {
-//                if (response.isSuccessful) {
-//                    loadingMainMenu.hide()
-//                    frameTransparent.visibility = GONE
-//                    val item = response.body()!!.userProfile
-//                    user = User(item?.idUser, item?.name, item?.email, item?.password, item?.phoneNumber, item?.balance, item?.token)
-//
-//                    Log.d("State", item.toString())
-//                    setUserDetail(user!!)
-//                }
-//            }
-//
-//            override fun onFailure(call: Call<BaseUser>, t: Throwable) {
-//                loadingMainMenu.hide()
-//                frameTransparent.visibility = GONE
-//                Toast.makeText(applicationContext, "Request Failed", Toast.LENGTH_SHORT).show()
-//                Log.d("Failed", t.message)
-//            }
-//        })
-//    }
-
     fun getUser2(){
         val preference = getSharedPreferences("Pref_Profile", 0)
         val userId = preference.getInt("PREF_USERID", 0)

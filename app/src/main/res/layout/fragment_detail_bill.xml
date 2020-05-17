@@ -42,15 +42,16 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
+
             <TextView
                 android:id="@+id/tvTitleMetodePembayaran"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_gravity="left|center_vertical"
                 android:layout_weight="1"
-                android:text="Metode Pembyaran"
-                android:textStyle="bold"
+                android:text="Metode Pembayaran"
                 android:textSize="16dp"
-                android:layout_gravity="left|center_vertical"/>
+                android:textStyle="bold" />
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnMetodeOption"
                 android:layout_width="0dp"

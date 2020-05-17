@@ -186,6 +186,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:autoSizeTextType="uniform"
                 android:text="@string/paket_data"
                 android:drawableTop="@drawable/ic_paket_data"
                 style="@style/Widget.MaterialComponents.Button.TextButton"/>
