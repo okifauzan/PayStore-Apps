@@ -24,8 +24,8 @@ class RegisterActivity : AppCompatActivity() {
 
     companion object val API_KEY = "xxxxxx"
     val patternName = "^[a-zA-Z\\s]{3,20}\$".toRegex()
-    val patternEmail = "^([_.-]?[a-z0-9])+([a-z0-9]+)*@[a-z]+([.-]?[a-z]+)*(\\.[a-z]{2,3})+\$".toRegex() //recipient name + @ + domain + . + top level domain
-    val patternHandphone = "^[0-9]{9,13}\$".toRegex()
+    val patternEmail = "^([a-z0-9])+([_.-]?[a-z0-9]+)*@[a-z]+([.-]?[a-z]+)*(\\.[a-z]{2,3})+\$".toRegex() //recipient name + @ + domain + . + top level domain
+    val patternHandphone = "^[0-9]{9,12}\$".toRegex()
     val patternPassword = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#\$%!.,_?&])(?=\\S+\$).{8,20}\$".toRegex()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -88,6 +88,7 @@ class RegisterActivity : AppCompatActivity() {
                             bundle.putString("phoneNumber", textHandphone)
                             bundle.putString("password", textPassword)
                             bundle.putString("otp", otp.toString())
+                            Toast.makeText(applicationContext, otp.toString(), Toast.LENGTH_LONG).show()
                             val intent = Intent(this@RegisterActivity, RegisterVerification::class.java)
                             intent.putExtras(bundle)
                             startActivity(intent)
