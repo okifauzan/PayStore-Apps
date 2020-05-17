@@ -116,6 +116,7 @@ class RegisterVerification : AppCompatActivity() {
                         })
 
                     } else {
+                        Toast.makeText(applicationContext, "Invalid OTP", Toast.LENGTH_SHORT).show()
                         Log.d("test", "Invalid OTP")
                     }
                 }
