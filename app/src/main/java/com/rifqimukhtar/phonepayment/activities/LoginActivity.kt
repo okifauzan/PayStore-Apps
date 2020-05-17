@@ -59,7 +59,7 @@ class LoginActivity : AppCompatActivity() {
                     }
                 })
             } else {
-                Toast.makeText(applicationContext, "Wrong Phone/Pass Format", Toast.LENGTH_SHORT).show()
+                Toast.makeText(applicationContext, "Incorrect Phone Number or Password", Toast.LENGTH_SHORT).show()
                 Log.d("Login", "Wrong Format")
             }
         }
