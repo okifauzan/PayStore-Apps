@@ -80,23 +80,21 @@
                 android:backgroundTint="@color/colorAccent"
                 android:layout_gravity="bottom|center_horizontal"/>
 
+            <Button
+                android:id="@+id/btnToRegister"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/btn_move_to_register"
+                android:textSize="16sp"
+                android:textAllCaps="false"
+                android:textColor="@color/colorPrimary"
+                android:backgroundTint="@android:color/transparent"
+                style="@style/Widget.AppCompat.Button.Borderless"
+                android:layout_gravity="center_horizontal"/>
+
         </LinearLayout>
 
     </androidx.cardview.widget.CardView>
-
-    <Button
-        android:id="@+id/btnToRegister"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/btn_move_to_register"
-        android:textSize="16sp"
-        android:textAllCaps="false"
-        android:textColor="@color/colorPrimary"
-        android:backgroundTint="@android:color/transparent"
-        style="@style/Widget.AppCompat.Button.Borderless"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true"
-        android:layout_below="@id/cvLogin"/>
 
     <ImageView
         android:id="@+id/ivLoginImage"
