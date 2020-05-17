@@ -44,7 +44,7 @@ class HistoryActivity : AppCompatActivity() {
         bundle.putSerializable("selectedMethod", bill)
         detailHistoryFragment.arguments = bundle
         val ft: FragmentTransaction = this.supportFragmentManager.beginTransaction()
-        ft.replace(R.id.frameHistory, detailHistoryFragment, "detailHistoryFragment").commit()
+        ft.replace(R.id.frameHistory, detailHistoryFragment, "detailHistoryFragment").addToBackStack("detailHIstoryFragment").commit()
         Log.d("State", "Fragment added")
     }
 //

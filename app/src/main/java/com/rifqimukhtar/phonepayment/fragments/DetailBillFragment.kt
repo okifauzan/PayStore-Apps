@@ -80,7 +80,7 @@ class DetailBillFragment : Fragment() {
                 tvSelectedValueMethod.text = "Rp $balance"
             }
             tvSelectedValueMethod.text = method?.methodValue
-            isEnoughBalance = method?.isEnoughBalance
+            isEnoughBalance = balance > currentBill?.amount!!
         }
     }
 
@@ -98,6 +98,8 @@ class DetailBillFragment : Fragment() {
         val preference = activity!!.getSharedPreferences("Pref_Profile", 0)
         val userId = preference.getInt("PREF_USERID", 0)
         Log.d("State", "send request payment ${method?.methodName}")
+        Log.d("State", "id user $userId")
+
         sendRequesPayment = SendRequestPayment(currentBill?.idBill,userId,method?.idPaymentMethod)
         billViewModel.sendPaymentRequest(sendRequesPayment!!).observe(activity as TelkomPaymentActivity, Observer<String> {
         })

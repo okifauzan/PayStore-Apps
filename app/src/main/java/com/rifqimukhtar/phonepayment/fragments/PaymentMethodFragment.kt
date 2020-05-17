@@ -60,8 +60,8 @@ class PaymentMethodFragment : DialogFragment() {
 
 
     private fun generatePaymentMethod() {
-        val eWallet = PaymentMethod(R.drawable.ic_wallet, "PayStore Wallet", "Rp $balance_amount", isEnoughBalance ,1)
-        val virtualAcc = PaymentMethod(R.drawable.ic_virtual_acc, "Virtual Account", virtualNumber, true,2)
+        val eWallet = PaymentMethod(R.drawable.ic_wallet, "PayStore Wallet", "Rp $balance_amount",  1)
+        val virtualAcc = PaymentMethod(R.drawable.ic_virtual_acc, "Virtual Account", virtualNumber, 2)
         listPaymentMethod.add(eWallet)
         listPaymentMethod.add(virtualAcc)
     }
@@ -89,8 +89,11 @@ class PaymentMethodFragment : DialogFragment() {
     }
 
     private fun selectPayment(data: PaymentMethod) {
-        if (data.isEnoughBalance!!)
+        if (data.idPaymentMethod == 1 && !isEnoughBalance!!)
         {
+            Toast.makeText(activity, "Balance is not enough. Please Top Up!", Toast.LENGTH_SHORT).show()
+
+        } else{
             Toast.makeText(activity, data.methodName, Toast.LENGTH_SHORT).show()
             //set payment method in DetailBillFragment
             val fm: FragmentManager? = fragmentManager
@@ -99,7 +102,6 @@ class PaymentMethodFragment : DialogFragment() {
             Log.d("State", "Select payment ${data.methodName} ${data.methodValue}")
             dismiss()
         }
-        else  Toast.makeText(activity, "Balance is not enough. Please Top Up!", Toast.LENGTH_SHORT).show()
     }
 
     override fun onDestroy() {

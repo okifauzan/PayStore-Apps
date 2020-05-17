@@ -95,7 +95,8 @@ class ListHistoryFragment : Fragment() {
 
     private fun setupRecyclerView() {
 
-        adapter.setItem(listBillHistory.asReversed())
+        //adapter.setItem(listBillHistory.asReversed())
+        adapter.setItem(listBillHistory)
         adapter.setOnItemClickCallback(object : HistoryAdapter.OnItemClickCallback{
             override fun onItemClicked(data: BillHistory) {
                 selectBill(data)

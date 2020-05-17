@@ -115,7 +115,7 @@ class InsertNumberFragment : Fragment() {
             //Not enough balance, use Virtual Acc
             //TODO("add real user virtual number")
             val virtualNumber = "8001${phoneBill.telephoneNumber}"
-            val virtualAcc = PaymentMethod(R.drawable.ic_virtual_acc, "Virtual Account",virtualNumber, false,2)
+            val virtualAcc = PaymentMethod(R.drawable.ic_virtual_acc, "Virtual Account",virtualNumber, 2)
             setActivitySelectedMethod(virtualAcc)
 
             //setvalue for send in showPaymentMethod
@@ -124,7 +124,7 @@ class InsertNumberFragment : Fragment() {
         } else{
             //Enough balance, use wallet
             val methodValue = balance.toString()
-            val eWallet = PaymentMethod(R.drawable.ic_wallet, "PayStore Wallet", methodValue, true, 1)
+            val eWallet = PaymentMethod(R.drawable.ic_wallet, "PayStore Wallet", methodValue,  1)
             setActivitySelectedMethod(eWallet)
             //setvalue for send in showPaymentMethod
             isEnoughBalance = true

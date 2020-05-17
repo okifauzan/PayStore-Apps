@@ -37,7 +37,7 @@ class ProfileActivity : AppCompatActivity() {
     private fun setUserDetail(user:User) {
         tvUserName.text = user.name
         tvUserEmail.text = user.email
-        tvUserPhone.text = user.phoneNumber
+        tvUserPhone.text = "0${user.phoneNumber}"
         tvUserValueWallet.text = user.balance.toString()
     }
 

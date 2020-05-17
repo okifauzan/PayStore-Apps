@@ -19,7 +19,7 @@
             android:src="@drawable/ic_close"
             android:backgroundTint="@color/colorTextWhite"
             style="borderless"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="4dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"/>
 
