@@ -27,7 +27,6 @@ import retrofit2.Response
 
 class DetailBillFragment : Fragment() {
     private val billViewModel: BillViewModel by inject()
-    private val userViewModel: UserViewModel by inject()
     private var isEnoughBalance : Boolean? = null
     var currentBill:PhoneBill? =null
     var method:PaymentMethod? = null

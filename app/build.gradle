@@ -9,7 +9,7 @@ android {
 
     defaultConfig {
         applicationId "com.rifqimukhtar.phonepayment"
-        minSdkVersion 23
+        minSdkVersion 21
         targetSdkVersion 29
         versionCode 1
         versionName "1.2"
@@ -22,6 +22,10 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
     }
 
 }
@@ -55,4 +59,12 @@ dependencies {
     //glide
     implementation 'com.github.bumptech.glide:glide:4.10.0'
     implementation 'com.android.support:cardview-v7:29.0.0'
+    //camerax
+    def camerax_version = "1.0.0-beta03"
+// CameraX core library using camera2 implementation
+    implementation "androidx.camera:camera-camera2:$camerax_version"
+// CameraX Lifecycle Library
+    implementation "androidx.camera:camera-lifecycle:$camerax_version"
+// CameraX View class
+    implementation "androidx.camera:camera-view:1.0.0-alpha10"
 }

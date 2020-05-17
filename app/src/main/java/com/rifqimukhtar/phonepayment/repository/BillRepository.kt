@@ -34,7 +34,7 @@ class BillRepository(val context: Context) {
                             data.value = failResponse
                         } catch (e: IOException) {
                         }
-                    } else{
+                    } else if (response.isSuccessful){
                         data.value = response.body()!!.data
                         Log.d("State", "Success get payment ${response.body()!!.status}")
                     }
@@ -54,11 +54,23 @@ class BillRepository(val context: Context) {
         apiCall?.sendRequestPayment(sendRequestPayment)
             ?.enqueue(object : Callback<BaseResponse<Any>> {
                 override fun onResponse(call: Call<BaseResponse<Any>>, response: Response<BaseResponse<Any>>) {
-                    if (response.isSuccessful) {
-                        Log.d("State", response.toString())
+                    if (response.code() == 404) {
+                        //data.value = response.body()!!.data
+                        val gson = GsonBuilder().create()
+                        var failResponse = "Not Found"
+                        try {
+                            failResponse = gson.fromJson(
+                                response.errorBody()!!.string(),
+                                String::class.java
+                            )
+
+                            data.value = failResponse
+                        } catch (e: IOException) {
+                        }
+                    }else if (response.isSuccessful){
+                        Log.d("State", response.body()!!.message.toString())
                         val message = response.body()!!.message.toString()
                         data = MutableLiveData(message)
-                        // Toast.makeText(context, response.toString(), Toast.LENGTH_SHORT).show()
                     }
                 }
                 override fun onFailure(call: Call<BaseResponse<Any>>, t: Throwable) {

@@ -1,6 +1,7 @@
 package com.rifqimukhtar.phonepayment.fragments
 
 import android.os.Bundle
+import android.util.Log
 import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.DialogFragment
@@ -26,7 +27,6 @@ class PaymentResultFragment : DialogFragment(){
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         buttonGroup()
     }
 
@@ -41,7 +41,14 @@ class PaymentResultFragment : DialogFragment(){
 
     override fun onDestroy() {
         super.onDestroy()
-        getActivity()!!.finish();
+        var isHistory = false
+        if(arguments != null)
+        {
+            isHistory = arguments!!.getBoolean("isHistory")
+        }
+        if (!isHistory){
+            getActivity()!!.finish();
+        }
     }
 
 }
