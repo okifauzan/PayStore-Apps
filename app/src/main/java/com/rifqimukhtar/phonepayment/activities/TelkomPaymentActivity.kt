@@ -48,7 +48,7 @@ class TelkomPaymentActivity : AppCompatActivity() {
         bundle.putInt("balance", balance)
         detailBillFragment.arguments = bundle
         val ft: FragmentTransaction = this.supportFragmentManager.beginTransaction()
-        ft.replace(R.id.frameTelkomPayment, detailBillFragment).addToBackStack("detailBillFragment").commit()
+        ft.replace(R.id.frameTelkomPayment, detailBillFragment).commit()
         Log.d("State", "Detail Fragment added. mehotd $method")
     }
 

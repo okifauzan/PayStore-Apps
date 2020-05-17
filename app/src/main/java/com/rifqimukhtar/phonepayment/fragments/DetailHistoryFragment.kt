@@ -128,6 +128,7 @@ class DetailHistoryFragment : Fragment() {
             } else{
                 if(history.idPaymentMethod == 1)
                 {
+                    btnBayarTagihanHistory.visibility = View.VISIBLE
                     method = PaymentMethod(R.drawable.ic_wallet, "PayStore Wallet", history.amount.toString(), 1)
 
                 } else
