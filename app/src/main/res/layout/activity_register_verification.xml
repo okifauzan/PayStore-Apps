@@ -1,61 +1,68 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".activities.RegisterVerification">
-    
-    <TextView
-        android:id="@+id/tvRegVerificationNumber"
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="100dp"
-        android:drawableTop="@drawable/img_otp"
-        android:drawablePadding="20dp"
-        android:text="@string/regist_verification_title"
-        android:textSize="25sp"
-        android:textColor="@color/colorTextBlack"
-        android:gravity="center"/>
+        android:orientation="vertical">
 
-    <EditText
-        android:id="@+id/etRegOTPNumber"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="74dp"
-        android:layout_marginEnd="74dp"
-        android:layout_marginTop="40dp"
-        android:hint="@string/verification_hint"
-        android:maxLength="4"
-        android:inputType="number"
-        android:gravity="center"/>
+        <TextView
+            android:id="@+id/tvRegVerificationNumber"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="100dp"
+            android:drawableTop="@drawable/img_otp"
+            android:drawablePadding="20dp"
+            android:text="@string/regist_verification_title"
+            android:textSize="25sp"
+            android:textColor="@color/colorTextBlack"
+            android:gravity="center"/>
 
-    <TextView
-        android:id="@+id/tvTimerOTP"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="test"
-        android:textSize="16sp"
-        android:layout_gravity="center"
-        android:layout_marginTop="30dp"/>
-    <Button
-        android:id="@+id/btnResend"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:text="resend code"
-        android:textColor="@color/colorTextBlack"
-        android:backgroundTint="@android:color/transparent"/>
-    <Button
-        android:id="@+id/btnRegConfirmOTP"
-        android:layout_width="177dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="50dp"
-        android:text="@string/btn_verif_confirm"
-        android:textSize="16sp"
-        app:cornerRadius="20dp"
-        android:backgroundTint="@color/colorAccent"/>
+        <EditText
+            android:id="@+id/etRegOTPNumber"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="74dp"
+            android:layout_marginEnd="74dp"
+            android:layout_marginTop="40dp"
+            android:hint="@string/verification_hint"
+            android:maxLength="4"
+            android:inputType="number"
+            android:gravity="center"/>
 
-</LinearLayout>
+        <TextView
+            android:id="@+id/tvTimerOTP"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="test"
+            android:textSize="16sp"
+            android:layout_gravity="center"
+            android:layout_marginTop="30dp"/>
+        <Button
+            android:id="@+id/btnResend"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:text="resend code"
+            android:textColor="@color/colorTextBlack"
+            android:backgroundTint="@android:color/transparent"/>
+        <Button
+            android:id="@+id/btnRegConfirmOTP"
+            android:layout_width="177dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="50dp"
+            android:text="@string/btn_verif_confirm"
+            android:textSize="16sp"
+            app:cornerRadius="20dp"
+            android:backgroundTint="@color/colorAccent"/>
+
+    </LinearLayout>
+
+</ScrollView>
