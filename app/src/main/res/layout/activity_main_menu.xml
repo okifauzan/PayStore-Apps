@@ -47,6 +47,7 @@
             android:layout_marginStart="@dimen/mainMenuStartEndMargin"
             android:layout_marginEnd="@dimen/mainMenuStartEndMargin"
             app:cardCornerRadius="10dp"
+            app:cardElevation="8dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tvWelcomeUser">
@@ -121,6 +122,9 @@
                 android:layout_height="wrap_content"
                 android:drawableTop="@drawable/ic_topup"
                 android:text="@string/top_up"
+                android:textSize="13dp"
+                android:autoSizeMinTextSize="12dp"
+                android:autoSizeMaxTextSize="16dp"
                 app:autoSizeTextType="uniform"/>
 
             <Button
@@ -129,6 +133,9 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:textSize="12dp"
+                android:autoSizeMinTextSize="12dp"
+                android:autoSizeMaxTextSize="16dp"
                 android:drawableTop="@drawable/ic_transfer"
                 android:text="@string/transfer"
                 app:autoSizeTextType="uniform"/>
@@ -142,6 +149,9 @@
                 android:layout_weight="1"
                 android:drawableTop="@drawable/ic_history"
                 android:text="@string/history"
+                android:textSize="13dp"
+                android:autoSizeMinTextSize="12dp"
+                android:autoSizeMaxTextSize="16dp"
                 app:autoSizeTextType="uniform"/>
         </LinearLayout>
 
@@ -248,6 +258,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:elevation="12dp"
+            android:visibility="gone"
             android:background="@color/transparent"/>
         <ProgressBar
             android:id="@+id/loadingMainMenu"

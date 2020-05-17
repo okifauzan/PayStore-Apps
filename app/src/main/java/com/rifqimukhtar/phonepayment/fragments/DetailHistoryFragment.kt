@@ -124,17 +124,18 @@ class DetailHistoryFragment : Fragment() {
         if (history != null) {
             if(history.idPaymentMethod == 1)
             {
-                btnUploadPhoto.visibility = View.GONE
-                btnBayarTagihanHistory.visibility = View.VISIBLE
                 method = PaymentMethod(R.drawable.ic_wallet, "PayStore Wallet", history.amount.toString(), true,1)
 
             } else
             {
                 method = PaymentMethod(R.drawable.ic_virtual_acc, "Virtual Account", history.amount.toString(), false,2)
-                if (history.status == "paid"){
-                    btnUploadPhoto.visibility = View.GONE
-                    btnBayarTagihanHistory.visibility = View.GONE
-                }
+            }
+            if (history.status == "paid"){
+                btnUploadPhoto.visibility = View.GONE
+                btnBayarTagihanHistory.visibility = View.GONE
+            } else
+            {
+                btnBayarTagihanHistory.visibility = View.GONE
             }
             ivSelectedMethodHistory.setImageResource(method?.image!!)
             tvSelectedTitleMethodHistory.text = method?.methodName
