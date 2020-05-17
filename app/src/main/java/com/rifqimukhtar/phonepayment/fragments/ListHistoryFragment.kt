@@ -52,6 +52,7 @@ class ListHistoryFragment : Fragment() {
     private fun buttonGroup() {
         ibBackFromHistory.setOnClickListener {
             startActivity(Intent(activity, MainMenuActivity::class.java))
+            activity!!.finish()
         }
     }
 

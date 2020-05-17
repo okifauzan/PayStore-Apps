@@ -76,7 +76,9 @@ class DetailBillFragment : Fragment() {
             method = paymentMethod
             ivSelectedMethod.setImageResource(method?.image!!)
             tvSelectedTitleMethod.text = method?.methodName
-            tvSelectedValueMethod.text = "Rp $balance"
+            if (method?.idPaymentMethod == 1){
+                tvSelectedValueMethod.text = "Rp $balance"
+            }
             tvSelectedValueMethod.text = method?.methodValue
             isEnoughBalance = method?.isEnoughBalance
         }

@@ -103,6 +103,7 @@ class RegisterVerification : AppCompatActivity() {
                                     val message = response.body()!!.status
                                     Log.d("test", "$postName, $postEmail, $postPhoneNumber, $postPassword, = $message")
                                     startActivity(Intent(this@RegisterVerification, LoginActivity::class.java))
+                                    finish()
                                 } else {
                                     Toast.makeText(applicationContext, "Can't Register", Toast.LENGTH_SHORT).show()
                                     Log.d("Response", response.toString())

@@ -103,8 +103,8 @@ class PaymentVerification : AppCompatActivity() {
                             override fun onResponse(call: Call<BaseResponse<Any>>, response: Response<BaseResponse<Any>>) {
                                 if(response.isSuccessful){
                                     Toast.makeText(applicationContext, "Bayar Sukses", Toast.LENGTH_LONG).show()
-
                                     showSuccessDialog()
+                                    finish()
                                 } else {
                                     Toast.makeText(applicationContext, "Pembayaran Gagal", Toast.LENGTH_LONG).show()
                                 }

@@ -67,6 +67,7 @@ class InsertNumberFragment : Fragment() {
 
         ibBackFromTagihan.setOnClickListener {
             startActivity(Intent(activity, MainMenuActivity::class.java))
+            activity!!.finish()
         }
     }
 
@@ -97,7 +98,7 @@ class InsertNumberFragment : Fragment() {
                 }
             } else{
                 showNotFoundDialog()
-                Toast.makeText(activity, "Cant found unpaid bill", Toast.LENGTH_SHORT).show()
+                //Toast.makeText(activity, "Cant found unpaid bill", Toast.LENGTH_SHORT).show()
                 deactivateLoading()
             }
         })
