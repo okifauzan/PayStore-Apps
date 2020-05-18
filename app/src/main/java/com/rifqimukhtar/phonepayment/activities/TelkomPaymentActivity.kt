@@ -13,7 +13,6 @@ import com.rifqimukhtar.phonepayment.db.entity.SendUser
 import com.rifqimukhtar.phonepayment.db.entity.User
 import com.rifqimukhtar.phonepayment.fragments.DetailBillFragment
 import com.rifqimukhtar.phonepayment.fragments.InsertNumberFragment
-import com.rifqimukhtar.phonepayment.viewmodel.BillViewModel
 import com.rifqimukhtar.phonepayment.viewmodel.UserViewModel
 import org.koin.android.ext.android.inject
 
@@ -36,12 +35,17 @@ class TelkomPaymentActivity : AppCompatActivity() {
         Log.d("State", "Insert Fragment added")
     }
 
-    fun showDetailBillFragment(bill: PhoneBill, method: PaymentMethod){
+    fun showDetailBillFragment(
+        bill: PhoneBill,
+        method: PaymentMethod,
+        balance: Int
+    ){
         val detailBillFragment: Fragment = DetailBillFragment()
         val bundle = Bundle()
         //send selected method for current Bill
         bundle.putSerializable("selectedMethod", method)
         bundle.putSerializable("currentBill", bill)
+        bundle.putInt("balance", balance)
         detailBillFragment.arguments = bundle
         val ft: FragmentTransaction = this.supportFragmentManager.beginTransaction()
         ft.replace(R.id.frameTelkomPayment, detailBillFragment).commit()

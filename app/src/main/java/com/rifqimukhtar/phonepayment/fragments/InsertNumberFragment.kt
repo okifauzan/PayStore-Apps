@@ -16,18 +16,12 @@ import com.rifqimukhtar.phonepayment.R
 import com.rifqimukhtar.phonepayment.activities.MainMenuActivity
 import com.rifqimukhtar.phonepayment.activities.TelkomPaymentActivity
 import com.rifqimukhtar.phonepayment.db.entity.*
-import com.rifqimukhtar.phonepayment.rest.ApiClient
-import com.rifqimukhtar.phonepayment.rest.ApiInteface
 import com.rifqimukhtar.phonepayment.viewmodel.BillViewModel
 import com.rifqimukhtar.phonepayment.viewmodel.UserViewModel
-import kotlinx.android.synthetic.main.activity_main_menu.*
 import kotlinx.android.synthetic.main.fragment_insert_number.*
 import kotlinx.android.synthetic.main.fragment_insert_number.frameTransparent
 import kotlinx.android.synthetic.main.fragment_insert_number.loadingMainMenu
 import org.koin.android.ext.android.inject
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 
 /**
  * A simple [Fragment] subclass.
@@ -73,6 +67,7 @@ class InsertNumberFragment : Fragment() {
 
         ibBackFromTagihan.setOnClickListener {
             startActivity(Intent(activity, MainMenuActivity::class.java))
+            activity!!.finish()
         }
     }
 
@@ -97,13 +92,13 @@ class InsertNumberFragment : Fragment() {
                 Log.d("State", "bill viewmodel ${it.status}")
                 checkWalletBalance(bill)
                 if(selectedMethod!=null){
-                    (activity as TelkomPaymentActivity).showDetailBillFragment(bill, selectedMethod!!)
                     deactivateLoading()
+                    (activity as TelkomPaymentActivity).showDetailBillFragment(bill, selectedMethod!!, currentUser?.balance!!)
                     Log.d("State", selectedMethod.toString())
                 }
             } else{
                 showNotFoundDialog()
-                Toast.makeText(activity, "Cant found unpaid bill", Toast.LENGTH_SHORT).show()
+                //Toast.makeText(activity, "Cant found unpaid bill", Toast.LENGTH_SHORT).show()
                 deactivateLoading()
             }
         })
@@ -120,7 +115,7 @@ class InsertNumberFragment : Fragment() {
             //Not enough balance, use Virtual Acc
             //TODO("add real user virtual number")
             val virtualNumber = "8001${phoneBill.telephoneNumber}"
-            val virtualAcc = PaymentMethod(R.drawable.ic_virtual_acc, "Virtual Account",virtualNumber, false,2)
+            val virtualAcc = PaymentMethod(R.drawable.ic_virtual_acc, "Virtual Account",virtualNumber, 2)
             setActivitySelectedMethod(virtualAcc)
 
             //setvalue for send in showPaymentMethod
@@ -129,7 +124,7 @@ class InsertNumberFragment : Fragment() {
         } else{
             //Enough balance, use wallet
             val methodValue = balance.toString()
-            val eWallet = PaymentMethod(R.drawable.ic_wallet, "PayStore Wallet", methodValue, true, 1)
+            val eWallet = PaymentMethod(R.drawable.ic_wallet, "PayStore Wallet", methodValue,  1)
             setActivitySelectedMethod(eWallet)
             //setvalue for send in showPaymentMethod
             isEnoughBalance = true

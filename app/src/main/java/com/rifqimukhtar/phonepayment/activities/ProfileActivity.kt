@@ -1,14 +1,15 @@
 package com.rifqimukhtar.phonepayment.activities
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
+import android.content.Intent.FLAG_ACTIVITY_CLEAR_TASK
+import android.content.Intent.FLAG_ACTIVITY_NEW_TASK
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import com.rifqimukhtar.phonepayment.R
 import com.rifqimukhtar.phonepayment.db.entity.Logout
 import com.rifqimukhtar.phonepayment.db.entity.LogoutResponse
-import com.rifqimukhtar.phonepayment.db.entity.SendUser
 import com.rifqimukhtar.phonepayment.db.entity.User
 import com.rifqimukhtar.phonepayment.rest.ApiClient
 import com.rifqimukhtar.phonepayment.rest.ApiInteface
@@ -36,13 +37,14 @@ class ProfileActivity : AppCompatActivity() {
     private fun setUserDetail(user:User) {
         tvUserName.text = user.name
         tvUserEmail.text = user.email
-        tvUserPhone.text = user.phoneNumber
+        tvUserPhone.text = "0${user.phoneNumber}"
         tvUserValueWallet.text = user.balance.toString()
     }
 
     private fun buttonGroup() {
         ibBackFromProfil.setOnClickListener {
             startActivity(Intent(this, MainMenuActivity::class.java))
+            finish()
         }
         btnLogout.setOnClickListener {
             val logout = Logout(1)
@@ -56,7 +58,10 @@ class ProfileActivity : AppCompatActivity() {
                         editor.apply()
                         editor.clear()
                         Log.d("logout", response.body().toString())
-                        startActivity(Intent(this@ProfileActivity, LoginActivity::class.java))
+                        val intent = Intent(this@ProfileActivity, LoginActivity::class.java)
+                        intent.setFlags(FLAG_ACTIVITY_NEW_TASK or FLAG_ACTIVITY_CLEAR_TASK)
+                        startActivity(intent)
+                        finish()
                     } else {
                         Toast.makeText(applicationContext, "Can't logout right now", Toast.LENGTH_SHORT).show()
                         Log.d("logout", response.toString())

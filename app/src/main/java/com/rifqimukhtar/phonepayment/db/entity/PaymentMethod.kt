@@ -14,17 +14,13 @@ public class PaymentMethod : Serializable{
     @SerializedName("methodValue")
     var methodValue: String? = null
 
-    @SerializedName("isEnoughBalance")
-    var isEnoughBalance: Boolean? = null
-
     @SerializedName("idPaymentMethod")
     var idPaymentMethod: Int? = null
 
-    constructor(image: Int?, methodName: String?, methodValue: String?, isEnoughBalance: Boolean?, idPaymentMethod: Int?) {
+    constructor(image: Int?, methodName: String?, methodValue: String?, idPaymentMethod: Int?) {
         this.image = image
         this.methodName = methodName
         this.methodValue = methodValue
-        this.isEnoughBalance = isEnoughBalance
         this.idPaymentMethod = idPaymentMethod
     }
 }

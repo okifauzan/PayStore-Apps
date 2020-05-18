@@ -38,6 +38,8 @@
         android:layout_marginEnd="48dp"
         android:layout_marginTop="24dp"
         android:hint="Masukkan No Telefon"
+        android:maxLines="1"
+        android:inputType="phone"
         app:layout_constraintTop_toBottomOf="@id/tvTitleTagihanTelefon"/>
 
     <com.google.android.material.button.MaterialButton
