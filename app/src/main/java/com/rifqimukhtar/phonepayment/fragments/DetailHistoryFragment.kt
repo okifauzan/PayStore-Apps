@@ -12,6 +12,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.Observer
+import com.google.gson.GsonBuilder
 import com.rifqimukhtar.phonepayment.R
 import com.rifqimukhtar.phonepayment.activities.HistoryActivity
 import com.rifqimukhtar.phonepayment.activities.MainActivity
@@ -28,6 +29,7 @@ import org.koin.android.ext.android.inject
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.io.IOException
 
 
 /**
@@ -110,7 +112,16 @@ class DetailHistoryFragment : Fragment() {
                     btnBayarTagihanHistory.visibility = View.GONE
                     tvStatusDetailHistory.text = "paid"
                 } else {
-                    Toast.makeText(activity, "Pembayaran Gagal", Toast.LENGTH_LONG).show()
+                    val gson = GsonBuilder().create()
+                    var failResponse = BaseResponse<Any>()
+                    try {
+                        failResponse = gson.fromJson(
+                            response.errorBody()!!.string(),
+                            BaseResponse<Any>()::class.java)
+                        Toast.makeText(activity, "${failResponse.message}", Toast.LENGTH_SHORT).show()
+                        Log.d("response", response.toString())
+                    } catch (e: IOException) {
+                    }
                 }
             }
             override fun onFailure(call: Call<BaseResponse<Any>>, t: Throwable) {

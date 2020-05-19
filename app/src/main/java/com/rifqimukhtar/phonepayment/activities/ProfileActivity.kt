@@ -47,7 +47,9 @@ class ProfileActivity : AppCompatActivity() {
             finish()
         }
         btnLogout.setOnClickListener {
-            val logout = Logout(1)
+            val preference = getSharedPreferences("Pref_Profile", 0)
+            val userId = preference.getInt("PREF_USERID", 0)
+            val logout = Logout(userId)
             val apiCall = ApiClient.getClient()?.create(ApiInteface::class.java)
             apiCall?.postLogout(logout)?.enqueue(object : Callback<LogoutResponse>{
                 override fun onResponse(call: Call<LogoutResponse>, response: Response<LogoutResponse>) {

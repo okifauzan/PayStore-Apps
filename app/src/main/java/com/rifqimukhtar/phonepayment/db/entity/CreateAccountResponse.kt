@@ -4,23 +4,23 @@ import com.google.gson.annotations.SerializedName
 
 data class CreateAccountResponse (
     @SerializedName("idUser")
-    var idUser: Int,
+    var idUser: Int? = null,
 
     @SerializedName("name")
-    var name: String,
+    var name: String? = null,
 
     @SerializedName("email")
-    var email: String,
+    var email: String? = null,
 
     @SerializedName("password")
-    var password: String,
+    var password: String? = null,
 
     @SerializedName("phoneNumber")
-    var phoneNumber: String,
+    var phoneNumber: String? = null,
 
     @SerializedName("balance")
-    var balance: Int,
+    var balance: Int? = null,
 
     @SerializedName("token")
-    var token: String
+    var token: String? = null
 )

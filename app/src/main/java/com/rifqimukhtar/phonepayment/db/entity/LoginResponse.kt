@@ -4,14 +4,14 @@ import com.google.gson.annotations.SerializedName
 
 data class LoginResponse (
     @SerializedName("idUser")
-    var idUser: Int,
+    var idUser: Int? = null,
 
     @SerializedName("token")
-    var token: String,
+    var token: String? = null,
 
     @SerializedName("message")
-    var message: String,
+    var message: String? =null,
 
     @SerializedName("status")
-    var status: Int
+    var status: Int? = null
 )

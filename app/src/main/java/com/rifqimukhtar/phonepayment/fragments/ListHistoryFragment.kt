@@ -109,7 +109,7 @@ class ListHistoryFragment : Fragment() {
     }
 
     private fun selectBill(data: BillHistory) {
-        Toast.makeText(activity, data.amount.toString(), Toast.LENGTH_SHORT).show()
+       // Toast.makeText(activity, data.amount.toString(), Toast.LENGTH_SHORT).show()
         (activity as HistoryActivity).showDetailHistoryFragment(data)
     }
 }

@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
+import com.google.gson.GsonBuilder
 import com.rifqimukhtar.phonepayment.R
 import com.rifqimukhtar.phonepayment.db.entity.Login
 import com.rifqimukhtar.phonepayment.db.entity.LoginResponse
@@ -14,6 +15,7 @@ import kotlinx.android.synthetic.main.activity_login.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.io.IOException
 
 class LoginActivity : AppCompatActivity() {
 
@@ -42,15 +44,23 @@ class LoginActivity : AppCompatActivity() {
                             val preference = getSharedPreferences("Pref_Profile", 0)
                             val editor = preference.edit()
                             editor.putBoolean("PREF_ISLOGIN", true)
-                            editor.putInt("PREF_USERID", userId)
+                            editor.putInt("PREF_USERID", userId!!)
                             editor.apply()
                             Toast.makeText(applicationContext, "Login Success", Toast.LENGTH_SHORT).show()
                             Log.d("Login", "Success")
                             startActivity(Intent(this@LoginActivity, MainMenuActivity::class.java))
                             finish()
                         } else {
-                            Toast.makeText(applicationContext, "Incorrect Phone Number or Password", Toast.LENGTH_SHORT).show()
-                            Log.d("Response", response.toString())
+                            val gson = GsonBuilder().create()
+                            var failResponse = LoginResponse()
+                            try {
+                                failResponse = gson.fromJson(
+                                    response.errorBody()!!.string(),
+                                    LoginResponse::class.java)
+                                Toast.makeText(applicationContext, "${failResponse.message}", Toast.LENGTH_SHORT).show()
+                                Log.d("response", response.toString())
+                            } catch (e: IOException) {
+                            }
                         }
                     }
 
